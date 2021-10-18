@@ -24,7 +24,8 @@ NPts = 13;
 xShoulders = (file(1,6) + file(1,15))/2;
 zShoulders = (file(1,8) + file(1,17))/2;
 xHip = (file(1,24) + file(1,42))/2;
-zHip = (file(1,26) + file(1,44))/2
+zHip = (file(1,26) + file(1,44))/2;
+
 HeadSize = sqrt((file(1,3) - xShoulders)^2 + (file(1,5) - zShoulders^2)); 
 RArmSize = sqrt((file(1,15) - file(1,18))^2 + (file(1,17) - file(1,20))^2);
 LArmSize = sqrt((file(1,6) - file(1,9))^2 + (file(1,8) - file(1,11))^2);
@@ -42,4 +43,7 @@ LToe = sqrt((file(1,36) - file(1,39))^2 + (file(1,38) - file(1,41))^2);
 
 
 %calculo dos cm
+
+xHead = file(1,3);
+zHaed = file(1,5);
 
