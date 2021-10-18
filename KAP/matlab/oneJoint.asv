@@ -1,0 +1,25 @@
+function resultList = oneJoint(numBody1, numBody2, origin, cm1, jointPosition, cm2)
+%myFun - Description
+%
+% Syntax: output = myFun(input)
+%
+% Long description
+    if size(jointPosition) == 2 &  size(cm1) == 2 & size(cmr2) == 2 & size(origin) == 2 
+        resultList = [numBody1, numBody2];
+        cm1 = cm1 - origin;
+        cm2 = cm2 - origin;
+        jointPosition = jointPosition - origin;
+
+        minusBody1 = jointPosition - cm1;
+        minusBody2 = -jointPosition + cm2;
+
+        resultList = [resultList, minusBody1(1), 0, minusBody2(1), 0];
+
+    else
+        disp('Verify the lenght of the inputed Vectors, these are wrong');
+        
+    end
+
+    
+
+end
