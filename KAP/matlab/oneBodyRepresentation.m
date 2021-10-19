@@ -1,4 +1,4 @@
-function bodyAxis, timeTheta, timeCm = oneBodyRepresentation(joint1XVector, joint1ZVector, joint2XVector, joint2ZVector, bodyLength, bodyCm)
+function bodyAxis, timeTheta, timeCm  = oneBodyRepresentation(joint1XVector, joint1ZVector, joint2XVector, joint2ZVector, bodyLength, bodyCm)
 %oneBodyRepresentation - All vectors are positions througout time, these positions must be normalized to the origin lAnkle(0)
 %
 % Syntax: output = myFun(input)
