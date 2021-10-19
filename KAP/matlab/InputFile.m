@@ -3,6 +3,17 @@ exfile = [1 2 3 4 5 6 7 8 9 1 2 3; 1 2 3 4 5 6 7 8 9 1 2 3 ];
 % disp (exfile);
 % disp(length(exfile));
 
+%%Order of Bodies%%
+
+%{
+ 1-Head; 2-lForArm; 3-lArm; 4-rForArm; 5-rArm; 6-Trunk; 7-lThigh;
+8-lLeg; 9-lFoot; 10-lToes; 11-rThigh; 12-rLeg; 13-rFoot; 14-rToes 
+%}
+
+%%%%%%%%%%%%%%%%%
+
+
+
 NBodies = 14;
 NRevJ = 13;
 NTransJ = 0;
