@@ -19,10 +19,6 @@ while i < length(fc)
     i = i + 1
 end
 
-minCorr = 0.97 %slides
-
-%falta fazer a regressão
-
 
 
 %falta fazer a regressão
