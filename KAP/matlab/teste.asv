@@ -34,8 +34,8 @@ z = [ [1,2] ; [3,4] ; [5,6] ; [7,8]];
 % fc = (0.1:0.1:10);
 % disp(length(fc));
 % ty = zeros(1,6)
-% ty = [1,2,3,4,5,6]
-
+% ty = [1,2,3,4,5,6];
+% disp(ty(2:))
 
 
 % fs = 100;
@@ -58,10 +58,24 @@ fs = 1000;
 
 [b,a] = butter(6,fc/(fs/2));
 % freqz(b,a)
-disp(b)
-disp(a)
+% disp(b)
+% disp(a)
+x = file{:,3};
+z = file{:,5};
 
-x = filtfilt(b,a,file{:,3});
-z = filtfilt (b,a,file{:,5});
+xf = filtfilt(b,a,x);
+zf = filtfilt (b,a,z);
 
-final = [x, z]
+% Rx = zeros(length(x),1);
+% Rz = zeros(length(x),1);
+f=1;
+while f<length(fc)
+    Rx(f) = sqrt(sum((x(:) - xf(:)).^2)/length(x)^2)
+    Rz(f) = sqrt(sum((z(:) - zf(:)).^2)/length(z)^2)
+    ry = ry +1;
+end
+
+final = [x, z];
+
+
+

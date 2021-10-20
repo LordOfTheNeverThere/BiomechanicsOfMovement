@@ -53,15 +53,32 @@ z = [ [1,2] ; [3,4] ; [5,6] ; [7,8]];
 % end
 
 
-% fc = 300;
-% fs = 1000;
-% 
-% [b,a] = butter(6,fc/(fs/2));
-% % freqz(b,a)
+
+
+
+% freqz(b,a)
 % disp(b)
 % disp(a)
-% 
-% x = filtfilt(b,a,file{:,3});
-% z = filtfilt (b,a,file{:,5});
-% 
-% final = [x, z]
+x = file{:,3};
+z = file{:,5};
+
+fs = 100;
+fc = (1:1:10);
+
+Rx = zeros(length(fc),1);
+Rz = zeros(length(fc),1);
+f=1;
+while f<=length(fc)
+    [b,a] = butter(2,fc(f)/(fs/2));
+    xf = filtfilt(b,a,x);
+    zf = filtfilt (b,a,z);
+    Rx(f) = sqrt(sum((x(:) - xf(:)).^2)/length(x)^2);
+    Rz(f) = sqrt(sum((z(:) - zf(:)).^2)/length(z)^2);
+    f = f +1;
+end
+disp(Rx);
+disp(Rz);
+final = [x, z];
+
+
+
