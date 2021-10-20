@@ -19,10 +19,10 @@ Global
         timeCm{frame,1} = [joint1XVector(frame),joint1ZVector(frame)] + bodyCm*bodyLength*bodyAxis(frame); %%Updating the CM of our body throughout ti
         
         if bodyAxis{frame,1}(1) >= 0
-            theta(frame) = atan(bodyAxis{frame,1}(1)/bodyAxis{frame,1}(2))
+            theta(frame) = atan(bodyAxis{frame,1}(1)/bodyAxis{frame,1}(2));
 
         else
-            theta(frame) = atan(bodyAxis{frame,1}(1)/bodyAxis{frame,1}(2)) + pi
+            theta(frame) = atan(bodyAxis{frame,1}(1)/bodyAxis{frame,1}(2)) + pi;
         end
 
     end

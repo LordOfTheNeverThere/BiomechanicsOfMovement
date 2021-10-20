@@ -16,6 +16,7 @@ exfile = [1 2 3 4 5 6 7 8 9 1 2 3; 1 2 3 4 5 6 7 8 9 1 2 3 ];
 file = readtsvCustom("trial_0011_g05.tsv");
 
 
+global NBodies 
 NBodies = 14;
 NRevJ = 13;
 NTransJ = 0;
@@ -24,6 +25,7 @@ NTransRevJ = 0;
 NCamJ = 0;
 NGrd = 0; %encastramentos
 NSimp = 0; 
+global NDriv 
 NDriv = 13;
 NPts = 13;
 
@@ -33,7 +35,7 @@ zShoulders = (file{1,8} + file{1,17})/2;
 xHip = (file{1,24} + file{1,42})/2;
 zHip = (file{1,26} + file{1,44})/2;
 
-HeadSize = sqrt((file{1,3} - xShoulders)^2 + (file{1,5} - zShoulders^2)); 
+HeadSize = sqrt((file{1,3} - xShoulders)^2 + (file{1,5} - zShoulders)^2); 
 RArmSize = sqrt((file{1,15} - file{1,18})^2 + (file{1,17} - file{1,20})^2);
 LArmSize = sqrt((file{1,6} - file{1,9})^2 + (file{1,8} - file{1,11})^2);
 RForearmSize = sqrt((file{1,18} - file{1,21})^2 + (file{1,20} - file{1,23})^2);
@@ -43,8 +45,10 @@ RThighSize = sqrt((xHip - file{1,45})^2 + (zHip - file{1,47})^2);
 LThighSize = sqrt((xHip - file{1,27})^2 + (zHip - file{1,29})^2);
 RLegSize = sqrt((file{1,45} - file{1,48})^2 + (file{1,47} - file{1,50})^2);
 LLegSize = sqrt((file{1,27} - file{1,30})^2 + (file{1,29} - file{1,32})^2);
-RToe = sqrt((file{1,54} - file{1,57})^2 + (file{1,56} - file{1,59})^2);
-LToe = sqrt((file{1,36} - file{1,39})^2 + (file{1,38} - file{1,41})^2);
+RFootSize = sqrt((file{1,48} - file{1,54})^2 + (file{1,50} - file{1,56})^2);
+LFootSize = sqrt((file{1,30} - file{1,36})^2 + (file{1,32} - file{1,38})^2);
+RToeSize = sqrt((file{1,54} - file{1,57})^2 + (file{1,56} - file{1,59})^2);
+LToeSize = sqrt((file{1,36} - file{1,39})^2 + (file{1,38} - file{1,41})^2);
 
 
 %calculo dos cm
@@ -82,7 +86,9 @@ zLToe = file{1,38} + 0.5*(file{1,41} - file{1,38});
 CM = { {xHead,zHead}; {xLForearm,zLForearm}; {xLArm,zLArm}; {xRForearm,zRForearm}; 
     {xRArm,zRArm}; {xTrunk,zTrunk}; {xLThigh,zLThigh}; {xLLeg,zLLeg}; {xLFoot,zLFoot};
     {xLToe,zLToe}; {xRThigh,zRThigh}; {xRLeg,zRLeg}; {xRFoot,zRFoot}; {xRToe,zRToe}};
-disp(CM)
-global Body
-%ordem: número que identifica o corpo,
-Body(1) = 
+
+
+%{
+ 1-Head; 2-lForArm; 3-lArm; 4-rForArm; 5-rArm; 6-Trunk; 7-lThigh;
+8-lLeg; 9-lFoot; 10-lToes; 11-rThigh; 12-rLeg; 13-rFoot; 14-rToes 
+%}
