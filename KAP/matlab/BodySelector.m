@@ -7,18 +7,6 @@ function Body = BodySelector(b)
 file = readtsvCustom("trial_0011_g05.tsv");
 
 
-NBodies = 14;
-NRevJ = 13;
-NTransJ = 0;
-NRenRevJ = 0;
-NTransRevJ = 0;
-NCamJ = 0;
-NGrd = 0; %encastramentos
-NSimp = 0; 
-NDriv = 13;
-NPts = 13;
-
-
 xShoulders = (file{1,6} + file{1,15})/2;
 zShoulders = (file{1,8} + file{1,17})/2;
 xHip = (file{1,24} + file{1,42})/2;
@@ -40,37 +28,6 @@ RToeSize = sqrt((file{1,54} - file{1,57})^2 + (file{1,56} - file{1,59})^2);
 LToeSize = sqrt((file{1,36} - file{1,39})^2 + (file{1,38} - file{1,41})^2);
 
 
-%calculo dos cm
-
-xHead = xShoulders;
-zHead = zShoulders;
-xTrunk = xShoulders - abs(xShoulders - xHip)/2 ;
-zTrunk = zShoulders - TrunkSize/2 ;
-xRArm = file{1,15} + 0.564*(file{1,18} - file{1,15});
-zRArm = file{1,20} + 0.564*(file{1,17} - file{1,20});
-xLArm = file{1,9} + 0.564*(file{1,6} - file{1,9});
-zLArm = file{1,11} + 0.564*(file{1,8} - file{1,11});
-xRForearm = file{1,21} + 0.57*(file{1,18} - file{1,21});
-zRForearm = file{1,23} + 0.57*(file{1,20} - file{1,23});
-xLForearm = file{1,12} + 0.57*(file{1,9} - file{1,12});
-zLForearm = file{1,14} + 0.57*(file{1,11} - file{1,14});
-xRThigh = file{1,45} + 0.567*(file{1,42} - file{1,45});
-zRThigh = file{1,47} + 0.433*(file{1,44} - file{1,47});
-xLThigh = file{1,24} + 0.433*(file{1,27} - file{1,24});
-zLThigh = file{1,29} + 0.567*(file{1,26} - file{1,29});
-xRLeg = file{1,48} + 0.567*(file{1,45} - file{1,48});
-zRLeg = file{1,50} + 0.567*(file{1,29} - file{1,50});
-xLLeg = file{1,27} + 0.433*(file{1,27} - file{1,30});
-zLLeg = file{1,32} + 0.433*(file{1,29} - file{1,32});
-xRFoot = file{1,54} + 0.5*(file{1,48} - file{1,54});
-zRFoot = file{1,56} + 0.5*(file{1,50} - file{1,56});
-xLFoot = file{1,36} + 0.5*(file{1,30} - file{1,36});
-zLFoot = file{1,38} + 0.5*(file{1,32} - file{1,38});
-xRToe = file{1,57} + 0.5*(file{1,54} - file{1,57});
-zRToe = file{1,56} + 0.5*(file{1,59} - file{1,56});
-xLToe = file{1,39} + 0.5*(file{1,36} - file{1,39});
-zLToe = file{1,38} + 0.5*(file{1,41} - file{1,38});
-
 
 
 switch b
@@ -80,6 +37,7 @@ switch b
         Body.zPjoint = zShoulders;
         Body.xDjoint = file{1,3};
         Body.zDJoint = file{1,5};
+        Body.cmP = 0.506;
         
     case 2
         Body.size = LForearmSize;
@@ -87,6 +45,7 @@ switch b
         Body.zPjoint = file{1,11};
         Body.xDjoint = file{1,12};
         Body.zDJoint = file{1,14};
+        Body.cmP = 0.430;
         
     case 3
         Body.size = LArmSize;
@@ -94,6 +53,7 @@ switch b
         Body.zPjoint = file{1,8};
         Body.xDjoint = file{1,9};
         Body.zDJoint = file{1,11};
+        Body.cmP = 0.436;
         
     case 4 
         Body.size = RForearmSize;
@@ -101,6 +61,7 @@ switch b
         Body.zPjoint = file{1,20};
         Body.xDjoint = file{1,21};
         Body.zDJoint = file{1,23};
+        Body.cmP = 0.430;
         
     case 5
         Body.size = RArmSize;
@@ -108,6 +69,7 @@ switch b
         Body.zPjoint = file{1,17};
         Body.xDjoint = file{1,18};
         Body.zDJoint = file{1,20};
+        Body.cmP = 0.436;
         
     case 6
         Body.size = TrunkSize;
@@ -115,6 +77,7 @@ switch b
         Body.zPjoint = zShoulders;
         Body.xDjoint = xHip;
         Body.zDJoint = zHip;
+        Body.cmP = 0.500;
         
     case 7
         Body.size = LThighSize;
@@ -122,6 +85,7 @@ switch b
         Body.zPjoint = file{1,26};
         Body.xDjoint = file{1,27};
         Body.zDJoint = file{1,29};
+        Body.cmP = 0.433;
         
     case 8
         Body.size = LLegSize;
@@ -129,6 +93,7 @@ switch b
         Body.zPjoint = file{1,29};
         Body.xDjoint = file{1,30};
         Body.zDJoint = file{1,32};
+        Body.cmP = 0.433;
         
     case 9
         Body.size = LFootSize;
@@ -136,6 +101,7 @@ switch b
         Body.zPjoint = file{1,32};
         Body.xDjoint = file{1,36};
         Body.zDJoint = file{1,38};
+        Body.cmP = 0.500;
         
     case 10
         Body.size = LToeSize;
@@ -143,6 +109,7 @@ switch b
         Body.zPjoint = file{1,38};
         Body.xDjoint = file{1,39};
         Body.zDJoint = file{1,41};
+        Body.cmP = 0.5;
         
     case 11
         Body.size = RThighSize;
@@ -150,6 +117,7 @@ switch b
         Body.zPjoint = file{1,44};
         Body.xDjoint = file{1,45};
         Body.zDJoint = file{1,47};
+        Body.cmP = 0.433;
         
     case 12
         Body.size = RLegSize;
@@ -157,6 +125,7 @@ switch b
         Body.zPjoint = file{1,47};
         Body.xDjoint = file{1,48};
         Body.zDJoint = file{1,50};
+        Body.cmP = 0.433;
         
     case 13
         Body.size = RFootSize;
@@ -164,6 +133,7 @@ switch b
         Body.zPjoint = file{1,50};
         Body.xDjoint = file{1,54};
         Body.zDJoint = file{1,56};
+        Body.cmP = 0.500;
         
     case 14
         Body.size = RToeSize;
@@ -171,6 +141,7 @@ switch b
         Body.zPjoint = file{1,56};
         Body.xDjoint = file{1,57};
         Body.zDJoint = file{1,59};
+        Body.cmP = 0.500;
         
 end
 

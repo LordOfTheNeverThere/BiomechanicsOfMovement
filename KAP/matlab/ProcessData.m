@@ -1,9 +1,10 @@
+clc
 file = readtsvCustom("trial_0011_g05.tsv");
 % disp(file{:,3});
 % disp(file{:,5});
 %disp([file{:,3}, file{:,5}])
 
-function [processed_data] = ProcessData(fs,coord)
+function [final_fc] = Process_Data(fs,coord)
 
 fc = (0.1:0.1:10);
 x = coord(:,1); %posição da coordenada x no file
@@ -13,7 +14,7 @@ z = coord(:,2); %posição da coordenada z no file
 Rx = zeros(length(fc),1);
 Rz = zeros(length(fc),1);
 f = 1;
-while f < length(fc)
+while f =< length(fc)
     [Ab,Bb] = butter(2,(2 * fc(f))/fs, 'low');
     xf = filtfilt(Ab,Bb,x);    
     zf = filtfilt(Ab,Bb,z);
@@ -22,36 +23,39 @@ while f < length(fc)
     f = f + 1;
 end
 
-minCorr = 0.90; %slides
-r1 = 1;
-stop_sign1 = False; 
-while r1 < length(fc) && stop_sign1
-    [xCorrelation, ~ , xfc] = regress(fc(r1:length(fc)),Rx(r1:length(fc)));
+minCorr = 0.97; %slides
+rx = 1;
+stop_signx = False; 
+while rx < length(fc) && stop_signx
+    [xCorrelation, ~ , bx] = regression(fc(rx:length(fc)),Rx(rx:length(fc))');
+    xCorrelation = xCorrelation^2;
     if xCorrelation > minCorr
-        xfc = x_fc;
-        stop_sign1 = True;
+        bfx = bx;
+        stop_signx = True;
     else
-        r1 = r1 + 2;
+        rx = rx + 2;
     end
 end
 
-stop_sign2 = False;
-r2=1;
-while r2 < length(fc) && stop_sign2
-    [zCorrelation, ~ , zfc] = regress(fc(r2:length(fc)),Rx(r2:length(fc)));
+stop_signz = False;
+rz=1;
+while rz < length(fc) && stop_signz
+    [zCorrelation, ~ , bz] = regress(fc(rz:length(fc)),Rx(rz:length(fc))');
+    zCorrelation = zCorrelation^2;
     if zCorrelation > minCorr
-        zfc = z_fc;
-        stop_sign2 = True;
+        bfz = bz;
+        stop_signz = True;
     else
-        r2 = r2 + 2;
+        rz = rz + 2;
     end
 end
+xi = find(Rx == bfx);
+zi = find(Rz == bfz);
 
-processed_data = [x_fc, z_fc]
-
-%falta fazer a regressão
+final_fc = [f(xi), f(zi)];
+disp(final_fc);
 end
 
 
-disp(Process_Data(100,[file(10:length(file(:,3))-10,3), file(:,5)]))
+
 

@@ -29,6 +29,8 @@ global NDriv
 NDriv = 13;
 NPts = 13;
 
+global origin
+origin = [file{1,30}, file{1,32}];
 
 xShoulders = (file{1,6} + file{1,15})/2;
 zShoulders = (file{1,8} + file{1,17})/2;

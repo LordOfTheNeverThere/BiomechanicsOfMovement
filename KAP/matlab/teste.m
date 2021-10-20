@@ -63,22 +63,41 @@ x = file{:,3};
 z = file{:,5};
 
 fs = 100;
-fc = (1:1:10);
+fc = (0.1:0.01:20);
 
 Rx = zeros(length(fc),1);
 Rz = zeros(length(fc),1);
 f=1;
 while f<=length(fc)
     [b,a] = butter(2,fc(f)/(fs/2));
-    xf = filtfilt(b,a,x);
-    zf = filtfilt (b,a,z);
+    xf = filtfilt(b,a,x) - origin(1);
+    zf = filtfilt(b,a,z) - origin(2);
     Rx(f) = sqrt(sum((x(:) - xf(:)).^2)/length(x)^2);
     Rz(f) = sqrt(sum((z(:) - zf(:)).^2)/length(z)^2);
-    f = f +1;
+    f = f + 1;
 end
-disp(Rx);
-disp(Rz);
-final = [x, z];
 
+minCorr = 0.97; %slides
+rx = 1;
 
+while rx < length(fc)
+    [xCorrelation, ~ , bx] = regression(fc(rx:length(fc)),Rx(rx:length(fc))');
+    xCorrelation = xCorrelation^2;
+    if xCorrelation > minCorr
+        bfx = bx;
+        break
+    else
+        rx = rx + 2;
+    end
+end
+disp(bfx)
+Rx = plot(fc,Rx)
+% hold on
+% fplot(bfx,[fc(1),fc(length(fc))])
+xi = find(Rx == bfx)
 
+% disp(Rx);
+% disp(Rz);
+% final = [x, z];
+%mdl = fitlm(fc,Rx)
+%byz = find(Rx == 29.539409106208710)
