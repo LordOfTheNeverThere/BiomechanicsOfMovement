@@ -1,4 +1,4 @@
-function bodyAxis, timeTheta, timeCm  = oneBodyRepresentation(body)
+function [bodyAxis, timeTheta, timeCm]  = driverStream(body)
 %oneBodyRepresentation - receives a body from the BodySelector and will evaluate its Position and angle throughout time
 %
 % Syntax: output = myFun(input)
