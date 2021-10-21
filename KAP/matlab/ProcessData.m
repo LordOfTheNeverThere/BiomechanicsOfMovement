@@ -1,4 +1,6 @@
-
+% disp(file{:,3});
+% disp(file{:,5});
+%disp([file{:,3}, file{:,5}])
 
 
 function [final_fc] = ProcessData(fs,coord)
