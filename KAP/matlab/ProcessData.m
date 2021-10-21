@@ -1,5 +1,5 @@
 clc
-file = readtsvCustom("trial_0011_g05.tsv");
+file = readtsvCustom("trial_0011_static.tsv");
 % disp(file{:,3});
 % disp(file{:,5});
 %disp([file{:,3}, file{:,5}])

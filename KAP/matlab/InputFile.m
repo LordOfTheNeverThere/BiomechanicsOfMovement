@@ -13,7 +13,7 @@ exfile = [1 2 3 4 5 6 7 8 9 1 2 3; 1 2 3 4 5 6 7 8 9 1 2 3 ];
 %%%%%%%%%%%%%%%%%
 
 
-file = readtsvCustom("trial_0011_g05.tsv");
+file = readtsvCustom("trial_0011_static.tsv");
 
 
 global NBodies 
@@ -94,3 +94,19 @@ CM = { {xHead,zHead}; {xLForearm,zLForearm}; {xLArm,zLArm}; {xRForearm,zRForearm
  1-Head; 2-lForArm; 3-lArm; 4-rForArm; 5-rArm; 6-Trunk; 7-lThigh;
 8-lLeg; 9-lFoot; 10-lToes; 11-rThigh; 12-rLeg; 13-rFoot; 14-rToes 
 %}
+
+ %% Starting to write the new file model.txt%%
+
+ fileGait = fopen('model_gait.txt','w');
+ fileKick = fopen('model_kick.txt','w');
+
+
+
+ %% End of the files %%
+ fprintf(fileGait,'%6.2f %6.2f\r\n',[12, 1e-7]);
+ fprintf(fileGait,'%6.2f %6.2f %6.2f\r\n', [0, 0.01, 5]);
+ fprintf(fileKick,'%6.2f %6.2f\r\n',[12, 1e-7]);
+ fprintf(fileKick,'%6.2f %6.2f %6.2f\r\n',[0, 0.01, 5]);
+
+
+
