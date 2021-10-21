@@ -1,9 +1,9 @@
 clc;
-x = [ 1 2 3 4 5 6 ; 1 2 3 4 5 6 ; 1 2 3 4 5 6 ; 1 2 3 4 5 6];
-y = zeros(2,5);
+%x = [ 1 2 3 4 5 6 ; 1 2 3 4 5 6 ; 1 2 3 4 5 6 ; 1 2 3 4 5 6];
+%y = zeros(2,5);
 % disp(length(y))
 % disp(length(y(:,1)))
-z = [ [1,2] ; [3,4] ; [5,6] ; [7,8]];
+%z = [ [1,2] ; [3,4] ; [5,6] ; [7,8]];
 
 % C = { {1,1}; {2,2}; {3,3}};
 % disp(C{1,1});
@@ -59,11 +59,12 @@ z = [ [1,2] ; [3,4] ; [5,6] ; [7,8]];
 % freqz(b,a)
 % disp(b)
 % disp(a)
+file = readtsvCustom("trial_0011_g05.tsv");
 x = file{:,3};
 z = file{:,5};
 
 fs = 100;
-fc = (0.1:0.1:20);
+fc = (0.1:0.01:10);
 
 Rx = zeros(length(fc),1);
 Rz = zeros(length(fc),1);
@@ -79,11 +80,12 @@ end
 
 minCorr = 0.97; %slides
 rx = 1;
-
-while rx <= length(fc)
+%signal = false;
+while rx <= length(fc) 
     [xCorrelation, ~ , bx] = regression(fc(rx:length(fc)),Rx(rx:length(fc))');
     xCorrelation = xCorrelation^2;
     if xCorrelation > minCorr
+        
         bfx = bx;
         break
     else
@@ -91,11 +93,11 @@ while rx <= length(fc)
     end
 end
 disp(bfx)
-Rx = plot(fc,Rx)
-hold on
-fplot(bfx,[fc(1),fc(length(fc))])
-xi = intersect(Rx,bfx)
-
+%plot(fc,Rx)
+% hold on
+% fplot(bfx,[fc(1),fc(length(fc))])
+% xi = intersect(Rx,bfx)
+xi = find(Rx == bfx)
 % disp(Rx);
 % disp(Rz);
 % final = [x, z];
