@@ -14,20 +14,8 @@
 
  %% Bodies
    allDrivers{14, 1} ={[]};
-   head = BodySelector(1);
-   lForArm = BodySelector(2);
-   lArm = BodySelector(3);
-   rForArm = BodySelector(4);
-   rArm = BodySelector(5);
-   trunk = BodySelector(6);
-   lThigh = BodySelector(7);
-   lLeg = BodySelector(8);
-   lFoot = BodySelector(9);
-   lToes = BodySelector(10);
-   rThigh = BodySelector(11);
-   rLeg = BodySelector(12);
-   rFoot = BodySelector(13);
-   rToes = BodySelector(14);
+   global head lForArm lArm rForArm rArm trunk lThigh lLeg lFoot lToes rThigh rLeg rFoot rToes
+
 
 
    %% Driver Feeder
@@ -129,14 +117,14 @@
     %% Driver 10 (lToes and lFoot) %%
 
     fileID = fopen('Driver_010.txt','w');
-    allDrivers{10,1} = [4,10,0,9,0,0,0,0,4,6];
+    allDrivers{10,1} = [4,10,0,9,0,0,0,0,4,10];
     fprintf(fileID,'%6.2f %6.2f\r\n',time,angleInRadsList(lToesAxis, lFootAxis));
     fclose(fileID)
     
     %% Driver 11 (rThigh and Trunk) %%
 
     fileID = fopen('Driver_011.txt','w');
-    allDrivers{11,1} = [4,11,0,6,0,0,0,0,4,6];
+    allDrivers{11,1} = [4,11,0,6,0,0,0,0,4,11];
     fprintf(fileID,'%6.2f %6.2f\r\n',time, angleInRadsList(rThighAxis, trunkAxis));
     fclose(fileID)
        
@@ -144,7 +132,7 @@
     %% Driver 12 (rLeg and rThigh) %%
 
     fileID = fopen('Driver_012.txt','w');
-    allDrivers{12,1} = [4,12,0,11,0,0,0,0,4,6];
+    allDrivers{12,1} = [4,12,0,11,0,0,0,0,4,12];
     fprintf(fileID,'%6.2f %6.2f\r\n',time,angleInRadsList(rLegAxis, rThighAxis));
     fclose(fileID)
     
@@ -152,7 +140,7 @@
     %% Driver 13 (rFoot and rLeg) %%
 
     fileID = fopen('Driver_013.txt','w');
-    allDrivers{13,1} = [4,13,0,12,0,0,0,0,4,6];
+    allDrivers{13,1} = [4,13,0,12,0,0,0,0,4,13];
     fprintf(fileID,'%6.2f %6.2f\r\n',time,angleInRadsList(rFootAxis, rLegAxis));
     fclose(fileID)
     
@@ -160,7 +148,7 @@
     %% Driver 14 (rToes and rFoot) %%
 
     fileID = fopen('Driver_014.txt','w');
-    allDrivers{14,1} = [3,14,0,13,0,0,0,0,4,6];
+    allDrivers{14,1} = [3,14,0,13,0,0,0,0,4,14];
     fprintf(fileID,'%6.2f %6.2f\r\n',time,angleInRadsList(rToesAxis, rFootAxis));
     fclose(fileID)
     

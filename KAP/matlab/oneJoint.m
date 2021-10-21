@@ -16,7 +16,7 @@ function resultList = oneJoint(numBody1, numBody2, origin, cm1, jointPosition, c
         distance1 = norm(minusBody1);
         distance2 = norm(minusBody2);
 
-        resultList = [resultList, distance1, 0, -distance2, 0];
+        resultList = [numBody1, numBody2, resultList, distance1, 0, -distance2, 0, 0];
 
     else
         disp('Verify the lenght of the inputed Vectors, these are wrong');

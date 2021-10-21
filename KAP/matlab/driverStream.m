@@ -16,7 +16,8 @@ joint2ZVector = body.zDjoint; % z position of the Distal Joint
 bodyAxis{length(joint1XVector), 1} = {[]}; % Prelocating the vectors for speed
 timeTheta = zeros(length(joint1XVector));
 timeCm{length(joint1XVector), 1} = {[]};
-fixedFrameCM = [-bodyLength*cmFromProx,0]
+fixedFrameCM = [-bodyLength*cmFromProx,0];
+timeCm{1,1}=bodyCm;
 
 
     for frame = 1:length(joint1XVector)
@@ -24,11 +25,11 @@ fixedFrameCM = [-bodyLength*cmFromProx,0]
 
         bodyAxis{frame,1} = (stick/sqrt((transpose(stick)*stick)));   %%%This will hold all axis positions throughout each frame, bodyAxis(t) == ξ(t)
         
-        if bodyAxis{frame,1}(1) >= 0 & bodyAxis{frame,1}(2) >= 0
+        if bodyAxis{frame,1}(1) >= 0 && bodyAxis{frame,1}(2) >= 0
 
             timeTheta(frame) = atan(bodyAxis{frame,1}(1)/bodyAxis{frame,1}(2));
 
-        elseif bodyAxis{frame,1}(1) >= 0 & bodyAxis{frame,1}(2) < 0
+        elseif bodyAxis{frame,1}(1) >= 0 && bodyAxis{frame,1}(2) < 0
 
             timeTheta(frame) = atan(bodyAxis{frame,1}(1)/bodyAxis{frame,1}(2)) + 2*pi;
 
