@@ -1,10 +1,11 @@
-function resultList = oneJoint(numBody1, numBody2, origin, cm1, jointPosition, cm2)
+function resultList = oneJoint(numBody1, numBody2, cm1, jointPosition, cm2)
 %myFun - Description
 %
 % Syntax: output = myFun(input)
 %
 % Long description
-    if length(jointPosition) == (2) &  length(cm1) == 2 & length(cm2) == 2 & length(origin) == 2 
+global origin;
+    if length(jointPosition) == (2) &&  length(cm1) == 2 && length(cm2) == 2 && length(origin) == 2 
         resultList = [numBody1, numBody2];
         cm1 = cm1 - origin;
         cm2 = cm2 - origin;

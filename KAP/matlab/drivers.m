@@ -19,7 +19,7 @@
 
 
    %% Driver Feeder
-
+   
    [headAxis, headTheta, headCm] = driverStream(head);
    [lForArmAxis, lForArmTheta, lForArmCm] = driverStream(lForArm);
    [lArmAxis, lArmTheta, lArmCm] = driverStream(lArm);
@@ -37,22 +37,31 @@
 
 
    %% Time
-   time = 0:0.1:((length(rThighCm)-1)/10)
+   time = 0.0:0.1:((length(trunkAxis)-1)/10);
 
     %% Driver 1 (Head and trunk) %%
 
    fileID = fopen('Driver_001.txt','w'); %   will overwrite and a will append
    allDrivers{1,1} = [4,1,0,6,0,0,0,0,4,1];
-   fprintf(fileID,'%6.2f %6.2f\r\n',time,angleInRadsList(headAxis, trunkAxis));
-   fclose(fileID)
+   angleHeadTrunk = angleBetweenVectors(headAxis, trunkAxis); %angles between the head and trunk thorughout time
+  for index = 1:length(time)
+    fprintf(fileID,'%6.2f %6.2f\r\n',time(index),angleHeadTrunk(index));
+  end
+   
+
+   fclose(fileID);
    
 
     %% Driver 2 (lForArms and Trunk) %%
 
     fileID = fopen('Driver_002.txt','w');
     allDrivers{2,1} = [4,2,0,6,0,0,0,0,4,2];
-    fprintf(fileID,'%6.2f %6.2f\r\n',time,angleInRadsList(lForArmAxis, trunkAxis));
-    fclose(fileID)
+    anglelFaTrunk = angleBetweenVectors(lForArmAxis, trunkAxis); 
+    for index = 1:length(time)
+      fprintf(fileID,'%6.2f %6.2f\r\n',time(index),anglelFaTrunk(index));
+    end
+    
+    fclose(fileID);
     
 
 
@@ -60,8 +69,12 @@
 
     fileID = fopen('Driver_003.txt','w');
     allDrivers{3,1} = [4,3,0,2,0,0,0,0,4,3];
-    fprintf(fileID,'%6.2f %6.2f\r\n',time,angleInRadsList(lArmAxis, lForArmAxis));
-    fclose(fileID)
+    anglelArmlFA = angleBetweenVectors(lArmAxis, lForArmAxis);
+    for index = 1:length(time)
+      fprintf(fileID,'%6.2f %6.2f\r\n', time(index), anglelArmlFA(index));
+    end
+    
+    fclose(fileID);
     
 
 
@@ -69,8 +82,12 @@
 
     fileID = fopen('Driver_004.txt','w');
     allDrivers{4,1} = [4,4,0,6,0,0,0,0,4,4];
-    fprintf(fileID,'%6.2f %6.2f\r\n',time,angleInRadsList(rForArmAxis, trunkAxis));
-    fclose(fileID)
+    anglerFATrunk = angleBetweenVectors(rForArmAxis, trunkAxis);
+    for index = 1:length(time)
+      fprintf(fileID,'%6.2f %6.2f\r\n', time(index),anglerFATrunk(index));
+    end
+    
+    fclose(fileID);
     
 
 
@@ -78,79 +95,119 @@
 
     fileID = fopen('Driver_005.txt','w');
     allDrivers{5,1} = [4,5,0,4,0,0,0,0,4,5];
-    fprintf(fileID,'%6.2f %6.2f\r\n',time,angleInRadsList(rArmAxis, rForArmAxis));
-    fclose(fileID)
+    anglerArmrFA = angleBetweenVectors(rArmAxis, rForArmAxis);
+    for index = 1:length(time)
+      fprintf(fileID,'%6.2f %6.2f\r\n', time(index), anglerArmrFA(index));
+    end
+    
+    fclose(fileID);
     
 
     %% Driver 6 (trunk) %%
 
     fileID = fopen('Driver_006.txt','w');
     allDrivers{6,1} = [3,6,1,0,0,0,0,0,4,6];
-    fprintf(fileID,'%6.2f %6.2f\r\n',time, trunkCm{:,1}(1));
-    fclose(fileID)
+    
+    for index = 1:length(trunkCm)
+      fprintf(fileID,'%6.2f %6.2f\r\n',time(index), trunkCm{index,1}(1));
+    end
+    
+    fclose(fileID);
     
 
     %% Driver 7 (lThigh and Trunk) %%
 
     fileID = fopen('Driver_007.txt','w');
     allDrivers{7,1} = [4,7,0,6,0,0,0,0,4,7];
-    fprintf(fileID,'%6.2f %6.2f\r\n',time,angleInRadsList(lThighAxis, trunkAxis));
-    fclose(fileID)
+    anglelThighTrunk = angleBetweenVectors(lThighAxis, trunkAxis);
+    for index = 1:length(time)
+      fprintf(fileID,'%6.2f %6.2f\r\n', time(index), anglelThighTrunk(index));
+    end
+    
+    fclose(fileID);
     
 
     %% Driver 8 (lLeg and lThigh) %%
 
     fileID = fopen('Driver_008.txt','w');
     allDrivers{8,1} = [4,8,0,7,0,0,0,0,4,8];
-    fprintf(fileID,'%6.2f %6.2f\r\n',time,angleInRadsList(lLegAxis, lThighAxis));
-    fclose(fileID)
+    anglelLeglThigh = angleBetweenVectors(lLegAxis, lThighAxis);
+    for index = 1:length(time)
+      fprintf(fileID,'%6.2f %6.2f\r\n', time(index), anglelLeglThigh(index));
+    end
+    
+    fclose(fileID);
     
 
     %% Driver 9 (lFoot and lLeg) %%
 
     fileID = fopen('Driver_009.txt','w');
     allDrivers{9,1} = [4,9,0,8,0,0,0,0,4,9];
-    fprintf(fileID,'%6.2f %6.2f\r\n',time,angleInRadsList(lFootAxis, lLegAxis));
-    fclose(fileID)
+    anglelFootlLeg = angleBetweenVectors(lFootAxis, lLegAxis);
+    for index = 1:length(time)
+      fprintf(fileID,'%6.2f %6.2f\r\n', time(index), anglelFootlLeg(index));
+    end
+    
+    fclose(fileID);
     
 
     %% Driver 10 (lToes and lFoot) %%
 
     fileID = fopen('Driver_010.txt','w');
     allDrivers{10,1} = [4,10,0,9,0,0,0,0,4,10];
-    fprintf(fileID,'%6.2f %6.2f\r\n',time,angleInRadsList(lToesAxis, lFootAxis));
-    fclose(fileID)
+    anglelToeslFoot = angleBetweenVectors(lToesAxis, lFootAxis);
+    for index = 1:length(time)
+      fprintf(fileID,'%6.2f %6.2f\r\n', time(index), anglelToeslFoot(index));
+    end
+    
+    fclose(fileID);
     
     %% Driver 11 (rThigh and Trunk) %%
 
     fileID = fopen('Driver_011.txt','w');
     allDrivers{11,1} = [4,11,0,6,0,0,0,0,4,11];
-    fprintf(fileID,'%6.2f %6.2f\r\n',time, angleInRadsList(rThighAxis, trunkAxis));
-    fclose(fileID)
+    anglerThighTrunk = angleBetweenVectors(rThighAxis, trunkAxis);
+    for index = 1:length(time)
+      fprintf(fileID,'%6.2f %6.2f\r\n',time(index), anglerThighTrunk(index));
+    end
+    
+    fclose(fileID);
        
     
     %% Driver 12 (rLeg and rThigh) %%
 
     fileID = fopen('Driver_012.txt','w');
     allDrivers{12,1} = [4,12,0,11,0,0,0,0,4,12];
-    fprintf(fileID,'%6.2f %6.2f\r\n',time,angleInRadsList(rLegAxis, rThighAxis));
-    fclose(fileID)
+    anglerLegrThigh = angleBetweenVectors(rLegAxis, rThighAxis);
+    for index = 1:length(time)
+      fprintf(fileID,'%6.2f %6.2f\r\n', time(index),anglerLegrThigh(index));
+    end
+    
+    fclose(fileID);
     
 
     %% Driver 13 (rFoot and rLeg) %%
 
     fileID = fopen('Driver_013.txt','w');
     allDrivers{13,1} = [4,13,0,12,0,0,0,0,4,13];
-    fprintf(fileID,'%6.2f %6.2f\r\n',time,angleInRadsList(rFootAxis, rLegAxis));
-    fclose(fileID)
+    anglerFootrLeg = angleBetweenVectors(rFootAxis, rLegAxis);
+    for index = 1:length(time)
+      fprintf(fileID,'%6.2f %6.2f\r\n',time(index), anglerFootrLeg(index));
+    end
+    
+    fclose(fileID);
     
 
     %% Driver 14 (rToes and rFoot) %%
 
     fileID = fopen('Driver_014.txt','w');
     allDrivers{14,1} = [3,14,0,13,0,0,0,0,4,14];
-    fprintf(fileID,'%6.2f %6.2f\r\n',time,angleInRadsList(rToesAxis, rFootAxis));
-    fclose(fileID)
+    anglerToesrFoot = angleBetweenVectors(rToesAxis, rFootAxis);
+    for index = 1:length(time)
+      fprintf(fileID,'%6.2f %6.2f\r\n',time(index), anglerToesrFoot(index));
+    end
+    
+    fclose(fileID);
     
 
  end
