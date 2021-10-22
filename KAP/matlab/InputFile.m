@@ -13,7 +13,7 @@ exfile = [1 2 3 4 5 6 7 8 9 1 2 3; 1 2 3 4 5 6 7 8 9 1 2 3 ];
 %%%%%%%%%%%%%%%%%
 
 
-file = readtsvCustom("trial_0001_static.tsv");
+file = readtsvCustom("trial_0011_g05.tsv");
 
 
 global NBodies 
@@ -26,8 +26,8 @@ NCamJ = 0;
 NGrd = 0; %encastramentos
 NSimp = 0; 
 global NDriv 
-NDriv = 14;
-NPts = 1;
+NDriv = 16;
+NPts = 0;
 
 modelParameters =[NBodies, NRevJ, NTransJ, NRenRevJ, NTransRevJ, NCamJ, NGrd, NSimp, NDriv, NPts];
 
@@ -152,7 +152,7 @@ thetaList = [headTheta(1), lForArmTheta(1), lArmTheta(1), rForArmTheta(1), rArmT
 
  %% Model Parameters%%
 
- fprintf(fileStatic,'%6.2f %6.2f %6.2f\r\n',modelParameters);
+ fprintf(fileStatic,'%6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f\r\n',modelParameters);
 
  %% Centre of Mass %%
 for index = 1:length(thetaList)
@@ -162,31 +162,29 @@ end
  %% Joints Data %%
 
 for index = 1:length(allJointsList)
-    fprintf(fileStatic,'%6.2f %6.2f %6.2f %6.2f %6.2f\r\n', allJointsList{index,1});
+    fprintf(fileStatic,'%6.2f %6.2f %6.2f %6.2f %6.2f %6.2f\r\n', allJointsList{index,1});
 end
 
- %% Ground Joints %%
 
- fprintf(fileStatic,'%6.2f\r\n', [0]);
 
  %% Driver Data %%
  
  for index = 1:length(allDrivers)
-    fprintf(fileStatic,'%6.2f %6.2f %6.2f %6.2f %6.2f\r\n', allDrivers{index,1});
+    fprintf(fileStatic,'%6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f\r\n', allDrivers{index,1});
 end
 
- %% Points of Interest %%
-
- fprintf(fileStatic,'%6.2f %6.2f %6.2f\r\n', [1, 0, 0]); % Cm of the head
+%  %% Points of Interest %%
+% 
+%  fprintf(fileStatic,'%6.2f %6.2f %6.2f\r\n', [1, 0, 0]); % Cm of the head
  
  %% End of the files %%
- fprintf(fileStatic,'%6.2f %6.2f\r\n',[12, 1e-7]);
+ fprintf(fileStatic,'%6.2f %6.10f\r\n',[12, 0.0000001]);
  fprintf(fileStatic,'%6.2f %6.2f %6.2f\r\n', [0, 0.01, 5]);
 
 %{
-  fprintf(fileGait,'%6.2f %6.2f\r\n',[12, 1e-7]);
+  fprintf(fileGait,'%6.2f %6.10f\r\n',[12, 1e-7]);
  fprintf(fileGait,'%6.2f %6.2f %6.2f\r\n', [0, 0.01, 5]);
- fprintf(fileKick,'%6.2f %6.2f\r\n',[12, 1e-7]);
+ fprintf(fileKick,'%6.2f %6.10f\r\n',[12, 1e-7]);
  fprintf(fileKick,'%6.2f %6.2f %6.2f\r\n',[0, 0.01, 5]); 
 %}
 

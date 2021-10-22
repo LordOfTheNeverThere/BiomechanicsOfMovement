@@ -42,7 +42,7 @@ timeCm{1,1}=bodyCm;
 
         if frame ~= length(joint1XVector)
             % frame+1 because we start with inputing the CM before hand, and likewise the last CM is discarded since said point won't be evaluatred               
-            timeCm{frame + 1,1} = [joint1XVector(frame),joint1ZVector(frame)] - lameMatrix*transpose(fixedFrameCM); %%Updating the CM of our body throughout time with the vector that point to the cm in the local frame
+            timeCm{frame + 1,1} = [joint1XVector(frame+1),joint1ZVector(frame+1)] - transpose(lameMatrix*transpose(fixedFrameCM)); %%Updating the CM of our body throughout time with the vector that point to the cm in the local frame
         end
 
     end
