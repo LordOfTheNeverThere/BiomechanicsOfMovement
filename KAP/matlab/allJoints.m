@@ -22,6 +22,8 @@ rMeta =[tsvFile{1,54},tsvFile{1,56}];
 
 allJointsList={[]};
 
+%%HERE You use all 13 revJoints regardless of superposition
+
 %%Head and Trunk%%
 
 allJointsList{1,1} = oneJoint(1,2,CM{1,1},shoulderPosition,CM{2,1});

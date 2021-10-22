@@ -6,9 +6,6 @@ function resultList = oneJoint(numBody1, numBody2, cm1, jointPosition, cm2)
 % Long description
 global origin;
     if length(jointPosition) == (2) &&  length(cm1) == 2 && length(cm2) == 2 && length(origin) == 2 
-        resultList = [numBody1, numBody2];
-        cm1 = cm1 - origin;
-        cm2 = cm2 - origin;
         jointPosition = jointPosition - origin;
 
         minusBody1 = jointPosition - cm1;
@@ -17,7 +14,7 @@ global origin;
         distance1 = norm(minusBody1);
         distance2 = norm(minusBody2);
 
-        resultList = [numBody1, numBody2, resultList, distance1, 0, -distance2, 0, 0];
+        resultList = [numBody1, numBody2, distance1, 0, -distance2, 0];
 
     else
         disp('Verify the lenght of the inputed Vectors, these are wrong');

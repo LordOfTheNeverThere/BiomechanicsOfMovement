@@ -129,7 +129,7 @@ rToes = BodySelector(14);
 
 thetaList = [headTheta(1), lForArmTheta(1), lArmTheta(1), rForArmTheta(1), rArmTheta(1), trunkTheta(1), lThighTheta(1), lLegTheta(1), lFootTheta(1), lToesTheta(1), rThighTheta(1), rLegTheta(1), rFootTheta(1), rToesTheta(1)];
 %List with all the initial drivers
- allJointsList = allJoints(file, [xShoulders, zShoulders], [xHip, zHip]);
+ allJointsList = allJoints(file, [xShoulders(1, zShoulders], [xHip, zHip]);
  allDrivers = drivers();
 
 
@@ -162,15 +162,17 @@ end
  %% Joints Data %%
 
 for index = 1:length(allJointsList)
-    fprintf(fileStatic,'%6.2f %6.2f %6.2f %6.2f %6.2f %6.2f\r\n', allJointsList{index,1});
+    fprintf(fileStatic,'%6.2f %6.2f %6.2f %6.2f %6.2f\r\n', allJointsList{index,1});
 end
 
+ %% Ground Joints %%
 
+ fprintf(fileStatic,'%6.2f\r\n', [0]);
 
  %% Driver Data %%
  
  for index = 1:length(allDrivers)
-    fprintf(fileStatic,'%6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f\r\n', allDrivers{index,1});
+    fprintf(fileStatic,'%6.2f %6.2f %6.2f %6.2f %6.2f\r\n', allDrivers{index,1});
 end
 
  %% Points of Interest %%
@@ -178,13 +180,13 @@ end
  fprintf(fileStatic,'%6.2f %6.2f %6.2f\r\n', [1, 0, 0]); % Cm of the head
  
  %% End of the files %%
- fprintf(fileStatic,'%6.2f %6.10f\r\n',[12, 0.0000001]);
+ fprintf(fileStatic,'%6.2f %6.2f\r\n',[12, 1e-7]);
  fprintf(fileStatic,'%6.2f %6.2f %6.2f\r\n', [0, 0.01, 5]);
 
 %{
-  fprintf(fileGait,'%6.2f %6.10f\r\n',[12, 1e-7]);
+  fprintf(fileGait,'%6.2f %6.2f\r\n',[12, 1e-7]);
  fprintf(fileGait,'%6.2f %6.2f %6.2f\r\n', [0, 0.01, 5]);
- fprintf(fileKick,'%6.2f %6.10f\r\n',[12, 1e-7]);
+ fprintf(fileKick,'%6.2f %6.2f\r\n',[12, 1e-7]);
  fprintf(fileKick,'%6.2f %6.2f %6.2f\r\n',[0, 0.01, 5]); 
 %}
 
