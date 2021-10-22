@@ -80,9 +80,9 @@ for k = 1 : Ntime
         i2 = i1 + 1;
         i3 = i2 + 1;
         Body(i).r       = q(i1:i2, k);
-        Body(i).theta   = q(i1:i2, k);
+        Body(i).theta   = q(i3:i3, k);
         Body(i).rd      = qd(i1:i2, k);
-        Body(i).thetad  = qd(i1:i2, k);
+        Body(i).thetad  = qd(i3:i3, k);
         Body(i).rdd     = qdd(i1:i2,k);
         Body(i).thetadd = qdd(i3:i3,k);
 %

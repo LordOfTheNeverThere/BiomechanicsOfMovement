@@ -6,7 +6,6 @@ function resultList = oneJoint(numBody1, numBody2, cm1, jointPosition, cm2)
 % Long description
 global origin;
     if length(jointPosition) == (2) &&  length(cm1) == 2 && length(cm2) == 2 && length(origin) == 2 
-        jointPosition = jointPosition - origin;
 
         minusBody1 = jointPosition - cm1;
         minusBody2 = jointPosition - cm2;

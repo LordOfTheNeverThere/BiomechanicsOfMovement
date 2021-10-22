@@ -13,7 +13,7 @@ exfile = [1 2 3 4 5 6 7 8 9 1 2 3; 1 2 3 4 5 6 7 8 9 1 2 3 ];
 %%%%%%%%%%%%%%%%%
 
 
-file = readtsvCustom("trial_0001_static.tsv");
+file = readtsvCustom("trial_0011_g05.tsv");
 
 
 global NBodies 
@@ -26,8 +26,8 @@ NCamJ = 0;
 NGrd = 0; %encastramentos
 NSimp = 0; 
 global NDriv 
-NDriv = 14;
-NPts = 1;
+NDriv = 16;
+NPts = 0;
 
 modelParameters =[NBodies, NRevJ, NTransJ, NRenRevJ, NTransRevJ, NCamJ, NGrd, NSimp, NDriv, NPts];
 
@@ -173,9 +173,9 @@ end
     fprintf(fileStatic,'%6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f\r\n', allDrivers{index,1});
 end
 
- %% Points of Interest %%
-
- fprintf(fileStatic,'%6.2f %6.2f %6.2f\r\n', [1, 0, 0]); % Cm of the head
+%  %% Points of Interest %%
+% 
+%  fprintf(fileStatic,'%6.2f %6.2f %6.2f\r\n', [1, 0, 0]); % Cm of the head
  
  %% End of the files %%
  fprintf(fileStatic,'%6.2f %6.10f\r\n',[12, 0.0000001]);
