@@ -1,4 +1,4 @@
-clc
+clear all;
 exfile = [1 2 3 4 5 6 7 8 9 1 2 3; 1 2 3 4 5 6 7 8 9 1 2 3 ];
 % disp (exfile);
 % disp(length(exfile));
@@ -31,9 +31,8 @@ NPts = 1;
 
 modelParameters =[NBodies, NRevJ, NTransJ, NRenRevJ, NTransRevJ, NCamJ, NGrd, NSimp, NDriv, NPts];
 
-global origin
-origin = [file{1,30}, file{1,32}];
-
+global origin;
+origin = [file.(33)(1),file.(35)(1)];
 xShoulders = (file{1,6} + file{1,15})/2;
 zShoulders = (file{1,8} + file{1,17})/2;
 xHip = (file{1,24} + file{1,42})/2;
@@ -87,9 +86,9 @@ xLToe = file{1,39} + 0.5*(file{1,36} - file{1,39});
 zLToe = file{1,38} + 0.5*(file{1,41} - file{1,38});
 
 global CM;
-CM = { {xHead,zHead}; {xLForearm,zLForearm}; {xLArm,zLArm}; {xRForearm,zRForearm}; 
-    {xRArm,zRArm}; {xTrunk,zTrunk}; {xLThigh,zLThigh}; {xLLeg,zLLeg}; {xLFoot,zLFoot};
-    {xLToe,zLToe}; {xRThigh,zRThigh}; {xRLeg,zRLeg}; {xRFoot,zRFoot}; {xRToe,zRToe}};
+CM = { [xHead,zHead]; [xLForearm,zLForearm]; [xLArm,zLArm]; [xRForearm,zRForearm]; 
+    [xRArm,zRArm]; [xTrunk,zTrunk]; [xLThigh,zLThigh]; [xLLeg,zLLeg]; [xLFoot,zLFoot];
+    [xLToe,zLToe]; [xRThigh,zRThigh]; [xRLeg,zRLeg]; [xRFoot,zRFoot]; [xRToe,zRToe]};
 
 
 %{
@@ -128,12 +127,10 @@ rToes = BodySelector(14);
 [~, rFootTheta, ~] = driverStream(rFoot);
 [~, rToesTheta, ~] = driverStream(rToes);
 
-thetaList = [headTheta, lForArmTheta, lArmTheta, rForArmTheta,...
- rArmTheta, trunkTheta, lThighTheta, lLegTheta, lFootTheta, lToesTheta, rThighTheta,...
- rLegTheta,rFootTheta, rToesTheta];
-
- allJointsList = allJoints(file, [xShoulders, zShoulders], [xHip, zHip], CM);
- allDrivers = driver();
+thetaList = [headTheta(1), lForArmTheta(1), lArmTheta(1), rForArmTheta(1), rArmTheta(1), trunkTheta(1), lThighTheta(1), lLegTheta(1), lFootTheta(1), lToesTheta(1), rThighTheta(1), rLegTheta(1), rFootTheta(1), rToesTheta(1)];
+%List with all the initial drivers
+ allJointsList = allJoints(file, [xShoulders, zShoulders], [xHip, zHip]);
+ allDrivers = drivers();
 
 
 
@@ -158,8 +155,9 @@ thetaList = [headTheta, lForArmTheta, lArmTheta, rForArmTheta,...
  fprintf(fileStatic,'%6.2f %6.2f %6.2f\r\n',modelParameters);
 
  %% Centre of Mass %%
-
- fprintf(fileStatic,'%6.2f %6.2f %6.2f\r\n', CM{:,1}(1),CM{:,1}(2), thetaList);
+for index = 1:length(thetaList)
+ fprintf(fileStatic,'%6.2f %6.2f %6.2f\r\n', CM{index,1}(1), CM{index,1}(2), thetaList(index));
+end
 
  %% Joints Data %%
 

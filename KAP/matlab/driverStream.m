@@ -23,7 +23,7 @@ timeCm{1,1}=bodyCm;
     for frame = 1:length(joint1XVector)
         stick = [joint1XVector(frame), joint1ZVector(frame)]-[joint2XVector(frame), joint2ZVector(frame)]; %Defines the body our stick as a vector from the distal to the proximal joint
 
-        bodyAxis{frame,1} = (stick/sqrt((transpose(stick)*stick)));   %%%This will hold all axis positions throughout each frame, bodyAxis(t) == ξ(t)
+        bodyAxis{frame,1} = (stick/sqrt((stick*transpose(stick))));   %%%This will hold all axis positions throughout each frame, bodyAxis(t) == ξ(t)
         
         if bodyAxis{frame,1}(1) >= 0 && bodyAxis{frame,1}(2) >= 0
 
@@ -40,11 +40,11 @@ timeCm{1,1}=bodyCm;
         lameMatrix = [cos(timeTheta(frame)), -sin(timeTheta(frame)); ....
                         sin(timeTheta(frame)), cos(timeTheta(frame))];
 
-
-        timeCm{frame,1} = [joint1XVector(frame),joint1ZVector(frame)] - lameMatrix*fixedFrameCM; %%Updating the CM of our body throughout time with the vector that point to the cm in the local frame
+        if frame ~= length(joint1XVector)
+            % frame+1 because we start with inputing the CM before hand, and likewise the last CM is discarded since said point won't be evaluatred               
+            timeCm{frame + 1,1} = [joint1XVector(frame),joint1ZVector(frame)] - lameMatrix*transpose(fixedFrameCM); %%Updating the CM of our body throughout time with the vector that point to the cm in the local frame
+        end
 
     end
-
-
 
 end         

@@ -8,19 +8,19 @@ file = readtsvCustom("trial_0011_g05.tsv");
 
 global CM;
 
-xShoulders = (file{1,6} + file{1,15})/2;
-zShoulders = (file{1,8} + file{1,17})/2;
-xHip = (file{1,24} + file{1,42})/2;
-zHip = (file{1,26} + file{1,44})/2;
+xShoulders = (file{:,6} + file{:,15})./2;
+zShoulders = (file{:,8} + file{:,17})./2;
+xHip = (file{:,24} + file{:,42})./2;
+zHip = (file{:,26} + file{:,44})./2;
 
-HeadSize = sqrt((file{1,3} - xShoulders)^2 + (file{1,5} - zShoulders)^2); 
+HeadSize = sqrt((file{1,3} - xShoulders(1))^2 + (file{1,5} - zShoulders(1))^2); 
 RArmSize = sqrt((file{1,15} - file{1,18})^2 + (file{1,17} - file{1,20})^2);
 LArmSize = sqrt((file{1,6} - file{1,9})^2 + (file{1,8} - file{1,11})^2);
 RForearmSize = sqrt((file{1,18} - file{1,21})^2 + (file{1,20} - file{1,23})^2);
 LForearmSize = sqrt((file{1,9} - file{1,12})^2 + (file{1,11} - file{1,14})^2);
-TrunkSize = sqrt((xShoulders - xHip)^2 + (zShoulders - zHip)^2);
-RThighSize = sqrt((xHip - file{1,45})^2 + (zHip - file{1,47})^2);
-LThighSize = sqrt((xHip - file{1,27})^2 + (zHip - file{1,29})^2);
+TrunkSize = sqrt((xShoulders(1) - xHip(1))^2 + (zShoulders(1) - zHip(1))^2);
+RThighSize = sqrt((xHip(1) - file{1,45})^2 + (zHip(1) - file{1,47})^2);
+LThighSize = sqrt((xHip(1) - file{1,27})^2 + (zHip(1) - file{1,29})^2);
 RLegSize = sqrt((file{1,45} - file{1,48})^2 + (file{1,47} - file{1,50})^2);
 LLegSize = sqrt((file{1,27} - file{1,30})^2 + (file{1,29} - file{1,32})^2);
 RFootSize = sqrt((file{1,48} - file{1,54})^2 + (file{1,50} - file{1,56})^2);
@@ -36,44 +36,44 @@ switch b
         Body.size = HeadSize;
         Body.xPjoint = xShoulders;
         Body.zPjoint = zShoulders;
-        Body.xDjoint = file{1,3};
-        Body.zDJoint = file{1,5};
+        Body.xDjoint = file{:,3};
+        Body.zDjoint = file{:,5};
         Body.cmFromProx = 1;
         Body.cmVector = CM{b,1};
         
     case 2
         Body.size = LForearmSize;
-        Body.xPjoint = file{1,9};
-        Body.zPjoint = file{1,11};
-        Body.xDjoint = file{1,12};
-        Body.zDJoint = file{1,14};
+        Body.xPjoint = file{:,9};
+        Body.zPjoint = file{:,11};
+        Body.xDjoint = file{:,12};
+        Body.zDjoint = file{:,14};
         Body.cmFromProx = 0.430;
         Body.cmVector = CM{b,1};
         
     case 3
         Body.size = LArmSize;
-        Body.xPjoint = file{1,6};
-        Body.zPjoint = file{1,8};
-        Body.xDjoint = file{1,9};
-        Body.zDJoint = file{1,11};
+        Body.xPjoint = file{:,6};
+        Body.zPjoint = file{:,8};
+        Body.xDjoint = file{:,9};
+        Body.zDjoint = file{:,11};
         Body.cmFromProx = 0.436;
         Body.cmVector = CM{b,1};
         
     case 4 
         Body.size = RForearmSize;
-        Body.xPjoint = file{1,18};
-        Body.zPjoint = file{1,20};
-        Body.xDjoint = file{1,21};
-        Body.zDJoint = file{1,23};
+        Body.xPjoint = file{:,18};
+        Body.zPjoint = file{:,20};
+        Body.xDjoint = file{:,21};
+        Body.zDjoint = file{:,23};
         Body.cmFromProx = 0.430;
         Body.cmVector = CM{b,1};
         
     case 5
         Body.size = RArmSize;
-        Body.xPjoint = file{1,15};
-        Body.zPjoint = file{1,17};
-        Body.xDjoint = file{1,18};
-        Body.zDJoint = file{1,20};
+        Body.xPjoint = file{:,15};
+        Body.zPjoint = file{:,17};
+        Body.xDjoint = file{:,18};
+        Body.zDjoint = file{:,20};
         Body.cmFromProx = 0.436;
         Body.cmVector = CM{b,1};
         
@@ -82,79 +82,79 @@ switch b
         Body.xPjoint = xShoulders;
         Body.zPjoint = zShoulders;
         Body.xDjoint = xHip;
-        Body.zDJoint = zHip;
+        Body.zDjoint = zHip;
         Body.cmFromProx = 0.500;
         Body.cmVector = CM{b,1};
         
     case 7
         Body.size = LThighSize;
-        Body.xPjoint = file{1,24};
-        Body.zPjoint = file{1,26};
-        Body.xDjoint = file{1,27};
-        Body.zDJoint = file{1,29};
+        Body.xPjoint = file{:,24};
+        Body.zPjoint = file{:,26};
+        Body.xDjoint = file{:,27};
+        Body.zDjoint = file{:,29};
         Body.cmFromProx = 0.433;
         Body.cmVector = CM{b,1};
         
     case 8
         Body.size = LLegSize;
-        Body.xPjoint = file{1,27};
-        Body.zPjoint = file{1,29};
-        Body.xDjoint = file{1,30};
-        Body.zDJoint = file{1,32};
+        Body.xPjoint = file{:,27};
+        Body.zPjoint = file{:,29};
+        Body.xDjoint = file{:,30};
+        Body.zDjoint = file{:,32};
         Body.cmFromProx = 0.433;
         Body.cmVector = CM{b,1};
         
     case 9
         Body.size = LFootSize;
-        Body.xPjoint = file{1,30};
-        Body.zPjoint = file{1,32};
-        Body.xDjoint = file{1,36};
-        Body.zDJoint = file{1,38};
+        Body.xPjoint = file{:,30};
+        Body.zPjoint = file{:,32};
+        Body.xDjoint = file{:,36};
+        Body.zDjoint = file{:,38};
         Body.cmFromProx = 0.500;
         Body.cmVector = CM{b,1};
         
     case 10
         Body.size = LToeSize;
-        Body.xPjoint = file{1,36};
-        Body.zPjoint = file{1,38};
-        Body.xDjoint = file{1,39};
-        Body.zDJoint = file{1,41};
+        Body.xPjoint = file{:,36};
+        Body.zPjoint = file{:,38};
+        Body.xDjoint = file{:,39};
+        Body.zDjoint = file{:,41};
         Body.cmFromProx = 0.5;
         Body.cmVector = CM{b,1};
         
     case 11
         Body.size = RThighSize;
-        Body.xPjoint = file{1,42};
-        Body.zPjoint = file{1,44};
-        Body.xDjoint = file{1,45};
-        Body.zDJoint = file{1,47};
+        Body.xPjoint = file{:,42};
+        Body.zPjoint = file{:,44};
+        Body.xDjoint = file{:,45};
+        Body.zDjoint = file{:,47};
         Body.cmFromProx = 0.433;
         Body.cmVector = CM{b,1};
         
     case 12
         Body.size = RLegSize;
-        Body.xPjoint = file{1,45};
-        Body.zPjoint = file{1,47};
-        Body.xDjoint = file{1,48};
-        Body.zDJoint = file{1,50};
+        Body.xPjoint = file{:,45};
+        Body.zPjoint = file{:,47};
+        Body.xDjoint = file{:,48};
+        Body.zDjoint = file{:,50};
         Body.cmFromProx = 0.433;
         Body.cmVector = CM{b,1};
         
     case 13
         Body.size = RFootSize;
-        Body.xPjoint = file{1,48};
-        Body.zPjoint = file{1,50};
-        Body.xDjoint = file{1,54};
-        Body.zDJoint = file{1,56};
+        Body.xPjoint = file{:,48};
+        Body.zPjoint = file{:,50};
+        Body.xDjoint = file{:,54};
+        Body.zDjoint = file{:,56};
         Body.cmFromProx = 0.500;
         Body.cmVector = CM{b,1};
         
     case 14
         Body.size = RToeSize;
-        Body.xPjoint = file{1,54};
-        Body.zPjoint = file{1,56};
-        Body.xDjoint = file{1,57};
-        Body.zDJoint = file{1,59};
+        Body.xPjoint = file{:,54};
+        Body.zPjoint = file{:,56};
+        Body.xDjoint = file{:,57};
+        Body.zDjoint = file{:,59};
         Body.cmFromProx = 0.500;
         Body.cmVector = CM{b,1};
         
