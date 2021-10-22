@@ -3,7 +3,7 @@
 %disp([file{:,3}, file{:,5}])
 
 
-function [final_fc] = ProcessData(fs,coord)
+function [final_fc, filtered_coordinates] = ProcessData(fs,coord)
 clc
 file = readtsvCustom("trial_0011_g05.tsv");
 fc = (0.1:0.1:10);
@@ -24,7 +24,8 @@ while f <= length(fc)
     Rz(f) = sqrt(sum((z(:) - zf(:,f)).^2)/length(z)^2);
     f = f + 1;
 end
-
+filtered_coordinates = [xf;zf];
+disp(filtered_coordinates);
 final_fc = zeros(1,2);
 minCorr = 0.97; %slides
 rx = 1;
