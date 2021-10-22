@@ -34,7 +34,7 @@ modelParameters =[NBodies, NRevJ, NTransJ, NRenRevJ, NTransRevJ, NCamJ, NGrd, NS
 global origin;
 origin = [file.(33)(1),file.(35)(1)];
 
-computeLengths();
+
 
 xShoulders = (file{1,6} + file{1,15})/2;
 zShoulders = (file{1,8} + file{1,17})/2;

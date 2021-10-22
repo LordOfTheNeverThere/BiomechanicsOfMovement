@@ -5,10 +5,9 @@
 
 function [final_fc, filtered_coordinates] = ProcessData(fs,coord)
 clc;
-file = readtsvCustom("trial_0011_g05.tsv");
 fc = (0.1:0.1:10);
-global origin
-origin = [file{1,30}, file{1,32}];
+
+global origin;
 x = (coord(:,1) - origin(1))/1000; %posição da coordenada x no file
 z = (coord(:,2) - origin(2))/1000; %posição da coordenada z no file
 % xf = zeros(length(x),1);
@@ -52,28 +51,21 @@ while rz <= length(fc)
     end
 end
 
-% disp(bz);
-% disp(bx);
-% disp("RX =" + rx);
-% disp("RZ =" + rz);
+
 Rx_temp = Rx - bx;
 Rz_temp = Rz - bz;
-% disp("Rx =" + Rx);
-% disp("Rz =" + Rz);
-% disp("Rx_temp=" + Rx_temp);
-%disp("Rz_temp" + Rz_temp);
+
 min_value_x = min(abs(Rx_temp));
-%disp("ABS=" + min(abs(Rx_temp)));
+
 min_value_z = min(abs(Rz_temp));
-% disp("MINVALUE= " + min_value_x);
+
 index_x = find(abs(Rx_temp) == min_value_x);
 index_z = find(abs(Rz_temp) == min_value_z);
 final_fc(1,1) = fc(index_x);
 final_fc(1,2) = fc(index_z);
 filtered_coordinates(:,1) = xf(:,index_x);
 filtered_coordinates(:,2) = zf(:,index_z);
-% disp("XF= " + xf);
-% disp("ZF= " + zf);
+
 end
 
 
