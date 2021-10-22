@@ -4,13 +4,13 @@
 
 
 function [final_fc, filtered_coordinates] = ProcessData(fs,coord)
-clc
+clc;
 file = readtsvCustom("trial_0011_g05.tsv");
 fc = (0.1:0.1:10);
 global origin
 origin = [file{1,30}, file{1,32}];
-x = coord(:,1) - origin(1); %posição da coordenada x no file
-z = coord(:,2) - origin(2); %posição da coordenada z no file
+x = (coord(:,1) - origin(1))/1000; %posição da coordenada x no file
+z = (coord(:,2) - origin(2))/1000; %posição da coordenada z no file
 % xf = zeros(length(x),1);
 % zf = zeros(length(z),1);
 Rx = zeros(length(fc),1);
@@ -24,8 +24,9 @@ while f <= length(fc)
     Rz(f) = sqrt(sum((z(:) - zf(:,f)).^2)/length(z)^2);
     f = f + 1;
 end
-filtered_coordinates = [xf;zf];
-disp(filtered_coordinates);
+
+%disp(filtered_coordinates);
+filtered_coordinates = zeros(length(x), 2);
 final_fc = zeros(1,2);
 minCorr = 0.97; %slides
 rx = 1;
@@ -69,7 +70,10 @@ index_x = find(abs(Rx_temp) == min_value_x);
 index_z = find(abs(Rz_temp) == min_value_z);
 final_fc(1,1) = fc(index_x);
 final_fc(1,2) = fc(index_z);
-
+filtered_coordinates(:,1) = xf(:,index_x);
+filtered_coordinates(:,2) = zf(:,index_z);
+% disp("XF= " + xf);
+% disp("ZF= " + zf);
 end
 
 
