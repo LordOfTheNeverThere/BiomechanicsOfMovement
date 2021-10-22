@@ -7,8 +7,9 @@ function computeLengths()
 
 clear all;
 
-global bodyLenghts filteredTableStatic cutFrequenciesStatic origin;
-filteredTableStatic = table(['Head'; 'L_Shoulder'; 'L_Elbow'; 'L_Wrist'; 'R_Shoulder'; 'R_Elbow'; R_Wrist; L_Hip; L_Knee; L_Ankle; L_Heel; L_Meta; L_Toe_II; R_Hip; R_Knee; R_Ankle; R_Heel; R_Meta_V; ]);12 - 	13 - 	14 - 	15 - 	16 - 	17 - 	18 - 	19 - R_Toe_II
+global bodyLenghts filteredTableStatic cutFrequenciesStatic origin  xShoulders zShoulders xHip zHip;
+filteredTableStatic = table();
+
 
 staticFile = readtsvCustom("trial_0001_static.tsv");
 origin = [staticFile.(33)(1),staticFile.(35)(1)];
@@ -21,5 +22,29 @@ colInFiltered = 1; % Position on the new table where we inserted the new filtere
         filteredTableStatic{ :,colInFiltered} = filtered_coordinates;
         colInFiltered =colInFiltered + 1;
     end
-    disp(filteredTableStatic);
+    filteredTableStatic.Properties.VariableNames = {'Head' 'L_Shoulder' 'L_Elbow' 'L_Wrist' 'R_Shoulder' 'R_Elbow'...
+                                                    'R_Wrist' 'L_Hip' 'L_Knee' 'L_Ankle' 'L_Heel' 'L_Meta' 'L_Toe_II' 'R_Hip' 'R_Knee' 'R_Ankle'...
+                                                    'R_Heel' 'R_Meta_V' 'R_Toe_II'};
+
+    
+     xShoulders = mean((filteredTableStatic{:,2}(:,1) + filteredTableStatic{:,5}(:,1))./2);
+     zShoulders = mean((filteredTableStatic{:,2}(:,2) + filteredTableStatic{:,5}(1,2))./2);
+     xHip = mean((filteredTableStatic{:,8}(:,1) + filteredTableStatic{:,14}(:,1))./2);
+     zHip = mean((filteredTableStatic{:,8}(:,2) + filteredTableStatic{:,14}(:,2))./2);
+     
+     meanValuesTable = table();
+     colInMean = 1;
+     for markerNumber = 1:width(filteredTableStatic)
+         meanValuesTable{1,colInMean} = mean(filteredTableStatic{:,markerNumber}(:,1));
+         colInMean = colInMean + 1;
+         meanValuesTable{1,colInMean} = mean(filteredTableStatic{:,markerNumber}(:,2));
+         colInMean = colInMean + 1;
+     end
+     meanValuesTable.Properties.VariableNames = {'Head' 'Head' 'L_Shoulder' 'L_Shoulder' 'L_Elbow' 'L_Elbow' 'L_Wrist' 'L_Wrist' 'R_Shoulder' 'R_Shoulder' 'R_Elbow' 'R_Elbow'...
+                                                    'R_Wrist' 'R_Wrist' 'L_Hip' 'L_Hip' 'L_Knee' 'L_Knee' 'L_Ankle' 'L_Ankle' 'L_Heel' 'L_Heel' 'L_Meta' 'L_Meta' 'L_Toe_II' 'L_Toe_II' 'R_Hip' 'R_Hip' 'R_Knee' 'R_Knee' 'R_Ankle' 'R_Ankle'...
+                                                    'R_Heel' 'R_Meta_V' 'R_Toe_II'};
+     
+     disp(meanValuesTable);
+     
+     
 end

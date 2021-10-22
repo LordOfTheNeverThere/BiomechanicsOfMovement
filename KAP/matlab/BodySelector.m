@@ -8,10 +8,7 @@ file = readtsvCustom("trial_0011_g05.tsv");
 
 global CM;
 
-xShoulders = (file{:,6} + file{:,15})./2;
-zShoulders = (file{:,8} + file{:,17})./2;
-xHip = (file{:,24} + file{:,42})./2;
-zHip = (file{:,26} + file{:,44})./2;
+
 
 HeadSize = sqrt((file{1,3} - xShoulders(1))^2 + (file{1,5} - zShoulders(1))^2); 
 RArmSize = sqrt((file{1,15} - file{1,18})^2 + (file{1,17} - file{1,20})^2);
