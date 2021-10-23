@@ -127,10 +127,10 @@ switch b
         
     case 14         %RToe
         Body.size = bodyLenghts(b);
-        Body.xPjoint = file{:,35};
-        Body.zPjoint = file{:,36};
-        Body.xDjoint = file{:,37};
-        Body.zDjoint = file{:,38};
+        Body.xPjoint = filteredTable{:,35};
+        Body.zPjoint = filteredTable{:,36};
+        Body.xDjoint = filteredTable{:,37};
+        Body.zDjoint = filteredTable{:,38};
         Body.cmFromProx = 0.500;
         Body.cmVector = CM{b,1};
         
