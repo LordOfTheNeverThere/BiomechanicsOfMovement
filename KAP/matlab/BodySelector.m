@@ -5,8 +5,7 @@ function Body = BodySelector(b)
 %coordenada z da joint distal
 %cm
 
-global CM bodyLenghts chosenFile xShoulders zShoulders xHip zHip file;
-file = readtsvCustom(chosenFile);
+global CM bodyLenghts filteredTable xShoulders zShoulders xHip zHip file;
 
 switch b
     case 1          %head
