@@ -59,72 +59,72 @@ clc;
 % freqz(b,a)
 % disp(b)
 % disp(a)
-file = readtsvCustom("trial_0011_g05.tsv");
-x = file{:,3};
-z = file{:,5};
-
-fs = 100;
-fc = (0.1:0.1:10);
-
-Rx = zeros(length(fc),1);
-Rz = zeros(length(fc),1);
-f=1;
-while f <= length(fc)
-    [b,a] = butter(2,(2 * fc(f))/fs, 'low');
-    xf(:,f) = filtfilt(b,a,x);    
-    zf(:,f) = filtfilt(b,a,z);
-    Rx(f) = sqrt(sum((x(:) - xf(:,f)).^2)/length(x)^2);
-    Rz(f) = sqrt(sum((z(:) - zf(:,f)).^2)/length(z)^2);
-    f = f + 1;
-end
-disp(xf(:,1));
-%disp(filtered_coordinates);
-filtered_coordinates = zeros(length(x), 2);
-final_fc = zeros(1,2);
-minCorr = 0.97; %slides
-rx = 1;
-while rx <= length(fc) 
-    [xCorrelation, ~ , bx] = regression(fc(rx:length(fc)),Rx(rx:length(fc))');
-    xCorrelation = xCorrelation^2;
-    if xCorrelation > minCorr
-        break
-    else
-        rx = rx + 1;
-    end
-end
-
-
-rz=1;
-while rz <= length(fc) 
-    [zCorrelation, ~ , bz] = regression(fc(rz:length(fc)),Rz(rz:length(fc))');
-    zCorrelation = zCorrelation^2;
-    if zCorrelation > minCorr
-        break
-    else
-        rz = rz + 1;
-    end
-end
+% file = readtsvCustom("trial_0011_g05.tsv");
+% x = file{:,3};
+% z = file{:,5};
+% 
+% fs = 100;
+% fc = (0.1:0.1:10);
+% 
+% Rx = zeros(length(fc),1);
+% Rz = zeros(length(fc),1);
+% f=1;
+% while f <= length(fc)
+%     [b,a] = butter(2,(2 * fc(f))/fs, 'low');
+%     xf(:,f) = filtfilt(b,a,x);    
+%     zf(:,f) = filtfilt(b,a,z);
+%     Rx(f) = sqrt(sum((x(:) - xf(:,f)).^2)/length(x)^2);
+%     Rz(f) = sqrt(sum((z(:) - zf(:,f)).^2)/length(z)^2);
+%     f = f + 1;
+% end
+% disp(xf(:,1));
+% %disp(filtered_coordinates);
+% filtered_coordinates = zeros(length(x), 2);
+% final_fc = zeros(1,2);
+% minCorr = 0.97; %slides
+% rx = 1;
+% while rx <= length(fc) 
+%     [xCorrelation, ~ , bx] = regression(fc(rx:length(fc)),Rx(rx:length(fc))');
+%     xCorrelation = xCorrelation^2;
+%     if xCorrelation > minCorr
+%         break
+%     else
+%         rx = rx + 1;
+%     end
+% end
+% 
+% 
+% rz=1;
+% while rz <= length(fc) 
+%     [zCorrelation, ~ , bz] = regression(fc(rz:length(fc)),Rz(rz:length(fc))');
+%     zCorrelation = zCorrelation^2;
+%     if zCorrelation > minCorr
+%         break
+%     else
+%         rz = rz + 1;
+%     end
+% end
 
 % disp(bz);
 % disp(bx);
 % disp("RX =" + rx);
 % disp("RZ =" + rz);
-Rx_temp = Rx - bx;
-Rz_temp = Rz - bz;
+% Rx_temp = Rx - bx;
+% Rz_temp = Rz - bz;
 % disp("Rx =" + Rx);
 % disp("Rz =" + Rz);
 % disp("Rx_temp=" + Rx_temp);
 %disp("Rz_temp" + Rz_temp);
-min_value_x = min(abs(Rx_temp));
-%disp("ABS=" + min(abs(Rx_temp)));
-min_value_z = min(abs(Rz_temp));
-% disp("MINVALUE= " + min_value_x);
-index_x = find(abs(Rx_temp) == min_value_x)
-index_z = find(abs(Rz_temp) == min_value_z);
-final_fc(1,1) = fc(index_x);
-final_fc(1,2) = fc(index_z);
-filtered_coordinates(:,1) = xf(:,index_x);
-filtered_coordinates(:,2) = zf(:,index_z);
+% min_value_x = min(abs(Rx_temp));
+% %disp("ABS=" + min(abs(Rx_temp)));
+% min_value_z = min(abs(Rz_temp));
+% % disp("MINVALUE= " + min_value_x);
+% index_x = find(abs(Rx_temp) == min_value_x)
+% index_z = find(abs(Rz_temp) == min_value_z);
+% final_fc(1,1) = fc(index_x);
+% final_fc(1,2) = fc(index_z);
+% filtered_coordinates(:,1) = xf(:,index_x);
+% filtered_coordinates(:,2) = zf(:,index_z);
 % disp("XF= " + xf);
 % disp("ZF= " + zf);
 
@@ -158,3 +158,21 @@ filtered_coordinates(:,2) = zf(:,index_z);
 % % final = [x, z];
 % %mdl = fitlm(fc,Rx)
 % %byz = find(Rx == 29.539409106208710)
+
+
+% t=input('Enter shape name: ');
+% ShapeName=char(t);
+% switch ShapeName
+%   case char('pentagon')
+%       fprintf('The area of the pentagon is 172.05 m^2.')
+%   case char('hexagon')
+%       fprintf('The area of the hexagon is 259.81 m^2.')
+%   case char('heptagon')
+%       fprintf('The area of the heptagon is 363.39 m^2.')
+%   case char('octagon')
+%       fprintf('The area of the octagon is 482.84 m^2.')
+%   case char('nonagon')
+%       fprintf('The area of the nonagon is 618.18 m^2.')
+%   otherwise
+%       disp('Error, no such shape is found! Try again!') 
+% end
