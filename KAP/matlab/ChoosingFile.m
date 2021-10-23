@@ -1,6 +1,5 @@
 function ChoosingFile()
-    global filteredTable cutFrequencies xShoulders zShoulders xHip zHip ...
-        isStaticAnalysis isFKickAnalysis isGaitAnalysis; 
+    global filteredTable cutFrequencies xShoulders zShoulders xHip zHip isStaticAnalysis CM; 
     directory = dir('*.tsv');
     possibleFiles = {directory.name};
     [indexChosen, binary] = listdlg('PromptString',{'Select a file.',...
@@ -71,6 +70,10 @@ function ChoosingFile()
     zRToe = min(filteredTable{:,18}(1,2), filteredTable{:,19}(1,2)) + 0.5*abs(filteredTable{:,18}(1,2) - filteredTable{:,19}(1,2));
     xLToe = min(filteredTable{:,12}(1,1), filteredTable{:,13}(1,1)) + 0.5*abs(filteredTable{:,12}(1,1) - filteredTable{:,13}(1,1));
     zLToe = min(filteredTable{:,12}(1,2), filteredTable{:,13}(1,2)) + 0.5*abs(filteredTable{:,12}(1,2) - filteredTable{:,13}(1,2));
+
+    CM = { [xHead,zHead]; [xLForearm,zLForearm]; [xLArm,zLArm]; [xRForearm,zRForearm]; 
+    [xRArm,zRArm]; [xTrunk,zTrunk]; [xLThigh,zLThigh]; [xLLeg,zLLeg]; [xLFoot,zLFoot];
+    [xLToe,zLToe]; [xRThigh,zRThigh]; [xRLeg,zRLeg]; [xRFoot,zRFoot]; [xRToe,zRToe]}
     
 end 
         

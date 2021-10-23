@@ -5,35 +5,28 @@
  %
  % Long description
 
-
- %% Deleting previously made files
-
-
-
-
-
  %% Bodies
    allDrivers{14, 1} ={[]};
-   global head lForArm lArm rForArm rArm trunk lThigh lLeg lFoot lToes rThigh rLeg rFoot rToes
-
-
-
+    %{
+    1-Head; 2-lForArm; 3-lArm; 4-rForArm; 5-rArm; 6-Trunk; 7-lThigh;
+    8-lLeg; 9-lFoot; 10-lToes; 11-rThigh; 12-rLeg; 13-rFoot; 14-rToes 
+    %}
    %% Driver Feeder
    
-   [headAxis, headTheta, headCm] = driverStream(head);
-   [lForArmAxis, lForArmTheta, lForArmCm] = driverStream(lForArm);
-   [lArmAxis, lArmTheta, lArmCm] = driverStream(lArm);
-   [rForArmAxis, rForArmTheta, rForArmCm] = driverStream(rForArm);
-   [rArmAxis, rArmTheta, rArmCm] = driverStream(rArm);
-   [trunkAxis, trunkTheta, trunkCm] = driverStream(trunk);
-   [lThighAxis, lThighTheta, lThighCm] = driverStream(lThigh);
-   [lLegAxis, lLegTheta, lLegCm] = driverStream(lLeg);
-   [lFootAxis, lFootTheta, lFootCm] = driverStream(lFoot);
-   [lToesAxis, lToesTheta, lToesCm] = driverStream(lToes);
-   [rThighAxis, rThighTheta, rThighCm] = driverStream(rThigh);
-   [rLegAxis, rLegTheta, rLegCm] = driverStream(rLeg);
-   [rFootAxis, rFootTheta, rFootCm] = driverStream(rFoot);
-   [rToesAxis, rToesTheta, rToesCm] = driverStream(rToes);
+   [headAxis, headTheta, headCm] = driverStream(BodySelector(1));
+   [lForArmAxis, lForArmTheta, lForArmCm] = driverStream(BodySelector(2));
+   [lArmAxis, lArmTheta, lArmCm] = driverStream(BodySelector(3));
+   [rForArmAxis, rForArmTheta, rForArmCm] = driverStream(BodySelector(4));
+   [rArmAxis, rArmTheta, rArmCm] = driverStream(BodySelector(5));
+   [trunkAxis, trunkTheta, trunkCm] = driverStream(BodySelector(6));
+   [lThighAxis, lThighTheta, lThighCm] = driverStream(BodySelector(7));
+   [lLegAxis, lLegTheta, lLegCm] = driverStream(BodySelector(8));
+   [lFootAxis, lFootTheta, lFootCm] = driverStream(BodySelector(9));
+   [lToesAxis, lToesTheta, lToesCm] = driverStream(BodySelector(10));
+   [rThighAxis, rThighTheta, rThighCm] = driverStream(BodySelector(11));
+   [rLegAxis, rLegTheta, rLegCm] = driverStream(BodySelector(12));
+   [rFootAxis, rFootTheta, rFootCm] = driverStream(BodySelector(13));
+   [rToesAxis, rToesTheta, rToesCm] = driverStream(BodySelector(14));
 
 
    %% Time
