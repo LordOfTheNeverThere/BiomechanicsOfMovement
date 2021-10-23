@@ -1,5 +1,6 @@
 function ChoosingFile()
-    global filteredTable cutFrequencies xShoulders zShoulders xHip zHip isStaticAnalysis isGaitAnalysis isKickAnalysis CM; 
+    global filteredTable cutFrequencies xShoulders zShoulders xHip zHip isStaticAnalysis isGaitAnalysis isKickAnalysis CM...
+        xShouldersVector zShouldersVector xHipVector zHipVector; 
     directory = dir('*.tsv');
     possibleFiles = {directory.name};
     [indexChosen, binary] = listdlg('PromptString',{'Select a file.',...
@@ -11,16 +12,20 @@ function ChoosingFile()
     
    
 
-    filteredTable = table(); 
+     
     chosenFile = char(chosenFile);
     isStaticAnalysis = false; isGaitAnalysis =false; isKickAnalysis =false;
     
     switch chosenFile
         case "trial_0014_FrontKick_2x.tsv"
+            filteredTable = table();
+            isKickAnalysis = true;
             chosenFile = readtsvCustom('trial_0014_FrontKick_2x.tsv');
             localOrigin = [chosenFile{1,33}, chosenFile{1,35}];
 
         case "trial_0011_g05.tsv"
+            filteredTable = table();
+            isGaitAnalysis = true;
             chosenFile = readtsvCustom('trial_0011_g05.tsv');
             localOrigin = [chosenFile{1,33}, chosenFile{1,35}];
 
@@ -28,20 +33,25 @@ function ChoosingFile()
             isStaticAnalysis = true;
     end     
        
+    if ~isStaticAnalysis
+        colInFiltered = 1; % Position on the new table where we inserted the new filtered coordinates
+        for index = 3:3:width(chosenFile)-2 % Will iterate through the x and z of each body part, compile the cutoff frequencies and filtered coordinates into a array and table on global scope
 
-    colInFiltered = 1; % Position on the new table where we inserted the new filtered coordinates
-    for index = 3:3:width(chosenFile)-2 % Will iterate through the x and z of each body part, compile the cutoff frequencies and filtered coordinates into a array and table on global scope
-
-        [final_fc, filtered_coordinates] = ProcessData(100, [chosenFile{:,index}, chosenFile{:,index + 2}, localOrigin]);
-        cutFrequencies{1, colInFiltered} = final_fc;
-        filteredTable{:,colInFiltered} = filtered_coordinates;
-        colInFiltered = colInFiltered + 1;
+            [final_fc, filtered_coordinates] = ProcessData(100, [chosenFile{:,index}, chosenFile{:,index + 2}], localOrigin);
+            cutFrequencies{1, colInFiltered} = final_fc;
+            filteredTable{:,colInFiltered} = filtered_coordinates;
+            colInFiltered = colInFiltered + 1;
+        end
+        filteredTable.Properties.VariableNames = {'Head' 'L_Shoulder' 'L_Elbow' 'L_Wrist' 'R_Shoulder' 'R_Elbow'...
+                                                        'R_Wrist' 'L_Hip' 'L_Knee' 'L_Ankle' 'L_Heel' 'L_Meta' 'L_Toe_II' 'R_Hip' 'R_Knee' 'R_Ankle'...
+                                                        'R_Heel' 'R_Meta_V' 'R_Toe_II'};
     end
-    filteredTable.Properties.VariableNames = {'Head' 'L_Shoulder' 'L_Elbow' 'L_Wrist' 'R_Shoulder' 'R_Elbow'...
-                                                    'R_Wrist' 'L_Hip' 'L_Knee' 'L_Ankle' 'L_Heel' 'L_Meta' 'L_Toe_II' 'R_Hip' 'R_Knee' 'R_Ankle'...
-                                                    'R_Heel' 'R_Meta_V' 'R_Toe_II'};
-     disp(filteredTable);
-                    
+                                                
+    xShouldersVector = (filteredTable{:,2}(:,1) + filteredTable{:,5}(:,1))./2;
+    zShouldersVector = (filteredTable{:,2}(:,2) + filteredTable{:,5}(:,2))./2;
+    xHipVector = (filteredTable{:,8}(:,1) + filteredTable{:,14}(:,1))./2;
+    zHipVector = (filteredTable{:,8}(:,2) + filteredTable{:,14}(:,2))./2;
+     
     xHead = xShoulders;
     zHead = zShoulders;
     xTrunk = min(xShoulders, xHip) - abs(xShoulders - xHip)/2 ;
@@ -73,7 +83,7 @@ function ChoosingFile()
 
     CM = { [xHead,zHead]; [xLForearm,zLForearm]; [xLArm,zLArm]; [xRForearm,zRForearm]; 
     [xRArm,zRArm]; [xTrunk,zTrunk]; [xLThigh,zLThigh]; [xLLeg,zLLeg]; [xLFoot,zLFoot];
-    [xLToe,zLToe]; [xRThigh,zRThigh]; [xRLeg,zRLeg]; [xRFoot,zRFoot]; [xRToe,zRToe]}
+    [xLToe,zLToe]; [xRThigh,zRThigh]; [xRLeg,zRLeg]; [xRFoot,zRFoot]; [xRToe,zRToe]};
     
 end 
         

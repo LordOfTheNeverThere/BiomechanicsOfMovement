@@ -27,43 +27,43 @@ allJointsList={[]};
 %%HERE You use all 13 revJoints regardless of superposition
 
 %% Head and Trunk %%
-allJointsList{1,1} = oneJoint(1,6,CM{1,1},shoulderPosition,CM{6,1});
+allJointsList{1,1} = oneJoint(1,6);
 
 %% Head and lFA %%
-allJointsList{2,1} = oneJoint(1,2,CM{1,1},shoulderPosition,CM{2,1});
+allJointsList{2,1} = oneJoint(1,2);
 
 %% leftFA and leftA %%
-allJointsList{3,1} = oneJoint(2,3,CM{2,1},lElbow,CM{3,1});
+allJointsList{3,1} = oneJoint(2,3);
 
 %% Head and rFA %%
-allJointsList{4,1} = oneJoint(1,4,CM{1,1},shoulderPosition,CM{4,1});
+allJointsList{4,1} = oneJoint(1,4);
 
 %% rightFA and rightA %%
-allJointsList{5,1} = oneJoint(4,5,CM{4,1},rElbow,CM{5,1});
+allJointsList{5,1} = oneJoint(4,5);
 
 %% Trunk and lThigh %%
-allJointsList{6,1} = oneJoint(6,7,CM{6,1},hipPosition,CM{7,1});
+allJointsList{6,1} = oneJoint(6,7);
 
 %% lthigh and lleg %%
-allJointsList{7,1} = oneJoint(7,8,CM{7,1},lKnee,CM{8,1});
+allJointsList{7,1} = oneJoint(7,8);
 
 %% left Leg and left foot %%
-allJointsList{8,1} = oneJoint(8,9,CM{8,1},lAnkle,CM{9,1});
+allJointsList{8,1} = oneJoint(8,9);
 
 %% leftFoot and leftToes %%
-allJointsList{9,1} = oneJoint(9,10,CM{9,1},lMeta,CM{10,1});
+allJointsList{9,1} = oneJoint(9,10);
 
 %% Trunk and rThigh %%
-allJointsList{10,1} = oneJoint(6,11,CM{6,1},hipPosition,CM{11,1});
+allJointsList{10,1} = oneJoint(6,11);
 
 %% rthigh and rleg %%
-allJointsList{11,1} = oneJoint(11,12,CM{11,1},rKnee, CM{12,1});
+allJointsList{11,1} = oneJoint(11,12);
 
 %% Right Leg and Right foot %%
-allJointsList{12,1} = oneJoint(12,13, CM{12,1}, rAnkle, CM{13,1});
+allJointsList{12,1} = oneJoint(12,13);
 
 %% RightFoot and RightToes %%
-allJointsList{13,1} = oneJoint(13,14,CM{13,1},rMeta,CM{14,1});
+allJointsList{13,1} = oneJoint(13,14);
 
 
 

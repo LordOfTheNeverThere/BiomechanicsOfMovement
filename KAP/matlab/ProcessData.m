@@ -3,7 +3,8 @@
 %disp([file{:,3}, file{:,5}])
 
 
-function [final_fc, filtered_coordinates] = ProcessData(fs,coord,localOrigin)
+function [final_fc, filtered_coordinates] = ProcessData(fs, coord, localOrigin)
+global origin;
 clc;
 fc = (0.1:0.1:10);
 origin = localOrigin;

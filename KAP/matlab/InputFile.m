@@ -23,7 +23,10 @@ NPts = 0;
 
 modelParameters =[NBodies, NRevJ, NTransJ, NRenRevJ, NTransRevJ, NCamJ, NGrd, NSimp, NDriv, NPts];
 
+
 computeLengths();
+ChoosingFile();
+
 
 
 %% Aviso os CM devem ser calculados apartir dos dados filtrados de cad simulação%%
@@ -39,7 +42,7 @@ computeLengths();
 8-lLeg; 9-lFoot; 10-lToes; 11-rThigh; 12-rLeg; 13-rFoot; 14-rToes 
 %}
 
-global head lForArm lArm rForArm rArm trunk lThigh lLeg lFoot lToes rThigh rLeg rFoot rToes
+global head lForArm lArm rForArm rArm trunk lThigh lLeg lFoot lToes rThigh rLeg rFoot rToes CM;
 head = BodySelector(1);
 lForArm = BodySelector(2);
 lArm = BodySelector(3);
@@ -72,7 +75,7 @@ rToes = BodySelector(14);
 
 thetaList = [headTheta(1), lForArmTheta(1), lArmTheta(1), rForArmTheta(1), rArmTheta(1), trunkTheta(1), lThighTheta(1), lLegTheta(1), lFootTheta(1), lToesTheta(1), rThighTheta(1), rLegTheta(1), rFootTheta(1), rToesTheta(1)];
 %List with all the initial drivers
- allJointsList = allJoints(file, [xShoulders, zShoulders], [xHip, zHip]);
+ allJointsList = allJoints();
  allDrivers = drivers();
 
 

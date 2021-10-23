@@ -5,15 +5,15 @@ function Body = BodySelector(b)
 %coordenada z da joint distal
 %cm
 
-global CM bodyLenghts filteredTable xShoulders zShoulders xHip zHip;
+global CM bodyLenghts filteredTable xShouldersVector zShouldersVector xHipVector zHipVector;
 
 switch b
     case 1          %head
         Body.size = bodyLenghts(b);
         Body.xPjoint = filteredTable{:,1}(:,1); %{:,1}(:,1) because we have a matrix in each of the 19 columns, one for each marker
         Body.zPjoint = filteredTable{:,1}(:,2);
-        Body.xDjoint = xShoulders;
-        Body.zDjoint = zShoulders;
+        Body.xDjoint = xShouldersVector;
+        Body.zDjoint = zShouldersVector;
         Body.cmFromProx = 1;
         Body.cmVector = CM{b,1};
         
@@ -55,17 +55,17 @@ switch b
         
     case 6          %Trunk
         Body.size = bodyLenghts(b);
-        Body.xPjoint = xShoulders;
-        Body.zPjoint = zShoulders;
-        Body.xDjoint = xHip;
-        Body.zDjoint = zHip;
+        Body.xPjoint = xShouldersVector;
+        Body.zPjoint = zShouldersVector;
+        Body.xDjoint = xHipVector;
+        Body.zDjoint = zHipVector;
         Body.cmFromProx = 0.500;
         Body.cmVector = CM{b,1};
         
     case 7          %LThigh
         Body.size = bodyLenghts(b);
-        Body.xPjoint = xHip;
-        Body.zPjoint =  zHip;
+        Body.xPjoint = xHipVector;
+        Body.zPjoint =  zHipVector;
         Body.xDjoint = filteredTable{:,9}(:,1);
         Body.zDjoint = filteredTable{:,9}(:,2);
         Body.cmFromProx = 0.433;
@@ -100,8 +100,8 @@ switch b
         
     case 11         %RThigh
         Body.size = bodyLenghts(b);
-        Body.xPjoint = xHip;
-        Body.zPjoint = zHip;
+        Body.xPjoint = xHipVector;
+        Body.zPjoint = zHipVector;
         Body.xDjoint = filteredTable{:,15}(:,1);
         Body.zDjoint = filteredTable{:,15}(:,2);
         Body.cmFromProx = 0.433;
