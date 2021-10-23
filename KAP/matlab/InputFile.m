@@ -9,7 +9,7 @@ clear all;
 
 %%%%%%%%%%%%%%%%%
 
-global NBodies NDriv
+global NBodies NDriv isStaticAnalysis isGaitAnalysis isKickAnalysis;
 NBodies = 14;
 NRevJ = 13;
 NTransJ = 0;
@@ -86,26 +86,28 @@ thetaList = [headTheta(1), lForArmTheta(1), lArmTheta(1), rForArmTheta(1), rArmT
  %% Starting to write the new file model.txt%%
  fileStatic = fopen('model_static.txt','w');
 
-%{
-  fileGait = fopen('model_gait.txt','w');
- fileKick = fopen('model_kick.txt','w'); 
-%}
-
+ if isStaticAnalysis
+  modelFile = fopen('model_static.txt','w');
+ elseif isGaitAnalysis
+  modelFile = fopen('model_gait_group7_2turn.txt','w');
+ else
+  modelFile = fopen('model_fkick_group7_2turn.txt','w');
+ end
 
 
  %% Model Parameters%%
 
- fprintf(fileStatic,'%6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f\r\n',modelParameters);
+ fprintf(modelFile,'%6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f\r\n',modelParameters);
 
  %% Centre of Mass %%
 for index = 1:length(thetaList)
- fprintf(fileStatic,'%6.2f %6.2f %6.2f\r\n', CM{index,1}(1), CM{index,1}(2), thetaList(index));
+ fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', CM{index,1}(1), CM{index,1}(2), thetaList(index));
 end
 
  %% Joints Data %%
 
 for index = 1:length(allJointsList)
-    fprintf(fileStatic,'%6.2f %6.2f %6.2f %6.2f %6.2f %6.2f\r\n', allJointsList{index,1});
+    fprintf(modelFile,'%6.2f %6.2f %6.2f %6.2f %6.2f %6.2f\r\n', allJointsList{index,1});
 end
 
 
@@ -113,23 +115,18 @@ end
  %% Driver Data %%
  
  for index = 1:length(allDrivers)
-    fprintf(fileStatic,'%6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f\r\n', allDrivers{index,1});
+    fprintf(modelFile,'%6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f\r\n', allDrivers{index,1});
 end
 
 %  %% Points of Interest %%
 % 
-%  fprintf(fileStatic,'%6.2f %6.2f %6.2f\r\n', [1, 0, 0]); % Cm of the head
+%  fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', [1, 0, 0]); % Cm of the head
  
  %% End of the files %%
- fprintf(fileStatic,'%6.2f %6.10f\r\n',[12, 0.0000001]);
- fprintf(fileStatic,'%6.2f %6.2f %6.2f\r\n', [0, 0.01, 5]);
+ fprintf(modelFile,'%6.2f %6.10f\r\n',[12, 0.0000001]);
+ fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', [0, 0.01, 5]);
 
-%{
-  fprintf(fileGait,'%6.2f %6.10f\r\n',[12, 1e-7]);
- fprintf(fileGait,'%6.2f %6.2f %6.2f\r\n', [0, 0.01, 5]);
- fprintf(fileKick,'%6.2f %6.10f\r\n',[12, 1e-7]);
- fprintf(fileKick,'%6.2f %6.2f %6.2f\r\n',[0, 0.01, 5]); 
-%}
+
 
 
 

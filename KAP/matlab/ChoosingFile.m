@@ -1,5 +1,5 @@
 function ChoosingFile()
-    global filteredTable cutFrequencies xShoulders zShoulders xHip zHip isStaticAnalysis CM; 
+    global filteredTable cutFrequencies xShoulders zShoulders xHip zHip isStaticAnalysis isGaitAnalysis isKickAnalysis CM; 
     directory = dir('*.tsv');
     possibleFiles = {directory.name};
     [indexChosen, binary] = listdlg('PromptString',{'Select a file.',...
@@ -13,7 +13,7 @@ function ChoosingFile()
 
     filteredTable = table(); 
     chosenFile = char(chosenFile);
-    isStaticAnalysis = false;
+    isStaticAnalysis = false; isGaitAnalysis =false; isKickAnalysis =false;
     
     switch chosenFile
         case "trial_0014_FrontKick_2x.tsv"
