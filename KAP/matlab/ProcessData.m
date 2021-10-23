@@ -6,7 +6,6 @@
 function [final_fc, filtered_coordinates] = ProcessData(fs,coord)
 clc;
 fc = (0.1:0.1:10);
-
 global origin;
 x = (coord(:,1) - origin(1))/1000; %posição da coordenada x no file
 z = (coord(:,2) - origin(2))/1000; %posição da coordenada z no file
