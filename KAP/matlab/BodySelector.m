@@ -10,10 +10,10 @@ global CM bodyLenghts filteredTable xShoulders zShoulders xHip zHip file;
 switch b
     case 1          %head
         Body.size = bodyLenghts(b);
-        Body.xPjoint = xShoulders;
-        Body.zPjoint = zShoulders;
         Body.xDjoint = file{:,1};
         Body.zDjoint = file{:,2};
+        Body.xPjoint = xShoulders;
+        Body.zPjoint = zShoulders;
         Body.cmFromProx = 1;
         Body.cmVector = CM{b,1};
         
