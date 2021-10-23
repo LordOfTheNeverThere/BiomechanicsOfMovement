@@ -7,12 +7,13 @@ function computeLengths()
 
 clear all;
 
-global bodyLenghts filteredTableStatic cutFrequenciesStatic origin  xShoulders zShoulders xHip zHip;
+global bodyLenghts filteredTableStatic cutFrequenciesStatic origin  xShoulders zShoulders xHip zHip...
+    isStaticAnalysis;
 filteredTableStatic = table();
-
-
 staticFile = readtsvCustom("trial_0001_static.tsv");
-origin = [staticFile.(33)(1),staticFile.(35)(1)];
+if isStaticAnalysis
+    origin = [staticFile.(33)(1),staticFile.(35)(1)];
+end
 
 colInFiltered = 1; % Position on the new table where we inserted the new filtered coordinates
     for index = 3:3:width(staticFile)-2 % Will iterate through the x and z of each body part, compile the cutoff frequencies and filtered coordinates into a array and table on global scope

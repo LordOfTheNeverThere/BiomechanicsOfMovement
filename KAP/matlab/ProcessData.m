@@ -3,10 +3,10 @@
 %disp([file{:,3}, file{:,5}])
 
 
-function [final_fc, filtered_coordinates] = ProcessData(fs,coord)
+function [final_fc, filtered_coordinates] = ProcessData(fs,coord,localOrigin)
 clc;
 fc = (0.1:0.1:10);
-global origin;
+origin = localOrigin;
 x = (coord(:,1) - origin(1))/1000; %posição da coordenada x no file
 z = (coord(:,2) - origin(2))/1000; %posição da coordenada z no file
 % xf = zeros(length(x),1);

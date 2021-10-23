@@ -1,5 +1,6 @@
 function ChoosingFile()
-    global filteredTable cutFrequencies xShoulders zShoulders xHip zHip isStaticAnalysis; 
+    global filteredTable cutFrequencies xShoulders zShoulders xHip zHip ...
+        isStaticAnalysis isFKickAnalysis isGaitAnalysis; 
     directory = dir('*.tsv');
     possibleFiles = {directory.name};
     [indexChosen, binary] = listdlg('PromptString',{'Select a file.',...
@@ -18,12 +19,13 @@ function ChoosingFile()
     switch chosenFile
         case "trial_0014_FrontKick_2x.tsv"
             chosenFile = readtsvCustom('trial_0014_FrontKick_2x.tsv');
+            localOrigin = [chosenFile{1,33}, chosenFile{1,35}];
 
         case "trial_0011_g05.tsv"
             chosenFile = readtsvCustom('trial_0011_g05.tsv');
+            localOrigin = [chosenFile{1,33}, chosenFile{1,35}];
 
         case "trial_0001_static.tsv"  
-
             isStaticAnalysis = true;
     end     
        
@@ -31,7 +33,7 @@ function ChoosingFile()
     colInFiltered = 1; % Position on the new table where we inserted the new filtered coordinates
     for index = 3:3:width(chosenFile)-2 % Will iterate through the x and z of each body part, compile the cutoff frequencies and filtered coordinates into a array and table on global scope
 
-        [final_fc, filtered_coordinates] = ProcessData(100, [chosenFile{:,index}, chosenFile{:,index + 2}]);
+        [final_fc, filtered_coordinates] = ProcessData(100, [chosenFile{:,index}, chosenFile{:,index + 2}, localOrigin]);
         cutFrequencies{1, colInFiltered} = final_fc;
         filteredTable{:,colInFiltered} = filtered_coordinates;
         colInFiltered = colInFiltered + 1;

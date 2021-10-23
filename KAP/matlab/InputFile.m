@@ -1,7 +1,4 @@
 clear all;
-%exfile = [1 2 3 4 5 6 7 8 9 1 2 3; 1 2 3 4 5 6 7 8 9 1 2 3 ];
-% disp (exfile);
-% disp(length(exfile));
 
 %%Order of Bodies%%
 
@@ -12,11 +9,7 @@ clear all;
 
 %%%%%%%%%%%%%%%%%
 
-
-file = readtsvCustom("trial_0011_g05.tsv");
-
-
-global NBodies 
+global NBodies NDriv
 NBodies = 14;
 NRevJ = 13;
 NTransJ = 0;
@@ -25,14 +18,10 @@ NTransRevJ = 0;
 NCamJ = 0;
 NGrd = 0; %encastramentos
 NSimp = 0; 
-global NDriv 
 NDriv = 16;
 NPts = 0;
 
 modelParameters =[NBodies, NRevJ, NTransJ, NRenRevJ, NTransRevJ, NCamJ, NGrd, NSimp, NDriv, NPts];
-
-global origin;
-origin = [file.(21)(1),file.(22)(1)];
 
 computeLengths();
 

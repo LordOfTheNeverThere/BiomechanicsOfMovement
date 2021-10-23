@@ -1,5 +1,6 @@
 function ChoosingFile()
-    global filteredTable cutFrequencies xShoulders zShoulders xHip zHip isStaticAnalysis; 
+    global filteredTable cutFrequencies xShoulders zShoulders xHip zHip ...
+        isStaticAnalysis isFKickAnalysis isGaitAnalysis; 
     directory = dir('*.tsv');
     possibleFiles = {directory.name};
     [indexChosen, binary] = listdlg('PromptString',{'Select a file.',...
@@ -10,19 +11,21 @@ function ChoosingFile()
     
     
    
-    filteredTable = table();
+
+    filteredTable = table(); 
     chosenFile = char(chosenFile);
     isStaticAnalysis = false;
     
     switch chosenFile
         case "trial_0014_FrontKick_2x.tsv"
             chosenFile = readtsvCustom('trial_0014_FrontKick_2x.tsv');
+            localOrigin = [chosenFile{1,33}, chosenFile{1,35}];
 
         case "trial_0011_g05.tsv"
             chosenFile = readtsvCustom('trial_0011_g05.tsv');
+            localOrigin = [chosenFile{1,33}, chosenFile{1,35}];
 
         case "trial_0001_static.tsv"  
-
             isStaticAnalysis = true;
     end     
        
@@ -30,7 +33,7 @@ function ChoosingFile()
     colInFiltered = 1; % Position on the new table where we inserted the new filtered coordinates
     for index = 3:3:width(chosenFile)-2 % Will iterate through the x and z of each body part, compile the cutoff frequencies and filtered coordinates into a array and table on global scope
 
-        [final_fc, filtered_coordinates] = ProcessData(100, [chosenFile{:,index}, chosenFile{:,index + 2}]);
+        [final_fc, filtered_coordinates] = ProcessData(100, [chosenFile{:,index}, chosenFile{:,index + 2}, localOrigin]);
         cutFrequencies{1, colInFiltered} = final_fc;
         filteredTable{:,colInFiltered} = filtered_coordinates;
         colInFiltered = colInFiltered + 1;
@@ -58,16 +61,16 @@ function ChoosingFile()
     zLThigh = min(filteredTable{:,8}(1,2), filteredTable{:,9}(1,2)) + 0.567*abs(filteredTable{:,9}(1,2) - filteredTable{:,8}(1,2));
     xRLeg = min(filteredTable{:,16}(1,1), filteredTable{:,15}(1,1)) + 0.567*abs(filteredTable{:,15}(1,1) - filteredTable{:,16}(1,1));
     zRLeg = min(filteredTable{:,16}(1,2), filteredTable{:,15}(1,2)) + 0.567*abs(filteredTable{:,15}(1,2) - filteredTable{:,16}(1,2));
-    xLLeg = min(filteredTable{:,9}(1,1), filteredTable{:,10}(1,1)) + 0.433*abs(filteredTable{:,17}(1,1) - filteredTable{:,19}(1,1));
-    zLLeg = min(filteredTable{:,9}(1,2), filteredTable{:,18}(1,2)) + 0.433*abs(filteredTable{:,18}(1,2) - filteredTable{:,20}(1,2));
-    xRFoot = min(filteredTable{:,35}(1,1), filteredTable{:,31}(1,1)) + 0.5*abs(filteredTable{:,31}(1,1) - filteredTable{:,35}(1,1));
-    zRFoot = min(filteredTable{:,36}(1,2), filteredTable{:,32}(1,2)) + 0.5*abs(filteredTable{:,32}(1,2) - filteredTable{:,36}(1,2));
-    xLFoot = min(filteredTable{:,23}(1,1), filteredTable{:,19}(1,1)) + 0.5*abs(filteredTable{:,19}(1,1) - filteredTable{:,23}(1,1));
-    zLFoot = min(filteredTable{:,20}(1,2), filteredTable{:,24}(1,2)) + 0.5*abs(filteredTable{:,24}(1,2) - filteredTable{:,20}(1,2));
-    xRToe = min(filteredTable{:,37}(1,1), filteredTable{:,35}(1,1)) + 0.5*abs(filteredTable{:,35}(1,1) - filteredTable{:,37}(1,1));
-    zRToe = min(filteredTable{:,36}(1,2), filteredTable{:,38}(1,2)) + 0.5*abs(filteredTable{:,36}(1,2) - filteredTable{:,38}(1,2));
-    xLToe = min(filteredTable{:,25}(1,1), filteredTable{:,23}(1,1)) + 0.5*abs(filteredTable{:,23}(1,1) - filteredTable{:,25}(1,1));
-    zLToe = min(filteredTable{:,24}(1,2), filteredTable{:,26}(1,2)) + 0.5*abs(filteredTable{:,26}(1,2) - filteredTable{:,24}(1,2));
+    xLLeg = min(filteredTable{:,9}(1,1), filteredTable{:,10}(1,1)) + 0.433*abs(filteredTable{:,9}(1,1) - filteredTable{:,10}(1,1));
+    zLLeg = min(filteredTable{:,9}(1,2), filteredTable{:,10}(1,2)) + 0.433*abs(filteredTable{:,9}(1,2) - filteredTable{:,10}(1,2));
+    xRFoot = min(filteredTable{:,18}(1,1), filteredTable{:,16}(1,1)) + 0.5*abs(filteredTable{:,16}(1,1) - filteredTable{:,18}(1,1));
+    zRFoot = min(filteredTable{:,18}(1,2), filteredTable{:,16}(1,2)) + 0.5*abs(filteredTable{:,16}(1,2) - filteredTable{:,18}(1,2));
+    xLFoot = min(filteredTable{:,12}(1,1), filteredTable{:,10}(1,1)) + 0.5*abs(filteredTable{:,12}(1,1) - filteredTable{:,10}(1,1));
+    zLFoot = min(filteredTable{:,12}(1,2), filteredTable{:,10}(1,2)) + 0.5*abs(filteredTable{:,12}(1,2) - filteredTable{:,10}(1,2));
+    xRToe = min(filteredTable{:,18}(1,1), filteredTable{:,19}(1,1)) + 0.5*abs(filteredTable{:,18}(1,1) - filteredTable{:,19}(1,1));
+    zRToe = min(filteredTable{:,18}(1,2), filteredTable{:,19}(1,2)) + 0.5*abs(filteredTable{:,18}(1,2) - filteredTable{:,19}(1,2));
+    xLToe = min(filteredTable{:,12}(1,1), filteredTable{:,13}(1,1)) + 0.5*abs(filteredTable{:,12}(1,1) - filteredTable{:,13}(1,1));
+    zLToe = min(filteredTable{:,12}(1,2), filteredTable{:,13}(1,2)) + 0.5*abs(filteredTable{:,12}(1,2) - filteredTable{:,13}(1,2));
     
 end 
         
