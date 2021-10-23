@@ -10,7 +10,8 @@ function ChoosingFile()
     
     
    
-    filteredTable = table();
+
+    filteredTable = table(); 
     chosenFile = char(chosenFile);
     isStaticAnalysis = false;
     

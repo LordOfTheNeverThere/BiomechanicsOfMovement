@@ -5,51 +5,51 @@ function Body = BodySelector(b)
 %coordenada z da joint distal
 %cm
 
-global CM bodyLenghts filteredTable xShoulders zShoulders xHip zHip file;
+global CM bodyLenghts filteredTable xShoulders zShoulders xHip zHip;
 
 switch b
     case 1          %head
         Body.size = bodyLenghts(b);
-        Body.xDjoint = file{:,1};
-        Body.zDjoint = file{:,2};
-        Body.xPjoint = xShoulders;
-        Body.zPjoint = zShoulders;
+        Body.xPjoint = filteredTable{:,1}(:,1); %{:,1}(:,1) because we have a matrix in each of the 19 columns, one for each marker
+        Body.zPjoint = filteredTable{:,1}(:,2);
+        Body.xDjoint = xShoulders;
+        Body.zDjoint = zShoulders;
         Body.cmFromProx = 1;
         Body.cmVector = CM{b,1};
         
     case 2          %LForearm
         Body.size = bodyLenghts(b);
-        Body.xPjoint = file{:,5};
-        Body.zPjoint = file{:,6};
-        Body.xDjoint = file{:,7};
-        Body.zDjoint = file{:,8};
+        Body.xPjoint = filteredTable{:,2}(:,1);
+        Body.zPjoint = filteredTable{:,2}(:,2);
+        Body.xDjoint = filteredTable{:,3}(:,1);
+        Body.zDjoint = filteredTable{:,3}(:,2);
         Body.cmFromProx = 0.430;
         Body.cmVector = CM{b,1};
         
     case 3          %LArm
         Body.size = bodyLenghts(b);
-        Body.xPjoint = file{:,3};
-        Body.zPjoint = file{:,4};
-        Body.xDjoint = file{:,5};
-        Body.zDjoint = file{:,6};
+        Body.xPjoint = filteredTable{:,3}(:,1);
+        Body.zPjoint = filteredTable{:,3}(:,2);
+        Body.xDjoint = filteredTable{:,4}(:,1);
+        Body.zDjoint = filteredTable{:,4}(:,2);
         Body.cmFromProx = 0.436;
         Body.cmVector = CM{b,1};
         
     case 4          %RForearm
         Body.size = bodyLenghts(b);
-        Body.xPjoint = file{:,11};
-        Body.zPjoint = file{:,12};
-        Body.xDjoint = file{:,13};
-        Body.zDjoint = file{:,14};
+        Body.xPjoint = filteredTable{:,5}(:,1);
+        Body.zPjoint = filteredTable{:,5}(:,2);
+        Body.xDjoint = filteredTable{:,6}(:,1);
+        Body.zDjoint = filteredTable{:,6}(:,2);
         Body.cmFromProx = 0.430;
         Body.cmVector = CM{b,1};
         
     case 5          %RArm
         Body.size = bodyLenghts(b);
-        Body.xPjoint = file{:,9};
-        Body.zPjoint = file{:,10};
-        Body.xDjoint = file{:,11};
-        Body.zDjoint = file{:,12};
+        Body.xPjoint = filteredTable{:,6}(:,1);
+        Body.zPjoint = filteredTable{:,6}(:,2);
+        Body.xDjoint = filteredTable{:,7}(:,1);
+        Body.zDjoint = filteredTable{:,7}(:,2);
         Body.cmFromProx = 0.436;
         Body.cmVector = CM{b,1};
         
@@ -65,36 +65,36 @@ switch b
     case 7          %LThigh
         Body.size = bodyLenghts(b);
         Body.xPjoint = xHip;
-        Body.zPjoint = zHip;
-        Body.xDjoint = file{:,17};
-        Body.zDjoint = file{:,18};
+        Body.zPjoint =  zHip;
+        Body.xDjoint = filteredTable{:,9}(:,1);
+        Body.zDjoint = filteredTable{:,9}(:,2);
         Body.cmFromProx = 0.433;
         Body.cmVector = CM{b,1};
         
     case 8          %LLeg
         Body.size = bodyLenghts(b);
-        Body.xPjoint = file{:,17};
-        Body.zPjoint = file{:,18};
-        Body.xDjoint = file{:,19};
-        Body.zDjoint = file{:,20};
+        Body.xPjoint = filteredTable{:,9}(:,1);
+        Body.zPjoint = filteredTable{:,9}(:,2);
+        Body.xDjoint = filteredTable{:,10}(:,1);
+        Body.zDjoint = filteredTable{:,10}(:,2);
         Body.cmFromProx = 0.433;
         Body.cmVector = CM{b,1};
         
     case 9          %LFoot
         Body.size = bodyLenghts(b);
-        Body.xPjoint = file{:,19};
-        Body.zPjoint = file{:,20};
-        Body.xDjoint = file{:,23};
-        Body.zDjoint = file{:,24};
+        Body.xPjoint = filteredTable{:,10}(:,1);
+        Body.zPjoint = filteredTable{:,10}(:,2);
+        Body.xDjoint = filteredTable{:,12}(:,1);
+        Body.zDjoint = filteredTable{:,12}(:,2);
         Body.cmFromProx = 0.500;
         Body.cmVector = CM{b,1};
         
     case 10         %LToe
         Body.size = bodyLenghts(b);
-        Body.xPjoint = file{:,23};
-        Body.zPjoint = file{:,24};
-        Body.xDjoint = file{:,25};
-        Body.zDjoint = file{:,26};
+        Body.xPjoint = filteredTable{:,12}(:,1);
+        Body.zPjoint = filteredTable{:,12}(:,2);
+        Body.xDjoint = filteredTable{:,13}(:,1);
+        Body.zDjoint = filteredTable{:,13}(:,2);
         Body.cmFromProx = 0.5;
         Body.cmVector = CM{b,1};
         
@@ -102,35 +102,35 @@ switch b
         Body.size = bodyLenghts(b);
         Body.xPjoint = xHip;
         Body.zPjoint = zHip;
-        Body.xDjoint = file{:,29};
-        Body.zDjoint = file{:,30};
+        Body.xDjoint = filteredTable{:,15}(:,1);
+        Body.zDjoint = filteredTable{:,15}(:,2);
         Body.cmFromProx = 0.433;
         Body.cmVector = CM{b,1};
         
     case 12         %RLeg
         Body.size = bodyLenghts(b);
-        Body.xPjoint = file{:,29};
-        Body.zPjoint = file{:,30};
-        Body.xDjoint = file{:,31};
-        Body.zDjoint = file{:,32};
+        Body.xPjoint = filteredTable{:,15}(:,1);
+        Body.zPjoint = filteredTable{:,15}(:,2);
+        Body.xDjoint = filteredTable{:,16}(:,1);
+        Body.zDjoint = filteredTable{:,16}(:,2);
         Body.cmFromProx = 0.433;
         Body.cmVector = CM{b,1};
         
     case 13         %RFoot
         Body.size = bodyLenghts(b);
-        Body.xPjoint = file{:,31};
-        Body.zPjoint = file{:,32};
-        Body.xDjoint = file{:,35};
-        Body.zDjoint = file{:,36};
+        Body.xPjoint = filteredTable{:,16}(:,1);
+        Body.zPjoint = filteredTable{:,16}(:,2);
+        Body.xDjoint = filteredTable{:,18}(:,1);
+        Body.zDjoint = filteredTable{:,18}(:,2);
         Body.cmFromProx = 0.500;
         Body.cmVector = CM{b,1};
         
     case 14         %RToe
         Body.size = bodyLenghts(b);
-        Body.xPjoint = filteredTable{:,35};
-        Body.zPjoint = filteredTable{:,36};
-        Body.xDjoint = filteredTable{:,37};
-        Body.zDjoint = filteredTable{:,38};
+        Body.xPjoint = filteredTable{:,18}(:,1);
+        Body.zPjoint = filteredTable{:,18}(:,2);
+        Body.xDjoint = filteredTable{:,19}(:,1);
+        Body.zDjoint = filteredTable{:,19}(:,2);
         Body.cmFromProx = 0.500;
         Body.cmVector = CM{b,1};
         
