@@ -36,62 +36,13 @@ origin = [file.(33)(1),file.(35)(1)];
 
 computeLengths();
 
-xShoulders = (file{1,6} + file{1,15})/2;
-zShoulders = (file{1,8} + file{1,17})/2;
-xHip = (file{1,24} + file{1,42})/2;
-zHip = (file{1,26} + file{1,44})/2;
 
-HeadSize = sqrt((file{1,3} - xShoulders)^2 + (file{1,5} - zShoulders)^2); 
-RArmSize = sqrt((file{1,15} - file{1,18})^2 + (file{1,17} - file{1,20})^2);
-LArmSize = sqrt((file{1,6} - file{1,9})^2 + (file{1,8} - file{1,11})^2);
-RForearmSize = sqrt((file{1,18} - file{1,21})^2 + (file{1,20} - file{1,23})^2);
-LForearmSize = sqrt((file{1,9} - file{1,12})^2 + (file{1,11} - file{1,14})^2);
-TrunkSize = sqrt((xShoulders - xHip)^2 + (zShoulders - zHip)^2);
-RThighSize = sqrt((xHip - file{1,45})^2 + (zHip - file{1,47})^2);
-LThighSize = sqrt((xHip - file{1,27})^2 + (zHip - file{1,29})^2);
-RLegSize = sqrt((file{1,45} - file{1,48})^2 + (file{1,47} - file{1,50})^2);
-LLegSize = sqrt((file{1,27} - file{1,30})^2 + (file{1,29} - file{1,32})^2);
-RFootSize = sqrt((file{1,48} - file{1,54})^2 + (file{1,50} - file{1,56})^2);
-LFootSize = sqrt((file{1,30} - file{1,36})^2 + (file{1,32} - file{1,38})^2);
-RToeSize = sqrt((file{1,54} - file{1,57})^2 + (file{1,56} - file{1,59})^2);
-LToeSize = sqrt((file{1,36} - file{1,39})^2 + (file{1,38} - file{1,41})^2);
+%% Aviso os CM devem ser calculados apartir dos dados filtrados de cad simulação%%
 
-
-%calculo dos cm
-
-xHead = xShoulders;
-zHead = zShoulders;
-xTrunk = xShoulders - abs(xShoulders - xHip)/2 ;
-zTrunk = zShoulders - TrunkSize/2 ;
-xRArm = file{1,15} + 0.564*(file{1,18} - file{1,15});
-zRArm = file{1,20} + 0.564*(file{1,17} - file{1,20});
-xLArm = file{1,9} + 0.564*(file{1,6} - file{1,9});
-zLArm = file{1,11} + 0.564*(file{1,8} - file{1,11});
-xRForearm = file{1,21} + 0.57*(file{1,18} - file{1,21});
-zRForearm = file{1,23} + 0.57*(file{1,20} - file{1,23});
-xLForearm = file{1,12} + 0.57*(file{1,9} - file{1,12});
-zLForearm = file{1,14} + 0.57*(file{1,11} - file{1,14});
-xRThigh = file{1,45} + 0.567*(file{1,42} - file{1,45});
-zRThigh = file{1,47} + 0.433*(file{1,44} - file{1,47});
-xLThigh = file{1,24} + 0.433*(file{1,27} - file{1,24});
-zLThigh = file{1,29} + 0.567*(file{1,26} - file{1,29});
-xRLeg = file{1,48} + 0.567*(file{1,45} - file{1,48});
-zRLeg = file{1,50} + 0.567*(file{1,29} - file{1,50});
-xLLeg = file{1,27} + 0.433*(file{1,27} - file{1,30});
-zLLeg = file{1,32} + 0.433*(file{1,29} - file{1,32});
-xRFoot = file{1,54} + 0.5*(file{1,48} - file{1,54});
-zRFoot = file{1,56} + 0.5*(file{1,50} - file{1,56});
-xLFoot = file{1,36} + 0.5*(file{1,30} - file{1,36});
-zLFoot = file{1,38} + 0.5*(file{1,32} - file{1,38});
-xRToe = file{1,57} + 0.5*(file{1,54} - file{1,57});
-zRToe = file{1,56} + 0.5*(file{1,59} - file{1,56});
-xLToe = file{1,39} + 0.5*(file{1,36} - file{1,39});
-zLToe = file{1,38} + 0.5*(file{1,41} - file{1,38});
-
-global CM;
-CM = { [xHead,zHead]; [xLForearm,zLForearm]; [xLArm,zLArm]; [xRForearm,zRForearm]; 
-    [xRArm,zRArm]; [xTrunk,zTrunk]; [xLThigh,zLThigh]; [xLLeg,zLLeg]; [xLFoot,zLFoot];
-    [xLToe,zLToe]; [xRThigh,zRThigh]; [xRLeg,zRLeg]; [xRFoot,zRFoot]; [xRToe,zRToe]};
+% global CM;
+% CM = { [xHead,zHead]; [xLForearm,zLForearm]; [xLArm,zLArm]; [xRForearm,zRForearm]; 
+%     [xRArm,zRArm]; [xTrunk,zTrunk]; [xLThigh,zLThigh]; [xLLeg,zLLeg]; [xLFoot,zLFoot];
+%     [xLToe,zLToe]; [xRThigh,zRThigh]; [xRLeg,zRLeg]; [xRFoot,zRFoot]; [xRToe,zRToe]};
 
 
 %{
