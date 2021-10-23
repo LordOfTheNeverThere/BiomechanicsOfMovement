@@ -21,21 +21,21 @@ timeCm{1,1}=bodyCm;
 
 
     for frame = 1:length(joint1XVector)
-        stick = [joint1XVector(frame), joint1ZVector(frame)]-[joint2XVector(frame), joint2ZVector(frame)]; %Defines the body our stick as a vector from the distal to the proximal joint
+        stick = [joint2XVector(frame), joint2ZVector(frame)]-[joint1XVector(frame), joint1ZVector(frame)]; %Defines the body our stick as a vector from the distal to the proximal joint
 
         bodyAxis{frame,1} = (stick/sqrt((stick*transpose(stick))));   %%%This will hold all axis positions throughout each frame, bodyAxis(t) == ξ(t)
         
         if bodyAxis{frame,1}(1) >= 0 && bodyAxis{frame,1}(2) >= 0
 
-            timeTheta(frame) = atan(bodyAxis{frame,1}(1)/bodyAxis{frame,1}(2));
+            timeTheta(frame) = atan(bodyAxis{frame,1}(2)/bodyAxis{frame,1}(1));
 
         elseif bodyAxis{frame,1}(1) >= 0 && bodyAxis{frame,1}(2) < 0
 
-            timeTheta(frame) = atan(bodyAxis{frame,1}(1)/bodyAxis{frame,1}(2)) + 2*pi;
+            timeTheta(frame) = atan(bodyAxis{frame,1}(2)/bodyAxis{frame,1}(1)) + 2*pi;
 
         else
 
-            timeTheta(frame) = atan(bodyAxis{frame,1}(1)/bodyAxis{frame,1}(2)) + pi;
+            timeTheta(frame) = atan(bodyAxis{frame,1}(2)/bodyAxis{frame,1}(1)) + pi;
         end
         lameMatrix = [cos(timeTheta(frame)), -sin(timeTheta(frame)); ....
                         sin(timeTheta(frame)), cos(timeTheta(frame))];
