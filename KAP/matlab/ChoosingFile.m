@@ -9,8 +9,7 @@ function ChoosingFile()
     chosenFile = possibleFiles(indexChosen);
     
     
-    filteredTableFK = table(); 
-    filteredTableGait = table();
+    filteredTable = table(); 
     chosenFile = char(chosenFile);
     isStaticAnalysis = false;
     
@@ -24,7 +23,7 @@ switch chosenFile
     case "trial_0001_static.tsv"  
 
         isStaticAnalysis = true;
-        
+end   
        
 
     colInFiltered = 1; % Position on the new table where we inserted the new filtered coordinates
@@ -69,50 +68,4 @@ switch chosenFile
     xLToe = min(filteredTable{1,25}, filteredTable{1,23}) + 0.5*abs(filteredTable{1,23} - filteredTable{1,25});
     zLToe = min(filteredTable{1,24}, filteredTable{1,26}) + 0.5*abs(filteredTable{1,26} - filteredTable{1,24});
     
-
-    
-=======
-
-switch chosenFile
-    case "trial_0014_FrontKick_2x.tsv"
-        frontKickFile = readtsvCustom(chosenFile);
-        colInFiltered = 1; % Position on the new table where we inserted the new filtered coordinates
-        for index = 3:3:width(frontKickFile)-2 % Will iterate through the x and z of each body part, compile the cutoff frequencies and filtered coordinates into a array and table on global scope
-
-            [final_fc, filtered_coordinates] = ProcessData(100, [frontKickFile{:,index}, frontKickFile{:,index + 2}]);
-            cutFrequenciesFK{1, colInFiltered} = final_fc;
-            filteredTableFK{:,colInFiltered} = filtered_coordinates;
-            colInFiltered = colInFiltered + 1;
-        end
-        filteredTableFK.Properties.VariableNames = {'Head' 'L_Shoulder' 'L_Elbow' 'L_Wrist' 'R_Shoulder' 'R_Elbow'...
-                                                        'R_Wrist' 'L_Hip' 'L_Knee' 'L_Ankle' 'L_Heel' 'L_Meta' 'L_Toe_II' 'R_Hip' 'R_Knee' 'R_Ankle'...
-                                                        'R_Heel' 'R_Meta_V' 'R_Toe_II'};
-       
-%         disp(filteredTableFK);
-%         disp(cutFrequenciesFK);
-%         disp(chosenFile);
-                                                  
-    case "trial_0011_g05.tsv"
-        gaitFile = readtsvCustom('trial_0011_g05.tsv');
-        colInFiltered = 1;
-        for index = 3:3:width(gaitFile)-2 % Will iterate through the x and z of each body part, compile the cutoff frequencies and filtered coordinates into a array and table on global scope
-
-            [final_fc, filtered_coordinates] = ProcessData(100, [gaitFile{:,index}, gaitFile{:,index + 2}]);
-            cutFrequenciesGait{1, colInFiltered} = final_fc;
-            filteredTableGait{ :,colInFiltered} = filtered_coordinates;
-            colInFiltered = colInFiltered + 1;
-        end
-        filteredTableGait.Properties.VariableNames = {'Head' 'L_Shoulder' 'L_Elbow' 'L_Wrist' 'R_Shoulder' 'R_Elbow'...
-                                                        'R_Wrist' 'L_Hip' 'L_Knee' 'L_Ankle' 'L_Heel' 'L_Meta' 'L_Toe_II' 'R_Hip' 'R_Knee' 'R_Ankle'...
-                                                        'R_Heel' 'R_Meta_V' 'R_Toe_II'};
-%         disp(filteredTableGait);
-%         disp(cutFrequenciesGait);
-%         disp(chosenFile);
-
-
-
-
->>>>>>> Stashed changes
-end 
-        
-    
+end

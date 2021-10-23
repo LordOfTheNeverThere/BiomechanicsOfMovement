@@ -1,17 +1,29 @@
 function ChoosingFile()
-<<<<<<< Updated upstream
-c = input('Which file do you want to analyse?');
-
-global  filteredTable cutFrequencies xShoulders zShoulders xHip zHip TrunkSize; 
- 
-filteredTable = table();
-chosenFile = char(c);
+    global filteredTable cutFrequencies xShoulders zShoulders xHip zHip TrunkSize isStaticAnalysis; 
+    directory = dir('*.tsv');
+    possibleFiles = {directory.name};
+    [indexChosen, binary] = listdlg('PromptString',{'Select a file.',...
+        'Only one file can be selected at a time.',''},...
+        'SelectionMode','single','ListString',possibleFiles);
+    
+    chosenFile = possibleFiles(indexChosen);
+    
+    
+    filteredTableFK = table(); 
+    filteredTableGait = table();
+    chosenFile = char(chosenFile);
+    isStaticAnalysis = false;
+    
 switch chosenFile
     case "trial_0014_FrontKick_2x.tsv"
         chosenFile = readtsvCustom('trial_0014_FrontKick_2x.tsv');
                    
     case "trial_0011_g05.tsv"
         chosenFile = readtsvCustom('trial_0011_g05.tsv');
+
+    case "trial_0001_static.tsv"  
+
+        isStaticAnalysis = true;
         
        
 
@@ -30,7 +42,7 @@ switch chosenFile
                     
     xHead = xShoulders;
     zHead = zShoulders;
-    xTrunk = min(xShoulders - abs(xShoulders - xHip)/2 ;
+    xTrunk = min(xShoulders, xHip) - abs(xShoulders - xHip)/2 ;
     zTrunk = min(zShoulders, zHip) + 0.5*abs(zShoulders - zHip) ;
     xRArm = min(filteredTable{1,10}, filteredTable{1,12}) + 0.564*abs(filteredTable{1,10} - filteredTable{1,12});
     zRArm = min(filteredTable{1,12},filteredTable{1,10}) + 0.564*abs(filteredTable{1,12} - filteredTable{1,10});
@@ -57,25 +69,13 @@ switch chosenFile
     xLToe = min(filteredTable{1,25}, filteredTable{1,23}) + 0.5*abs(filteredTable{1,23} - filteredTable{1,25});
     zLToe = min(filteredTable{1,24}, filteredTable{1,26}) + 0.5*abs(filteredTable{1,26} - filteredTable{1,24});
     
-=======
 
-global filteredTableFK filteredTableGait cutFrequenciesFK cutFrequenciesGait chosenFile isStaticAnalysis; 
- directory = dir('*.tsv');
-possibleFiles = {directorey.name};
-[indexChosen, binary] = listdlg('PromptString',{'Select a file.',...
-    'Only one file can be selected at a time.',''},...
-    'SelectionMode','single',possibleFiles);
+    
 
-    chosenFile = possibleFiles(indexChosen);
-
-
-filteredTableFK = table(); 
-filteredTableGait = table();
-chosenFile = char(c);
 
 switch chosenFile
     case "trial_0014_FrontKick_2x.tsv"
-        frontKickFile = readtsvCustom('trial_0014_FrontKick_2x.tsv');
+        frontKickFile = readtsvCustom(chosenFile);
         colInFiltered = 1; % Position on the new table where we inserted the new filtered coordinates
         for index = 3:3:width(frontKickFile)-2 % Will iterate through the x and z of each body part, compile the cutoff frequencies and filtered coordinates into a array and table on global scope
 
@@ -105,16 +105,8 @@ switch chosenFile
         filteredTableGait.Properties.VariableNames = {'Head' 'L_Shoulder' 'L_Elbow' 'L_Wrist' 'R_Shoulder' 'R_Elbow'...
                                                         'R_Wrist' 'L_Hip' 'L_Knee' 'L_Ankle' 'L_Heel' 'L_Meta' 'L_Toe_II' 'R_Hip' 'R_Knee' 'R_Ankle'...
                                                         'R_Heel' 'R_Meta_V' 'R_Toe_II'};
-%         disp(filteredTableGait);
-%         disp(cutFrequenciesGait);
-%         disp(chosenFile);
-
-    case "trial_0001_static.tsv"  
-
-        isStaticAnalysis = true;
 
 
->>>>>>> Stashed changes
 end 
         
     
