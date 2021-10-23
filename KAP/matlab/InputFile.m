@@ -1,5 +1,5 @@
 clear all;
-exfile = [1 2 3 4 5 6 7 8 9 1 2 3; 1 2 3 4 5 6 7 8 9 1 2 3 ];
+%exfile = [1 2 3 4 5 6 7 8 9 1 2 3; 1 2 3 4 5 6 7 8 9 1 2 3 ];
 % disp (exfile);
 % disp(length(exfile));
 
@@ -32,7 +32,7 @@ NPts = 0;
 modelParameters =[NBodies, NRevJ, NTransJ, NRenRevJ, NTransRevJ, NCamJ, NGrd, NSimp, NDriv, NPts];
 
 global origin;
-origin = [file.(33)(1),file.(35)(1)];
+origin = [file.(21)(1),file.(22)(1)];
 
 computeLengths();
 
