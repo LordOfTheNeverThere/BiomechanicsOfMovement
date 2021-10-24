@@ -50,9 +50,10 @@ timeCm{1,1}=bodyCm;
 %             timeTheta(frame) = timeTheta(frame) + 2*pi;
 %         end
         horizontal = [1,0];
-        timeTheta(frame) = acos(dot(horizontal,bodyAxis{frame,1})/(norm(horizontal)*norm(bodyAxis{frame,1})));
+        timeTheta(frame) = acos(dot(vector1{index,1},vector2{index,1})/(norm(vector1{index,1})*norm(vector2{index,1})));;
         if timeTheta(frame) > pi 
             timeTheta(frame) = 2*pi - timeTheta(frame);
+            
         end
         
         lameMatrix = [cos(timeTheta(frame)), -sin(timeTheta(frame)); ....
