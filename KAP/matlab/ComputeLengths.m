@@ -12,7 +12,7 @@ global bodyLenghts filteredTable cutFrequencies xShoulders zShoulders xHip zHip.
 filteredTable = table();
 staticFile = readtsvCustom("trial_0001_static.tsv");
 
-localOrigin = [staticFile.(33)(1),staticFile.(35)(1)];
+localOrigin = [staticFile.(33)(1),staticFile.(35)(1)]/1000;
 
 
 colInFiltered = 1; % Position on the new table where we inserted the new filtered coordinates

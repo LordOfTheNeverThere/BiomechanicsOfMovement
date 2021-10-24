@@ -16,11 +16,19 @@ joint2ZVector = body.zDjoint; % z position of the Distal Joint
 bodyAxis{length(joint1XVector), 1} = {[]}; % Prelocating the vectors for speed
 timeTheta = zeros(length(joint1XVector),1);
 timeCm{length(joint1XVector), 1} = {[]};
-fixedFrameCM = [-bodyLength*cmFromProx,0];
+
+fixedFramePJoint = [-bodyLength*cmFromProx,0];
 timeCm{1,1}=bodyCm;
 
 
     for frame = 1:length(joint1XVector)
+
+        joint2XVector(frame) = 2*(joint2XVector(frame) - 1) +1;
+        joint2ZVector(frame) = 2*(joint2ZVector(frame) - 1) +1;
+        joint1XVector(frame) = 2*(joint1XVector(frame) - 1) +1;
+        joint1ZVector(frame) = 2*(joint1ZVector(frame) - 1) +1;
+
+
         stick = [joint2XVector(frame), joint2ZVector(frame)]-[joint1XVector(frame), joint1ZVector(frame)]; %Defines the body our stick as a vector from the distal to the proximal joint
 
         bodyAxis{frame,1} = (stick/sqrt((stick*transpose(stick))));   %%%This will hold all axis positions throughout each frame, bodyAxis(t) == ξ(t)
@@ -48,8 +56,15 @@ timeCm{1,1}=bodyCm;
                         sin(timeTheta(frame)), cos(timeTheta(frame))];
 
         if frame ~= length(joint1XVector)
-            % frame+1 because we start with inputing the CM before hand, and likewise the last CM is discarded since said point won't be evaluatred               
-            timeCm{frame + 1,1} = [joint1XVector(frame+1),joint1ZVector(frame+1)] - transpose(lameMatrix*transpose(fixedFrameCM)); %%Updating the CM of our body throughout time with the vector that point to the cm in the local frame
+           if strcmp(body.name,'Head')
+            timeCm{frame + 1,1} = [joint1XVector(frame+1),joint1ZVector(frame+1)];
+           else
+             % frame+1 because we start with inputing the CM before hand, and likewise the last CM is discarded since said point won't be evaluatred               
+            timeCm{frame + 1,1} = [joint1XVector(frame+1),joint1ZVector(frame+1)] - transpose(lameMatrix*transpose(fixedFramePJoint)); %%Updating the CM of our body throughout time with the vector that point to the cm in the local frame
+
+           end
+
+
         end
 
     end
