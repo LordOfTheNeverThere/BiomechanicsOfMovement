@@ -25,22 +25,24 @@ timeCm{1,1}=bodyCm;
 
         bodyAxis{frame,1} = (stick/sqrt((stick*transpose(stick))));   %%%This will hold all axis positions throughout each frame, bodyAxis(t) == ξ(t)
         
-        if bodyAxis{frame,1}(1) >= 0 && bodyAxis{frame,1}(2) >= 0
-
-            timeTheta(frame) = atan(bodyAxis{frame,1}(2)/bodyAxis{frame,1}(1));
-
-        elseif bodyAxis{frame,1}(1) >= 0 && bodyAxis{frame,1}(2) < 0
-
-            timeTheta(frame) = atan(bodyAxis{frame,1}(2)/bodyAxis{frame,1}(1)) + 2*pi;
-
-        else
-
-            timeTheta(frame) = atan(bodyAxis{frame,1}(2)/bodyAxis{frame,1}(1)) + pi;
-        end
-        
-        if timeTheta(frame)<0
-            timeTheta(frame) = timeTheta(frame) + 2*pi;
-        end
+%         if bodyAxis{frame,1}(1) >= 0 && bodyAxis{frame,1}(2) >= 0
+% 
+%             timeTheta(frame) = atan(bodyAxis{frame,1}(2)/bodyAxis{frame,1}(1));
+% 
+%         elseif bodyAxis{frame,1}(1) >= 0 && bodyAxis{frame,1}(2) < 0
+% 
+%             timeTheta(frame) = atan(bodyAxis{frame,1}(2)/bodyAxis{frame,1}(1)) + 2*pi;
+% 
+%         else
+% 
+%             timeTheta(frame) = atan(bodyAxis{frame,1}(2)/bodyAxis{frame,1}(1)) + pi;
+%         end
+%         
+%         if timeTheta(frame)<0
+%             timeTheta(frame) = timeTheta(frame) + 2*pi;
+%         end
+        horizontal = [1,0];
+        timeTheta(frame) =  atan2(horizontal(1) * bodyAxis{frame,1}(2) - bodyAxis{frame,1}(1) * horizontal(2),horizontal(1) * horizontal(2) + bodyAxis{frame,1}(1) * bodyAxis{frame,1}(2));
 
         lameMatrix = [cos(timeTheta(frame)), -sin(timeTheta(frame)); ....
                         sin(timeTheta(frame)), cos(timeTheta(frame))];
