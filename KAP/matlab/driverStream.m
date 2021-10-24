@@ -14,7 +14,7 @@ joint2XVector = body.xDjoint; % x position of the Distal Joint
 joint2ZVector = body.zDjoint; % z position of the Distal Joint
 
 bodyAxis{length(joint1XVector), 1} = {[]}; % Prelocating the vectors for speed
-timeTheta = zeros(length(joint1XVector));
+timeTheta = zeros(length(joint1XVector),1);
 timeCm{length(joint1XVector), 1} = {[]};
 fixedFrameCM = [-bodyLength*cmFromProx,0];
 timeCm{1,1}=bodyCm;
@@ -37,6 +37,11 @@ timeCm{1,1}=bodyCm;
 
             timeTheta(frame) = atan(bodyAxis{frame,1}(2)/bodyAxis{frame,1}(1)) + pi;
         end
+        
+        if timeTheta(frame)<0
+            timeTheta(frame) = timeTheta(frame) + 2*pi;
+        end
+
         lameMatrix = [cos(timeTheta(frame)), -sin(timeTheta(frame)); ....
                         sin(timeTheta(frame)), cos(timeTheta(frame))];
 

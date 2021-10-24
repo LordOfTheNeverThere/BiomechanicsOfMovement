@@ -49,7 +49,7 @@
 
     fileID = fopen('Driver_002.txt','w');
     allDrivers{2,1} = [4,2,0,6,0,0,0,0,4,2];
-    anglelFaTrunk = angleBetweenBodies(trunkAxis,lForArmAxis); 
+    anglelFaTrunk = angleBetweenBodiesMinus(lForArmAxis, trunkAxis); 
     for index = 1:length(time)
       fprintf(fileID,'%6.2f %6.2f\r\n',time(index),anglelFaTrunk(index));
     end
@@ -75,7 +75,7 @@
 
     fileID = fopen('Driver_004.txt','w');
     allDrivers{4,1} = [4,4,0,6,0,0,0,0,4,4];
-    anglerFATrunk = angleBetweenBodies(trunkAxis,rForArmAxis);
+    anglerFATrunk = angleBetweenBodies(rForArmAxis, trunkAxis);
     for index = 1:length(time)
       fprintf(fileID,'%6.2f %6.2f\r\n', time(index),anglerFATrunk(index));
     end

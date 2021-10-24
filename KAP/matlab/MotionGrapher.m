@@ -6,6 +6,7 @@ function allBodiesRepresentation(finalFrame, pause)
 % Syntax: (finalFrame is the number of frames to evaluate movement from, pause is the time between frames, so that the human eye can grasp the movement more easilly)
 %
 % Generates the body motion throughout time
+global NBodies
 
 
 for frame = 1:finalFrame
@@ -13,7 +14,7 @@ for frame = 1:finalFrame
 
     
     figure(1);hold all % Hold all frames in one figure/Plot will wait until all the computations in the Hold block are finalized before showing the plot output ⇒ Async Programming
-    for bodyNumber = 1:numBodies
+    for bodyNumber = 1:NBodies
 
         %%%%%% Insert Body Function Here %%%%%%
 

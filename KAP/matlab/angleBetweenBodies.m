@@ -4,11 +4,14 @@ function angleInRadsList = angleBetweenBodies(vector1, vector2)
 % Syntax: output = myFun(input)
 %
 % Long description
-    
+
     angleInRadsList = zeros(length(vector1),1);
     for index = 1:length(vector1)
+        angle =  atan2(vector1{index,1}(1) * vector2{index,1}(2) - vector2{index,1}(1) * vector1{index,1}(2),vector1{index,1}(1) * vector1{index,1}(2) + vector2{index,1}(1) * vector2{index,1}(2));
 
-        angleInRadsList(index) = pi - (acos((dot(vector1{index,1}, vector2{index,1}))/(norm(vector1{index,1})*norm(vector2{index,1}))));
+            angleInRadsList(index) = angle;
+
+        
 
     end
 

@@ -9,19 +9,6 @@ function allJointsList = allJoints()
 % Long description
 
 
-global CM filteredTable xShoulders zShoulders xHip zHip;
- %Left Heel
-lElbow = [filteredTable{1,3},filteredTable{1,3}];
-rElbow = [filteredTable{1,6},filteredTable{1,6}];
-lKnee = [filteredTable{1,9},filteredTable{1,9}];
-rKnee = [filteredTable{1,15},filteredTable{1,15}];
-lAnkle =[filteredTable{1,10},filteredTable{1,10}];
-rAnkle =[filteredTable{1,16},filteredTable{1,16}];
-lMeta =[filteredTable{1,12},filteredTable{1,12}];
-rMeta =[filteredTable{1,18},filteredTable{1,18}];
-shoulderPosition = [xShoulders, zShoulders];
-hipPosition =[xHip,zHip];
-
 allJointsList={[]};
 
 %%HERE You use all 13 revJoints regardless of superposition

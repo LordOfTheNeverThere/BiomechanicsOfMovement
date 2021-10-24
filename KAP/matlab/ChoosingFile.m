@@ -54,7 +54,7 @@ function ChoosingFile()
      
     xHead = xShoulders;
     zHead = zShoulders;
-    xTrunk = min(xShoulders, xHip) - abs(xShoulders - xHip)/2 ;
+    xTrunk = min(xShoulders, xHip) + abs(xShoulders - xHip)/2 ;
     zTrunk = min(zShoulders, zHip) + 0.5*abs(zShoulders - zHip) ;
     xRArm = min(filteredTable{:,5}(1,1), filteredTable{:,6}(1,1)) + 0.564*abs(filteredTable{:,5}(1,1) - filteredTable{:,6}(1,1));
     zRArm = min(filteredTable{:,6}(1,2),filteredTable{:,5}(1,2)) + 0.564*abs(filteredTable{:,6}(1,2) - filteredTable{:,6}(1,2));
@@ -81,8 +81,8 @@ function ChoosingFile()
     xLToe = min(filteredTable{:,12}(1,1), filteredTable{:,13}(1,1)) + 0.5*abs(filteredTable{:,12}(1,1) - filteredTable{:,13}(1,1));
     zLToe = min(filteredTable{:,12}(1,2), filteredTable{:,13}(1,2)) + 0.5*abs(filteredTable{:,12}(1,2) - filteredTable{:,13}(1,2));
 
-    CM = { [xHead,zHead]; [xLForearm,zLForearm]; [xLArm,zLArm]; [xRForearm,zRForearm]; 
-    [xRArm,zRArm]; [xTrunk,zTrunk]; [xLThigh,zLThigh]; [xLLeg,zLLeg]; [xLFoot,zLFoot];
+    CM = { [xHead,zHead]; [xLArm,zLArm]; [xLForearm,zLForearm]; [xRArm,zRArm]; [xRForearm,zRForearm]; 
+     [xTrunk,zTrunk]; [xLThigh,zLThigh]; [xLLeg,zLLeg]; [xLFoot,zLFoot];
     [xLToe,zLToe]; [xRThigh,zRThigh]; [xRLeg,zRLeg]; [xRFoot,zRFoot]; [xRToe,zRToe]};
     
 end 
