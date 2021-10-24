@@ -51,7 +51,11 @@ timeCm{1,1}=bodyCm;
 %         end
         horizontal = [1,0];
         timeTheta(frame) =  atan2(horizontal(1) * bodyAxis{frame,1}(2) - bodyAxis{frame,1}(1) * horizontal(2),horizontal(1) * horizontal(2) + bodyAxis{frame,1}(1) * bodyAxis{frame,1}(2));
-
+        if timeTheta(frame) <= 0
+            timeTheta(frame) = 2*pi + timeTheta(frame);
+            
+        end
+        
         lameMatrix = [cos(timeTheta(frame)), -sin(timeTheta(frame)); ....
                         sin(timeTheta(frame)), cos(timeTheta(frame))];
 
