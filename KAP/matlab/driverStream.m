@@ -13,6 +13,13 @@ joint1ZVector = body.zPjoint; % z position of the Proximal Joint
 joint2XVector = body.xDjoint; % x position of the Distal Joint
 joint2ZVector = body.zDjoint; % z position of the Distal Joint
 
+if strcmp(body.name, 'Head')
+    joint1XVector = body.xDjoint;
+    joint1ZVector = body.zDjoint;
+    joint2XVector = body.xPjoint;
+    joint2ZVector = body.zPjoint;
+end
+
 bodyAxis{length(joint1XVector), 1} = {[]}; % Prelocating the vectors for speed
 timeTheta = zeros(length(joint1XVector),1);
 timeCm{length(joint1XVector), 1} = {[]};
@@ -51,7 +58,7 @@ timeCm{1,1}=bodyCm;
 %         end
         horizontal = [1,0];
         timeTheta(frame) = acos(dot(horizontal,bodyAxis{frame,1})/(norm(horizontal)*norm(bodyAxis{frame,1})));
-        if timeTheta(frame) > pi 
+        if bodyAxis{frame,1}(2) < 0
             timeTheta(frame) = 2*pi - timeTheta(frame);
         end
         

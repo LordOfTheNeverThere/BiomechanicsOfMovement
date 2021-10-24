@@ -8,10 +8,12 @@ body1 = BodySelector(numBody1);
 body2 = BodySelector(numBody2);
 cm1 = body1.cmVector;  % Cm of each of the two bodies
 cm2 = body2.cmVector; 
-jointPosition = [body1.xDjoint(1), body1.zDjoint(1)]; %The joint between two bodies has the coordinates of the Distal joints in relation to the first body
-if numBody1 ==1 %O eixo da cabeça está invertido 
-    jointPosition = [body1.xPjoint(1), body1.zPjoint(1)];
-end
+
+
+    jointPosition = [body1.xDjoint(1), body1.zDjoint(1)]; %The joint between two bodies has the coordinates of the Distal joints in relation to the first body
+
+
+
 
     if length(jointPosition) == (2) &&  length(cm1) == 2 && length(cm2) == 2 
 

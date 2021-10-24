@@ -26,11 +26,10 @@ function angleInRadsList = angleBetweenBodies(vector1, vector2, type)
         angleInRadsList = zeros(length(vector1),1);
         for index = 1:length(vector1)
             angle = acos(dot(vector1{index,1},vector2{index,1})/(norm(vector1{index,1})*norm(vector2{index,1})));
-            if angle > pi
-                 angleInRadsList(index) = 2*pi - angle;
-            else
-                angleInRadsList(index) = angle;
-             end
+
+
+            angleInRadsList(index) = angle;
+            
 
 
 
@@ -58,11 +57,9 @@ function angleInRadsList = angleBetweenBodies(vector1, vector2, type)
         angleInRadsList = zeros(length(vector1),1);
         for index = 1:length(vector1)
             angle = acos(dot(vector1{index,1},vector2{index,1})/(norm(vector1{index,1})*norm(vector2{index,1})));
-            if angle > pi
-                 angleInRadsList(index) = 2*pi - angle;
-            else
-                angleInRadsList(index) = angle;
-             end
+
+            angleInRadsList(index) = angle;
+             
 
 
 
@@ -90,11 +87,9 @@ function angleInRadsList = angleBetweenBodies(vector1, vector2, type)
         angleInRadsList = zeros(length(vector1),1);
         for index = 1:length(vector1)
             angle = acos(dot(vector1{index,1},vector2{index,1})/(norm(vector1{index,1})*norm(vector2{index,1})));
-            if angle > pi
-                 angleInRadsList(index) = 2*pi - angle;
-            else
-                angleInRadsList(index) = angle;
-             end
+            
+            angleInRadsList(index) = angle;
+
 
 
 
