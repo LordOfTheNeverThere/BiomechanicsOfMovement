@@ -135,7 +135,7 @@ function allDrivers = drivers()
     allDrivers{9,1} = [4,7,0,6,0,0,0,0,4,9];
     anglelThighTrunk = angleBetweenBodies(trunkAxis,lThighAxis, 1);
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n', time(index), anglelThighTrunk(index));
+      fprintf(fileID,'%6.1f %6.5f\r\n', time(index),2*pi -  anglelThighTrunk(index));
     end
     
     fclose(fileID);
@@ -159,7 +159,7 @@ function allDrivers = drivers()
     allDrivers{11,1} = [4,9,0,8,0,0,0,0,4,11];
     anglelFootlLeg = angleBetweenBodies(lLegAxis, lFootAxis, 1);
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n', time(index), anglelFootlLeg(index));
+      fprintf(fileID,'%6.1f %6.5f\r\n', time(index),2*pi -   anglelFootlLeg(index));
     end
     
     fclose(fileID);
@@ -171,7 +171,7 @@ function allDrivers = drivers()
     allDrivers{12,1} = [4,10,0,9,0,0,0,0,4,12];
     anglelToeslFoot = angleBetweenBodies(lFootAxis, lToesAxis, 1);
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n', time(index), anglelToeslFoot(index));
+      fprintf(fileID,'%6.1f %6.5f\r\n', time(index),2*pi -   anglelToeslFoot(index));
     end
     
     fclose(fileID);
@@ -180,9 +180,9 @@ function allDrivers = drivers()
 
     fileID = fopen('Driver_013.txt','w');
     allDrivers{13,1} = [4,11,0,6,0,0,0,0,4,13];
-    anglerThighTrunk = angleBetweenBodies(trunkAxis, rThighAxis, 1);
+    anglerThighTrunk = angleBetweenBodies(trunkAxis, rThighAxis, 0);
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n',time(index),2*pi -  anglerThighTrunk(index));
+      fprintf(fileID,'%6.1f %6.5f\r\n',time(index),anglerThighTrunk(index));
     end
     
     fclose(fileID);
@@ -206,7 +206,7 @@ function allDrivers = drivers()
     allDrivers{15,1} = [4,13,0,12,0,0,0,0,4,15];
     anglerFootrLeg = angleBetweenBodies( rLegAxis, rFootAxis, 1);
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n',time(index), anglerFootrLeg(index));
+      fprintf(fileID,'%6.1f %6.5f\r\n',time(index),2*pi -   anglerFootrLeg(index));
     end
     
     fclose(fileID);
@@ -218,7 +218,7 @@ function allDrivers = drivers()
     allDrivers{16,1} = [4,14,0,13,0,0,0,0,4,16];
     anglerToesrFoot = angleBetweenBodies( rFootAxis, rToesAxis, 1);
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n',time(index), anglerToesrFoot(index));
+      fprintf(fileID,'%6.1f %6.5f\r\n',time(index),2*pi -   anglerToesrFoot(index));
     end
     
     fclose(fileID);
