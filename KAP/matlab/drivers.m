@@ -51,7 +51,7 @@ function allDrivers = drivers()
     allDrivers{2,1} = [4,2,0,6,0,0,0,0,4,2];
     anglelFaTrunk = angleBetweenBodies(trunkAxis, lForArmAxis,0); 
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n',time(index),anglelFaTrunk(index));
+      fprintf(fileID,'%6.1f %6.5f\r\n',time(index), 2*pi - anglelFaTrunk(index));
     end
     
     fclose(fileID);
@@ -64,7 +64,7 @@ function allDrivers = drivers()
     allDrivers{3,1} = [4,3,0,2,0,0,0,0,4,3];
     anglelArmlFA = angleBetweenBodies(lForArmAxis, lArmAxis,1);
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n', time(index), anglelArmlFA(index));
+      fprintf(fileID,'%6.1f %6.5f\r\n', time(index),2*pi - anglelArmlFA(index));
     end
     
     fclose(fileID);
@@ -90,7 +90,7 @@ function allDrivers = drivers()
     allDrivers{5,1} = [4,5,0,4,0,0,0,0,4,5];
     anglerArmrFA = angleBetweenBodies(rForArmAxis, rArmAxis,1);
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n', time(index), anglerArmrFA(index));
+      fprintf(fileID,'%6.1f %6.5f\r\n', time(index),2*pi - anglerArmrFA(index));
     end
     
     fclose(fileID);
@@ -182,7 +182,7 @@ function allDrivers = drivers()
     allDrivers{13,1} = [4,11,0,6,0,0,0,0,4,13];
     anglerThighTrunk = angleBetweenBodies(trunkAxis, rThighAxis, 1);
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n',time(index), anglerThighTrunk(index));
+      fprintf(fileID,'%6.1f %6.5f\r\n',time(index),2*pi -  anglerThighTrunk(index));
     end
     
     fclose(fileID);
