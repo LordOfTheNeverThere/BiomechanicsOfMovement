@@ -27,7 +27,7 @@ function ChoosingFile()
             filteredTable = table();
             isGaitAnalysis = true;
             chosenFile = readtsvCustom('trial_0011_g05.tsv');
-            localOrigin = [chosenFile{1,33}, chosenFile{1,35}];
+            localOrigin = [chosenFile{10,33}, chosenFile{10,35}];
 
         case "trial_0001_static.tsv"  
             isStaticAnalysis = true;
@@ -36,11 +36,19 @@ function ChoosingFile()
     if ~isStaticAnalysis
         colInFiltered = 1; % Position on the new table where we inserted the new filtered coordinates
         for index = 3:3:width(chosenFile)-2 % Will iterate through the x and z of each body part, compile the cutoff frequencies and filtered coordinates into a array and table on global scope
-
+        if isKickAnalysis
+            [final_fc, filtered_coordinates] = ProcessData(100, [chosenFile{30:height(chosenFile),index}, chosenFile{30:height(chosenFile),index + 2}], localOrigin);
+            cutFrequencies{1, colInFiltered} = final_fc;
+            filteredTable{:,colInFiltered} = filtered_coordinates;
+            colInFiltered = colInFiltered + 1;
+        else
             [final_fc, filtered_coordinates] = ProcessData(100, [chosenFile{:,index}, chosenFile{:,index + 2}], localOrigin);
             cutFrequencies{1, colInFiltered} = final_fc;
             filteredTable{:,colInFiltered} = filtered_coordinates;
             colInFiltered = colInFiltered + 1;
+            
+        end
+
         end
         filteredTable.Properties.VariableNames = {'Head' 'L_Shoulder' 'L_Elbow' 'L_Wrist' 'R_Shoulder' 'R_Elbow'...
                                                         'R_Wrist' 'L_Hip' 'L_Knee' 'L_Ankle' 'L_Heel' 'L_Meta' 'L_Toe_II' 'R_Hip' 'R_Knee' 'R_Ankle'...
