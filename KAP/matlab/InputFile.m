@@ -127,7 +127,7 @@ end
  
  %% End of the files %%
  fprintf(modelFile,'%6.2f %6.10f\r\n',[12, 0.0000001]);
- fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', [0, 0.01, 5]);
+ fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', [0, 0.1, 10]);
 
  
  KinematicAnalysisProgram();
