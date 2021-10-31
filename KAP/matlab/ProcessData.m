@@ -19,8 +19,8 @@ while f <= length(fc)
     [b,a] = butter(2,(2 * fc(f))/fs,'low');
     xf(:,f) = filtfilt(b,a,x);    
     zf(:,f) = filtfilt(b,a,z);
-    Rx(f) = sqrt(sum((x(:) - xf(:,f)).^2)/length(x)^2);
-    Rz(f) = sqrt(sum((z(:) - zf(:,f)).^2)/length(z)^2);
+    Rx(f) = sqrt((1/length(x))*sum((x(:) - xf(:,f)).^2));
+    Rz(f) = sqrt((1/length(z))*sum((z(:) - zf(:,f)).^2));
     f = f + 1;
 end
 
