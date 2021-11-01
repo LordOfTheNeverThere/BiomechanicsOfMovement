@@ -93,6 +93,14 @@ function ChoosingFile()
      [xTrunk,zTrunk]; [xLThigh,zLThigh]; [xLLeg,zLLeg]; [xLFoot,zLFoot];
     [xLToe,zLToe]; [xRThigh,zRThigh]; [xRLeg,zRLeg]; [xRFoot,zRFoot]; [xRToe,zRToe]};
     
+    %% Creating an Histogram for the cutoff frequencies:
+    for frequency = 1:length(cutFrequencies)
+        xFrequency(frequency) = cutFrequencies{1,frequency}(1,1);
+        yFrequency(frequency) = cutFrequencies{1,frequency}(1,2);
+    end
+    histogram(xFrequency)
+    histogram(yFrequency)
+    
 end 
         
     
