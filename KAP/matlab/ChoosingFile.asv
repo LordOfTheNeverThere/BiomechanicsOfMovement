@@ -98,11 +98,10 @@ function ChoosingFile()
         xFrequency(frequency) = cutFrequencies{1,frequency}(1,1);
         yFrequency(frequency) = cutFrequencies{1,frequency}(1,2);
     end
-    markers = ["Head", "lShoulder", "lElbow", "lWrist", "rShoulder", "rElbow", "rWrist", "lHip", "lKnee", "lAnkle", "lHeel", "lMeta_V", "lToe_II", "rHip", "rKnee", "rAnkle", "rHeel", "rMeta_V", "rToe_II"];
-    bar(0:18, xFrequency)
-    bar(0:18, yFrequency)
+    markers = ["Head", 'lShoulder', 'lElbow', 'lWrist', 'rShoulder', 'rElbow', 'rWrist', 'lHip', 'lKnee', 'lAnkle', 'lHeel', 'lMeta_V', 'lToe_II', 'rHip', 'rKnee', 'rAnkle', 'rHeel', 'rMeta_V', 'rToe_II'];
+    bar(markers, xFrequency)
+    bar(markers, yFrequency)
     set(gca,'xticklabel', markers)
-    xticks(0:18)
     
 end 
         
