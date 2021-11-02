@@ -9,7 +9,7 @@ clear all;
 
 %%%%%%%%%%%%%%%%%
 
-global NBodies NDriv isStaticAnalysis isGaitAnalysis isKickAnalysis;
+global NBodies NDriv isStaticAnalysis isGaitAnalysis isKickAnalysis frames;
 NBodies = 14;
 NRevJ = 13;
 NTransJ = 0;
@@ -127,13 +127,10 @@ end
  
  %% End of the files %%
  fprintf(modelFile,'%6.2f %6.10f\r\n',[12, 0.0000001]);
- if isKickAnalysis
-     fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', [0, 0.1, 14]);
 
- else
-     fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', [0, 0.01, 0.88]);
+ fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', [0, 0.01, ((frames-1)/100)]);
 
- end
+ 
  
 %  global cutFrequencies
 %  disp(cutFrequencies);
