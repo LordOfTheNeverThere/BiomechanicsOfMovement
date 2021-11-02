@@ -54,7 +54,6 @@ end
 
 Rx_temp = Rx - bx;
 Rz_temp = Rz - bz;
-disp(bx);
 
 min_value_x = min(abs(Rx_temp));
 min_value_z = min(abs(Rz_temp));
@@ -66,9 +65,6 @@ final_fc = [fc(index_x), fc(index_z)];
 filtered_coordinates_x = xf(:,index_x);
 filtered_coordinates_z = zf(:,index_z);
 filtered_coordinates = [filtered_coordinates_x , filtered_coordinates_z];
-%disp(final_fc);
-% disp("XF= " + xf);
-% disp("ZF= " + zf);
 
 end
 
