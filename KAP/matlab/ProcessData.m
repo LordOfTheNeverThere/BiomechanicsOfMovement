@@ -8,8 +8,8 @@ global origin;
 clc;
 fc = (0.1:0.1:10);
 origin = localOrigin;
-x = (coord(10:((length(coord(:,1))-10)),1) - origin(1))/1000; %posição da coordenada x no file
-z = (coord(10:(length(coord(:,1))-10),2) - origin(2)+170)/1000; %posição da coordenada z no file
+x = (coord(11:((length(coord(:,1))-10)),1) - origin(1))/1000; %posição da coordenada x no file
+z = (coord(11:(length(coord(:,1))-10),2) - origin(2)+170)/1000; %posição da coordenada z no file
 % xf = zeros(length(x),1);
 % zf = zeros(length(z),1);
 Rx = zeros(length(fc),1);
@@ -63,9 +63,9 @@ index_x = find(abs(Rx_temp) == min_value_x);
 index_z = find(abs(Rz_temp) == min_value_z);
 
 final_fc = [fc(index_x), fc(index_z)];
-filtered_coordinates(:,1) = xf(10:(length(x(:,1)) - 10),index_x);
-filtered_coordinates(:,2) = zf(10:(length(z(:,1)) - 10),index_z);
-
+filtered_coordinates_x = xf(:,index_x);
+filtered_coordinates_z = zf(:,index_z);
+filtered_coordinates = [filtered_coordinates_x , filtered_coordinates_z];
 %disp(final_fc);
 % disp("XF= " + xf);
 % disp("ZF= " + zf);
