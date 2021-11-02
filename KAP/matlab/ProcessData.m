@@ -26,7 +26,7 @@ end
 
 %disp(filtered_coordinates);
 
-final_fc = zeros(1,2);
+%final_fc = zeros(length(fc),2);
 minCorr = 0.90; %slides
 rx = 1;
 while rx <= length(fc) 
@@ -54,6 +54,7 @@ end
 
 Rx_temp = Rx - bx;
 Rz_temp = Rz - bz;
+disp(bx);
 
 min_value_x = min(abs(Rx_temp));
 min_value_z = min(abs(Rz_temp));
@@ -61,13 +62,11 @@ min_value_z = min(abs(Rz_temp));
 index_x = find(abs(Rx_temp) == min_value_x);
 index_z = find(abs(Rz_temp) == min_value_z);
 
-final_fc(1,1) = fc(index_x);
-final_fc(1,2) = fc(index_z);
+final_fc = [fc(index_x), fc(index_z)];
+filtered_coordinates(:,1) = xf(10:(length(x(:,1)) - 10),index_x);
+filtered_coordinates(:,2) = zf(10:(length(z(:,1)) - 10),index_z);
 
-filtered_coordinates(:,1) = xf(10:(length(x(:,1))-10),index_x);
-filtered_coordinates(:,2) = zf(10:(length(z(:,1))-10),index_z);
-
-% disp(filtered_coordinates);
+%disp(final_fc);
 % disp("XF= " + xf);
 % disp("ZF= " + zf);
 

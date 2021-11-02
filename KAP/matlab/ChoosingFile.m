@@ -38,12 +38,12 @@ function ChoosingFile()
         for index = 3:3:width(chosenFile)-2 % Will iterate through the x and z of each body part, compile the cutoff frequencies and filtered coordinates into a array and table on global scope
         if isKickAnalysis
             [final_fc, filtered_coordinates] = ProcessData(100, [chosenFile{30:height(chosenFile),index}, chosenFile{30:height(chosenFile),index + 2}], localOrigin);
-            cutFrequencies{1, colInFiltered} = final_fc;
+            cutFrequencies(:, colInFiltered) = final_fc;
             filteredTable{:,colInFiltered} = filtered_coordinates;
             colInFiltered = colInFiltered + 1;
         else
             [final_fc, filtered_coordinates] = ProcessData(100, [chosenFile{:,index}, chosenFile{:,index + 2}], localOrigin);
-            cutFrequencies{1, colInFiltered} = final_fc;
+            cutFrequencies(:, colInFiltered) = final_fc;
             filteredTable{:,colInFiltered} = filtered_coordinates;
             colInFiltered = colInFiltered + 1;
             

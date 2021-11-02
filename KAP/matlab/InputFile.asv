@@ -135,8 +135,8 @@ end
 
  end
  
-%  global cutFrequencies
-%  disp(cutFrequencies);
+ 
+ disp("fc =" + cutfrequencies);
  KinematicAnalysisProgram();
 
 

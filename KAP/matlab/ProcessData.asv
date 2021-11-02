@@ -8,7 +8,11 @@ global origin;
 clc;
 fc = (0.1:0.1:10);
 origin = localOrigin;
+<<<<<<< Updated upstream
 x = (coord(10:((length(coord(:,1))-10)),1) - origin(1))/1000; %posição da coordenada x no file
+=======
+x = (coord(10:(length(coord(:,1))-10),1) - origin(1))/1000; %posição da coordenada x no file
+>>>>>>> Stashed changes
 z = (coord(10:(length(coord(:,1))-10),2) - origin(2)+170)/1000; %posição da coordenada z no file
 % xf = zeros(length(x),1);
 % zf = zeros(length(z),1);
@@ -26,7 +30,11 @@ end
 
 %disp(filtered_coordinates);
 
+<<<<<<< Updated upstream
 final_fc = zeros(1,2);
+=======
+%final_fc = zeros(length(fc),2);
+>>>>>>> Stashed changes
 minCorr = 0.90; %slides
 rx = 1;
 while rx <= length(fc) 
@@ -54,6 +62,10 @@ end
 
 Rx_temp = Rx - bx;
 Rz_temp = Rz - bz;
+<<<<<<< Updated upstream
+=======
+disp(bx);
+>>>>>>> Stashed changes
 
 min_value_x = min(abs(Rx_temp));
 min_value_z = min(abs(Rz_temp));
@@ -61,6 +73,7 @@ min_value_z = min(abs(Rz_temp));
 index_x = find(abs(Rx_temp) == min_value_x);
 index_z = find(abs(Rz_temp) == min_value_z);
 
+<<<<<<< Updated upstream
 final_fc(1,1) = fc(index_x);
 final_fc(1,2) = fc(index_z);
 
@@ -68,6 +81,13 @@ filtered_coordinates(:,1) = xf(10:(length(x(:,1))-10),index_x);
 filtered_coordinates(:,2) = zf(10:(length(z(:,1))-10),index_z);
 
 % disp(filtered_coordinates);
+=======
+final_fc(:,1) = [fc(index_x), fc(index_z)];
+filtered_coordinates(:,1) = xf(10:(length(x(:,1)) - 10),index_x);
+filtered_coordinates(:,2) = zf(10:(length(z(:,1)) - 10),index_z);
+
+%disp(final_fc);
+>>>>>>> Stashed changes
 % disp("XF= " + xf);
 % disp("ZF= " + zf);
 
