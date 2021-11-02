@@ -1,6 +1,5 @@
 function ChoosingFile()
-    global filteredTable cutFrequencies xShoulders zShoulders xHip zHip isStaticAnalysis isGaitAnalysis isKickAnalysis CM...
-        xShouldersVector zShouldersVector xHipVector zHipVector; 
+    global filteredTable cutFrequencies xShoulders zShoulders xHip zHip isStaticAnalysis isGaitAnalysis isKickAnalysis CM xShouldersVector zShouldersVector xHipVector zHipVector frames; 
     directory = dir('*.tsv');
     possibleFiles = {directory.name};
     [indexChosen, binary] = listdlg('PromptString',{'Select a file.',...
@@ -89,20 +88,24 @@ function ChoosingFile()
     xLToe = min(filteredTable{:,12}(1,1), filteredTable{:,13}(1,1)) + 0.5*abs(filteredTable{:,12}(1,1) - filteredTable{:,13}(1,1));
     zLToe = min(filteredTable{:,12}(1,2), filteredTable{:,13}(1,2)) + 0.5*abs(filteredTable{:,12}(1,2) - filteredTable{:,13}(1,2));
 
-    CM = { [xHead,zHead]; [xLArm,zLArm]; [xLForearm,zLForearm]; [xRArm,zRArm]; [xRForearm,zRForearm]; 
-     [xTrunk,zTrunk]; [xLThigh,zLThigh]; [xLLeg,zLLeg]; [xLFoot,zLFoot];
-    [xLToe,zLToe]; [xRThigh,zRThigh]; [xRLeg,zRLeg]; [xRFoot,zRFoot]; [xRToe,zRToe]};
+    CM = {
+    [xHead,zHead]; [xLArm,zLArm]; [xLForearm,zLForearm]; [xRArm,zRArm]; [xRForearm,zRForearm]; 
+    [xTrunk,zTrunk]; [xLThigh,zLThigh]; [xLLeg,zLLeg]; [xLFoot,zLFoot];
+    [xLToe,zLToe]; [xRThigh,zRThigh]; [xRLeg,zRLeg]; [xRFoot,zRFoot]; [xRToe,zRToe]
+    };
     
     %% Creating an Histogram for the cutoff frequencies:
-    for frequency = 1:length(cutFrequencies)
-        xFrequency(frequency) = cutFrequencies{1,frequency}(1,1);
-        yFrequency(frequency) = cutFrequencies{1,frequency}(1,2);
-    end
-    markers = ["Head", "lShoulder", "lElbow", "lWrist", "rShoulder", "rElbow", "rWrist", "lHip", "lKnee", "lAnkle", "lHeel", "lMeta_V", "lToe_II", "rHip", "rKnee", "rAnkle", "rHeel", "rMeta_V", "rToe_II"];
-    bar(0:18, xFrequency)
-    bar(0:18, yFrequency)
-    set(gca,'xticklabel', markers)
-    xticks(0:18)
+%     for frequency = 1:length(cutFrequencies)
+%         xFrequency(frequency) = cutFrequencies{1,frequency}(1,1);
+%         yFrequency(frequency) = cutFrequencies{1,frequency}(1,2);
+%     end
+%     markers = ["Head", "lShoulder", "lElbow", "lWrist", "rShoulder", "rElbow", "rWrist", "lHip", "lKnee", "lAnkle", "lHeel", "lMeta_V", "lToe_II", "rHip", "rKnee", "rAnkle", "rHeel", "rMeta_V", "rToe_II"];
+%     bar(0:18, xFrequency)
+%     bar(0:18, yFrequency)
+%     set(gca,'xticklabel', markers)
+%     xticks(0:18)
+
+    frames = height(filteredTable);
     
 end 
         

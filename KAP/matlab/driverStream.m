@@ -4,6 +4,7 @@ function [bodyAxis, timeTheta, timeCm]  = driverStream(body)
 % Syntax: output = myFun(input)
 %
 % Long description
+    global frames;
     
 bodyLength = body.size; %Lenght of the Body
 bodyCm = body.cmVector; %Initial CM vector
@@ -28,7 +29,7 @@ fixedFramePJoint = [-bodyLength*cmFromProx,0];
 timeCm{1,1}=bodyCm;
 
 
-    for frame = 1:length(joint1XVector)
+    for frame = 1:frames
 
         joint2XVector(frame) = 2*(joint2XVector(frame) - 1) +1;
         joint2ZVector(frame) = 2*(joint2ZVector(frame) - 1) +1;
