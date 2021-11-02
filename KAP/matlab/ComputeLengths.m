@@ -1,4 +1,4 @@
-function computeLengths()
+function ComputeLengths()
 %myFun - Description
 %
 % Syntax: output = myFun(input)
@@ -20,7 +20,7 @@ colInFiltered = 1; % Position on the new table where we inserted the new filtere
         [final_fc, filtered_coordinates] = ProcessData(100, [staticFile{:,index}, staticFile{:,index + 2}], localOrigin);
         cutFrequencies(: , colInFiltered) = final_fc;
         filteredTable{ :,colInFiltered} = filtered_coordinates;
-        colInFiltered =colInFiltered + 1;
+        colInFiltered = colInFiltered + 1;
     end
     filteredTable.Properties.VariableNames = {'Head' 'L_Shoulder' 'L_Elbow' 'L_Wrist' 'R_Shoulder' 'R_Elbow'...
                                                     'R_Wrist' 'L_Hip' 'L_Knee' 'L_Ankle' 'L_Heel' 'L_Meta' 'L_Toe_II' 'R_Hip' 'R_Knee' 'R_Ankle'...

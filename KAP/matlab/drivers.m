@@ -5,6 +5,8 @@ function allDrivers = drivers()
  %
  % Long description
 
+ global frames;
+
  %% Bodies
    allDrivers{14, 1} ={[]};
     %{
@@ -30,7 +32,7 @@ function allDrivers = drivers()
 
 
    %% Time
-   time = 0.0:0.1:((length(trunkAxis)-1)/10);
+   time = 0.0:0.01:(frames-1)/100;
 
     %% Driver 1 (Head and trunk) %%
 
@@ -39,8 +41,8 @@ function allDrivers = drivers()
     %angleHeadTrunk = angleBetweenBodies(headAxis, trunkAxis,0); %angles between the head and trunk thorughout time
     angleHeadTrunk = trunkTheta - headTheta;
     for index = 1:length(time)
-    fprintf(fileID,'%6.1f %6.5f\r\n',time(index),angleHeadTrunk(index));
-  end
+        fprintf(fileID,'%6.3f %6.5f\r\n',time(index),angleHeadTrunk(index));
+    end
    
 
    fclose(fileID);
@@ -53,7 +55,7 @@ function allDrivers = drivers()
 %     anglelFaTrunk = angleBetweenBodies(trunkAxis, lForArmAxis,0); 
     anglelFaTrunk = trunkTheta - lForArmTheta;
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n',time(index), anglelFaTrunk(index));
+      fprintf(fileID,'%6.3f %6.5f\r\n',time(index), anglelFaTrunk(index));
     end
     
     fclose(fileID);
@@ -67,7 +69,7 @@ function allDrivers = drivers()
     %anglelArmlFA = angleBetweenBodies(lForArmAxis, lArmAxis,1);
     anglelArmlFA = lForArmTheta - lArmTheta;
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n', time(index),  anglelArmlFA(index));
+      fprintf(fileID,'%6.3f %6.5f\r\n', time(index),  anglelArmlFA(index));
     end
     
     fclose(fileID);
@@ -81,7 +83,7 @@ function allDrivers = drivers()
     %anglerFATrunk = angleBetweenBodies(trunkAxis,rForArmAxis,0);
     anglerFATrunk =  trunkTheta - rForArmTheta ;
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n', time(index),anglerFATrunk(index));
+      fprintf(fileID,'%6.3f %6.5f\r\n', time(index),anglerFATrunk(index));
     end
     
     fclose(fileID);
@@ -95,7 +97,7 @@ function allDrivers = drivers()
     %anglerArmrFA = angleBetweenBodies(rForArmAxis, rArmAxis,1);
     anglerArmrFA =rForArmTheta - rArmTheta ;
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n', time(index),  anglerArmrFA(index));
+      fprintf(fileID,'%6.3f %6.5f\r\n', time(index),  anglerArmrFA(index));
     end
     
     fclose(fileID);
@@ -107,7 +109,7 @@ function allDrivers = drivers()
     allDrivers{6,1} = [3,6,1,0,0,0,0,0,4,6];
     
     for index = 1:length(trunkCm)
-      fprintf(fileID,'%6.1f %6.5f\r\n',time(index), trunkCm{index,1}(1));
+      fprintf(fileID,'%6.3f %6.5f\r\n',time(index), trunkCm{index,1}(1));
     end
     
     fclose(fileID);
@@ -117,7 +119,7 @@ function allDrivers = drivers()
     allDrivers{7,1} = [3,6,2,0,0,0,0,0,4,7];
     
     for index = 1:length(trunkCm)
-      fprintf(fileID,'%6.1f %6.5f\r\n',time(index), trunkCm{index,1}(2));
+      fprintf(fileID,'%6.3f %6.5f\r\n',time(index), trunkCm{index,1}(2));
     end
     
     fclose(fileID);
@@ -127,7 +129,7 @@ function allDrivers = drivers()
     allDrivers{8,1} = [3,6,3,0,0,0,0,0,4,8];
     
     for index = 1:length(trunkTheta)
-      fprintf(fileID,'%6.1f %6.5f\r\n',time(index), trunkTheta(index));
+      fprintf(fileID,'%6.3f %6.5f\r\n',time(index), trunkTheta(index));
     end
     
     fclose(fileID);
@@ -141,7 +143,7 @@ function allDrivers = drivers()
     %anglelThighTrunk = angleBetweenBodies(trunkAxis,lThighAxis, 1);
     anglelThighTrunk =  trunkTheta - lThighTheta ;
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n', time(index),   anglelThighTrunk(index));
+      fprintf(fileID,'%6.3f %6.5f\r\n', time(index),   anglelThighTrunk(index));
     end
     
     fclose(fileID);
@@ -154,7 +156,7 @@ function allDrivers = drivers()
     %anglelLeglThigh = angleBetweenBodies(lThighAxis, lLegAxis, 1);
     anglelLeglThigh =  lThighTheta - lLegTheta;
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n', time(index), anglelLeglThigh(index));
+      fprintf(fileID,'%6.3f %6.5f\r\n', time(index), anglelLeglThigh(index));
     end
     
     fclose(fileID);
@@ -167,7 +169,7 @@ function allDrivers = drivers()
     %anglelFootlLeg = angleBetweenBodies(lLegAxis, lFootAxis, 1);
     anglelFootlLeg = lLegTheta - lFootTheta ;
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n', time(index),    anglelFootlLeg(index));
+      fprintf(fileID,'%6.3f %6.5f\r\n', time(index),    anglelFootlLeg(index));
     end
     
     fclose(fileID);
@@ -180,7 +182,7 @@ function allDrivers = drivers()
     %anglelToeslFoot = angleBetweenBodies(lFootAxis, lToesAxis, 1);
     anglelToeslFoot =  lFootTheta - lToesTheta ;
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n', time(index),    anglelToeslFoot(index));
+      fprintf(fileID,'%6.3f %6.5f\r\n', time(index),    anglelToeslFoot(index));
     end
     
     fclose(fileID);
@@ -192,7 +194,7 @@ function allDrivers = drivers()
     %anglerThighTrunk = angleBetweenBodies(trunkAxis, rThighAxis, 0);
     anglerThighTrunk =  trunkTheta - rThighTheta ;
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n',time(index),anglerThighTrunk(index));
+      fprintf(fileID,'%6.3f %6.5f\r\n',time(index),anglerThighTrunk(index));
     end
     
     fclose(fileID);
@@ -205,7 +207,7 @@ function allDrivers = drivers()
     %anglerLegrThigh = angleBetweenBodies(rThighAxis, rLegAxis, 1);
     anglerLegrThigh = rThighTheta - rLegTheta ;
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n', time(index),anglerLegrThigh(index));
+      fprintf(fileID,'%6.3f %6.5f\r\n', time(index),anglerLegrThigh(index));
     end
     
     fclose(fileID);
@@ -218,7 +220,7 @@ function allDrivers = drivers()
     %anglerFootrLeg = angleBetweenBodies( rLegAxis, rFootAxis, 1);
     anglerFootrLeg =  rLegTheta - rFootTheta ;
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n',time(index),    anglerFootrLeg(index));
+      fprintf(fileID,'%6.3f %6.5f\r\n',time(index),    anglerFootrLeg(index));
     end
     
     fclose(fileID);
@@ -231,7 +233,7 @@ function allDrivers = drivers()
     %anglerToesrFoot = angleBetweenBodies( rFootAxis, rToesAxis, 1);
     anglerToesrFoot = rFootTheta - rToesTheta ;
     for index = 1:length(time)
-      fprintf(fileID,'%6.1f %6.5f\r\n',time(index),anglerToesrFoot(index));
+      fprintf(fileID,'%6.3f %6.5f\r\n',time(index),anglerToesrFoot(index));
     end
     
     fclose(fileID);

@@ -24,7 +24,7 @@ NPts = 0;
 modelParameters =[NBodies, NRevJ, NTransJ, NRenRevJ, NTransRevJ, NCamJ, NGrd, NSimp, NDriv, NPts];
 
 
-computeLengths();
+ComputeLengths();
 ChoosingFile();
 
 
@@ -131,7 +131,7 @@ end
      fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', [0, 0.1, 14]);
 
  else
-     fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', [0, 0.1, 9]);
+     fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', [0, 0.01, 0.88]);
 
  end
  
