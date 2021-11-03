@@ -27,8 +27,8 @@ iRFoot = mFoot * ((0.475 * bodyLenghts(13))^2);
 
 mass = [mHead, mForearm, mArm, mForearm, mArm, mTrunk, mThigh, mLeg, mFoot, mToes, mThigh, mLeg, mFoot, mToes,];
 
-mInertia = [iHead, iLForearm, iLArm, iRForearm, iRArm, iLThigh, iLLeg, ...
-    iLFoot, iRThigh, iRLeg, iRFoot];
+mInertia = [iHead, iLForearm, iLArm, iRForearm, iRArm, 0, iLThigh, iLLeg, ...
+    iLFoot, 0, iRThigh, iRLeg, iRFoot, 0];
 
 % disp(mass);
 % disp(mInertia);
