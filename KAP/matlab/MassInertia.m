@@ -1,4 +1,4 @@
-function [mass, mInertia] = MassInertia(b)
+function [mass, mInertia] = MassInertia()
 
 global bodyLenghts;
 
@@ -13,17 +13,17 @@ mThigh = 0.1 * BW;
 mTrunk = 0.497 * BW;
 mToes = 0.006 * BW; %este valor não estava nas tabelas antropometricas, somei as fracoes anteriores todas e vi o que falava de BW
 
-iHead = mHead * (( 0.495 * bodyLenghts(b))^2);
-iLForearm = mForearm *((0.303 * bodyLenghts(b))^2);
-iRForearm = mForearm *((0.303 * bodyLenghts(b))^2);
-iLArm = mArm * ((0.322 * bodyLenghts(b))^2);
-iRArm = mArm * ((0.322 * bodyLenghts(b))^2);
-iLThigh = mThigh * ((0.323 * bodyLenghts(b))^2);
-iRThigh = mThigh * ((0.323 * bodyLenghts(b))^2);
-iLLeg = mLeg * ((0.302 * bodyLenghts(b))^2);
-iRLeg = mLeg * ((0.302 * bodyLenghts(b))^2);
-iLFoot = mFoot * ((0.475 * bodyLenghts(b))^2);
-iRFoot = mFoot * ((0.475 * bodyLenghts(b))^2);
+iHead = mHead * (( 0.495 * bodyLenghts(1))^2);
+iLForearm = mForearm *((0.303 * bodyLenghts(2))^2);
+iRForearm = mForearm *((0.303 * bodyLenghts(4))^2);
+iLArm = mArm * ((0.322 * bodyLenghts(3))^2);
+iRArm = mArm * ((0.322 * bodyLenghts(5))^2);
+iLThigh = mThigh * ((0.323 * bodyLenghts(7))^2);
+iRThigh = mThigh * ((0.323 * bodyLenghts(11))^2);
+iLLeg = mLeg * ((0.302 * bodyLenghts(8))^2);
+iRLeg = mLeg * ((0.302 * bodyLenghts(12))^2);
+iLFoot = mFoot * ((0.475 * bodyLenghts(9))^2);
+iRFoot = mFoot * ((0.475 * bodyLenghts(13))^2);
 
 mass = [mHead, mForearm, mArm, mTrunk, mThigh, mLeg, mFoot, mToes];
 

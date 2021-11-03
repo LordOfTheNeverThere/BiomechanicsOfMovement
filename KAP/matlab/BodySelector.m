@@ -17,7 +17,7 @@ switch b
         Body.cmFromProx = 1;
         Body.cmVector = CM{b,1};
         Body.name = 'Head';
-        [mass, mInertia] = MassInertia(b);
+        [mass, mInertia] = MassInertia();
         Body.mass = mass(b);
         Body.mInertia = mInertia(b);
         
@@ -30,7 +30,7 @@ switch b
         Body.cmFromProx = 0.430;
         Body.cmVector = CM{b,1};
         Body.name = 'LForearm';
-        [mass, mInertia] = MassInertia(b);
+        [mass, mInertia] = MassInertia();
         Body.mass = mass(b);
         Body.mInertia = mInertia(b);
         
@@ -43,7 +43,7 @@ switch b
         Body.cmFromProx = 0.436;
         Body.cmVector = CM{b,1};
         Body.name = 'LArm';
-        [mass, mInertia] = MassInertia(b);
+        [mass, mInertia] = MassInertia();
         Body.mass = mass(b);
         Body.mInertia = mInertia(b);
         
@@ -57,8 +57,8 @@ switch b
         Body.cmFromProx = 0.430;
         Body.cmVector = CM{b,1};
         Body.name = 'RForearm';
-        [mass, mInertia] = MassInertia(b);
-        Body.mass = mass(2);
+        [mass, mInertia] = MassInertia();
+        Body.mass = mass(b);
         Body.mInertia = mInertia(b);
         
         
@@ -71,8 +71,8 @@ switch b
         Body.cmFromProx = 0.436;
         Body.cmVector = CM{b,1};
         Body.name = 'RArm';
-        [mass, mInertia] = MassInertia(b);
-        Body.mass = mass(3);
+        [mass, mInertia] = MassInertia();
+        Body.mass = mass(b);
         Body.mInertia = mInertia(b);
         
         
@@ -85,8 +85,8 @@ switch b
         Body.cmFromProx = 0.500;
         Body.cmVector = CM{b,1};
         Body.name = 'Trunk';
-        [mass, ~] = MassInertia(b);
-        Body.mass = mass(4);
+        [mass, ~] = MassInertia();
+        Body.mass = mass(b);
         
         
     case 7          %LThigh
@@ -98,9 +98,9 @@ switch b
         Body.cmFromProx = 0.433;
         Body.cmVector = CM{b,1};
         Body.name = 'LThigh';
-        [mass, mInertia] = MassInertia(b);
-        Body.mass = mass(5);
-        Body.mInertia = mInertia(6);
+        [mass, mInertia] = MassInertia();
+        Body.mass = mass(b);
+        Body.mInertia = mInertia(b);
         
     case 8          %LLeg
         Body.size = bodyLenghts(b);
@@ -111,9 +111,9 @@ switch b
         Body.cmFromProx = 0.433;
         Body.cmVector = CM{b,1};
         Body.name = 'LLeg';
-        [mass, mInertia] = MassInertia(b);
-        Body.mass = mass(6);
-        Body.mInertia = mInertia(7);
+        [mass, mInertia] = MassInertia();
+        Body.mass = mass(b);
+        Body.mInertia = mInertia(b);
         
         
     case 9          %LFoot
@@ -125,9 +125,9 @@ switch b
         Body.cmFromProx = 0.500;
         Body.cmVector = CM{b,1};
         Body.name = 'LFoot';
-        [mass, mInertia] = MassInertia(b);
-        Body.mass = mass(7);
-        Body.mInertia = mInertia(8);
+        [mass, mInertia] = MassInertia();
+        Body.mass = mass(b);
+        Body.mInertia = mInertia(b);
         
     case 10         %LToe
         Body.size = bodyLenghts(b);
@@ -138,8 +138,8 @@ switch b
         Body.cmFromProx = 0.5;
         Body.cmVector = CM{b,1};
         Body.name = 'LToe';
-        [mass, ~] = MassInertia(b);
-        Body.mass = mass(8);
+        [mass, ~] = MassInertia();
+        Body.mass = mass(b);
         
     case 11         %RThigh
         Body.size = bodyLenghts(b);
@@ -150,9 +150,9 @@ switch b
         Body.cmFromProx = 0.433;
         Body.cmVector = CM{b,1};
         Body.name = 'RThigh';
-        [mass, mInertia] = MassInertia(b);
-        Body.mass = mass(5);
-        Body.mInertia = mInertia(9);
+        [mass, mInertia] = MassInertia();
+        Body.mass = mass(b);
+        Body.mInertia = mInertia(b);
         
     case 12         %RLeg
         Body.size = bodyLenghts(b);
@@ -163,9 +163,9 @@ switch b
         Body.cmFromProx = 0.433;
         Body.cmVector = CM{b,1};
         Body.name = 'RLeg';
-        [mass, mInertia] = MassInertia(b);
-        Body.mass = mass(6);
-        Body.mInertia = mInertia(10);
+        [mass, mInertia] = MassInertia();
+        Body.mass = mass(b);
+        Body.mInertia = mInertia(b);
         
     case 13         %RFoot
         Body.size = bodyLenghts(b);
@@ -176,9 +176,9 @@ switch b
         Body.cmFromProx = 0.500;
         Body.cmVector = CM{b,1};
         Body.name = 'RFoot';
-        [mass, mInertia] = MassInertia(b);
-        Body.mass = mass(7);
-        Body.mInertia = mInertia(11);
+        [mass, mInertia] = MassInertia();
+        Body.mass = mass(b);
+        Body.mInertia = mInertia(b);
         
     case 14         %RToe
         Body.size = bodyLenghts(b);
@@ -189,8 +189,8 @@ switch b
         Body.cmFromProx = 0.500;
         Body.cmVector = CM{b,1};
         Body.name = 'RToe';
-        [mass, ~] = MassInertia(b);
-        Body.mass = mass(8);
+        [mass, ~] = MassInertia();
+        Body.mass = mass(b);
         
 end
 
