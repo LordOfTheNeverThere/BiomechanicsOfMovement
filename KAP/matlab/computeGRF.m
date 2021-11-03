@@ -1,4 +1,4 @@
-function output = myFun(input)
+function computeGRF()
 %myFun - Description
 %
 % Syntax: output = myFun(input)
@@ -13,14 +13,7 @@ function output = myFun(input)
     
     
     %% getting rid of the y data %%
-%     forcePlate1(:,1:2) = forcePlate1(:,1:2:3);
-%     forcePlate2(:,1:2) = forcePlate2(:,1:2:3);
-%     forcePlate3(:,1:2) = forcePlate3(:,1:2:3);
-%     
-%     forcePlate1(:,3:4) = forcePlate1(:,4:2:6)/1000;
-%     forcePlate2(:,3:4) = forcePlate2(:,4:2:6)/1000;
-%     forcePlate3(:,3:4) = forcePlate3(:,4:2:6)/1000;
-    disp(forcePlate1);
+
     %Remove unused colunms
     forcePlate1(:,2:3:5) = [];
     forcePlate2(:,2:3:5) = [];
@@ -30,7 +23,6 @@ function output = myFun(input)
     forcePlate2(:,3:4) = forcePlate2(:,3:4)/1000;
     forcePlate3(:,3:4) = forcePlate3(:,3:4)/1000;
     
-    disp(forcePlate1);
     
     forcePlates = {forcePlate1, forcePlate2, forcePlate3};
     for forcePlateIndex = 1:length(forcePlates)
@@ -131,5 +123,23 @@ function output = myFun(input)
 %     
 %     hold off;
 
+
+    forcePlate1File = fopen('VarForceAppl_001.txt','w'); %   will overwrite and a will append
+    forcePlate2File = fopen('VarForceAppl_002.txt','w'); 
+    forcePlate3File = fopen('VarForceAppl_003.txt','w'); 
+
+
+    time = 0:0.01:(length(forcePlate1(: , 1))/100);
+    
+    for index = 1:length(forcePlate1(: , 1))
+
+        fprintf(forcePlate1File,'%6.3f %6.6f %6.6f %6.6f %6.6f %6.6f\r\n', time(index), forcePlate1(index,1), forcePlate1(index,2), 0, forcePlate1(index,3), forcePlate1(index,4));
+        fprintf(forcePlate2File,'%6.3f %6.6f %6.6f %6.6f %6.6f %6.6f\r\n', time(index), forcePlate2(index,1), forcePlate2(index,2), 0, forcePlate2(index,3), forcePlate2(index,4));
+        fprintf(forcePlate3File,'%6.3f %6.6f %6.6f %6.6f %6.6f %6.6f\r\n', time(index), forcePlate3(index,1), forcePlate3(index,2), 0, forcePlate3(index,3), forcePlate3(index,4));
+    end
+    
+    
+    
+    
 
 end
