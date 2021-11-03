@@ -25,7 +25,7 @@ iRLeg = mLeg * ((0.302 * bodyLenghts(12))^2);
 iLFoot = mFoot * ((0.475 * bodyLenghts(9))^2);
 iRFoot = mFoot * ((0.475 * bodyLenghts(13))^2);
 
-mass = [mHead, mForearm, mArm, mTrunk, mThigh, mLeg, mFoot, mToes];
+mass = [mHead, mForearm, mArm, mForearm, mArm, mTrunk, mThigh, mLeg, mFoot, mToes, mThigh, mLeg, mFoot, mToes,];
 
 mInertia = [iHead, iLForearm, iLArm, iRForearm, iRArm, iLThigh, iLLeg, ...
     iLFoot, iRThigh, iRLeg, iRFoot];
