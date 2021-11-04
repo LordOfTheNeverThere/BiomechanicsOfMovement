@@ -24,10 +24,10 @@ function [Phi,Jac,niu,gamma] = Joint_Simple (Phi,Jac,niu,gamma,k,time)
 %
 %%
 %... Access global memory
-global H NConstraints lambda
-global Flag Nline Body Jnt NJoint
-%
-%% ... Read input for this joint
+global H NConstraints
+global Flag Nline Body Jnt
+%%
+%... Read input for this joint
 if Flag.ReadInput == 1
     Nline              = Nline + 1;
     Jnt.Simple(k).i    = H(Nline,1);
@@ -35,39 +35,28 @@ if Flag.ReadInput == 1
     Jnt.Simple(k).z0   = H(Nline,3);
     return
 end
-%
-%%... Initialize data for this joint
+%%
+%... Initialize data for this joint
 if Flag.InitData == 1
     NConstraints      = NConstraints + 1;
-%
-%... Prepare Joint Reactions Report
-    NJoint                      = Jnt.NReaction + 1;
-    Jnt.NReaction               = NJoint;
-    Jnt.Reaction(NJoint).Number = k;
-    Jnt.Reaction(NJoint).i      = Jnt.Simple(k).i;
-    Jnt.Reaction(NJoint).j      = 0;
-    switch Jnt.Simple(k).type
-        case 1
-            Jnt.Reaction(NJoint).Type   = '.......Simple_X';
-        case 2
-            Jnt.Reaction(NJoint).Type   = '.......Simple_Y';
-        case 3
-            Jnt.Reaction(NJoint).Type   = '.......Simple_O';
-    end
     return
 end
-%
-%% ... Line numbers of constraint equations & Pointer of next constraints
-if Flag.General == 1
-    i1      = Nline;
-    Nline   = Nline + 1;
-%
-%... Initialize variables
-    i    = Jnt.Simple(k).i;
-    type = Jnt.Simple(k).type;
+%%
+%... Line numbers of the constraint equations & Pointer of next constraints
+i1      = Nline;
+Nline   = Nline + 1;
+%%
+%... Contribution to the r.h.s. of the velocity equations is null
+if Flag.Velocity == 1
+    niu(i1:i1,1) = 0.0;
+    return
 end
-%
-%% ... Assemble position constraint equations
+%%
+%... Initialize variables
+i    = Jnt.Simple(k).i;
+type = Jnt.Simple(k).type;
+%%
+%... Assemble position constraint equations
 if Flag.Position == 1 
     switch type
         case 1
@@ -79,27 +68,18 @@ if Flag.Position == 1
     end
     Phi(i1:i1,1) = aux;
 end
-%
-%% ... Assemble Jacobian matrix 
+%%
+%... Assemble Jacobian matrix 
 if Flag.Jacobian == 1
     j1 = 3*(i-1) + type;
     Jac(i1:i1,j1:j1) = 1.0;
 end
-%
-%% ... Assemble the right hand side of the Acceleration Equations 
+%%
+%... Assemble the right hand side of the Acceleration Equations 
 if Flag.Acceleration == 1
     gamma(i1:i1,1) = 0.0;
 end
 %
-%
-%% ... Evaluate the Joint Reaction Forces for Report
-if Flag.Reaction == 1
-    NJoint                  = NJoint +1;
-    j1                      = 3*i-2;
-    j2                      = j1 + 2;
-    Jnt.Reaction(NJoint).gi = -Jac(i1:i1,j1:j2)'*lambda(i1:i1,1);
-end
-%
-%% ... Finish function Joint_Revolute
+%... Finish function Joint_Simple
 end
     

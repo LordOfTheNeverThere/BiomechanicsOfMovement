@@ -68,6 +68,5 @@ colInFiltered = 1; % Position on the new table where we inserted the new filtere
 bodyLenghts = [HeadSize, LForearmSize, LArmSize, RForearmSize, RArmSize, TrunkSize, LThighSize, LLegSize, LFootSize, LToeSize...
                RThighSize, RLegSize, RFootSize, RToeSize];
            
-
  
 end

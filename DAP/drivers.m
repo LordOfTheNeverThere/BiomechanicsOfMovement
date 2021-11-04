@@ -8,7 +8,7 @@ function allDrivers = drivers()
  global frames;
 
  %% Bodies
-   allDrivers{14, 1} ={[]};
+   allDrivers{14, 1} = {[]};
     %{
     1-Head; 2-lForArm; 3-lArm; 4-rForArm; 5-rArm; 6-Trunk; 7-lThigh;
     8-lLeg; 9-lFoot; 10-lToes; 11-rThigh; 12-rLeg; 13-rFoot; 14-rToes 

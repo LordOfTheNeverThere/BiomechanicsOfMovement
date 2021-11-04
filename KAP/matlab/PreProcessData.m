@@ -1,60 +1,46 @@
 
-function [tspan,q] = PreProcessData()
-%PreProcessData
+function [q] = PreProcessData()
+%ReadInputData
 %
 %Summary: This function controls reading the input file for the model and 
 %         the data storage into local memory.
 %
 %Input:   No input specified
 %
-%Output:  tspan - Vector with the time step information for integrator 
-%         q     - Vector with the initial (estimates) system coordinates 
+%Output:  q   - Vector with the initial (estimates) system coordinates 
 %
 %
-%% ... Access memory
-global Flag NCoordinates NCoord1 NConstraints NBodyCoordinates
-global NBody Body Jnt M Minv
-global tstart tstep tend
-global parameters solver
+%%
+%... Access memory
+global Flag NCoordinates NConstraints NBodyCoordinates
+global NBody Body Jnt
+global parameters
 global A90
 %
-%
-%% ... Integrators and time steps available
-solvers = {'ode15i','ode23tb','ode23t','ode23s',...
-           'ode15s','ode113','ode23'  ,'ode45'};
-solver  = solvers{parameters.ode};
-%% ... Set the flags for specific joint actions
+%%
+%... Set the flags for specific joint actions
 Flag.InitData     = 1;
-
-%% ... Initialize variables and matrices
+%
+%%
+%... Build the vector with initial positions (estimates)
+for i = 1:NBody
+    i1 = 3*i - 2;
+    i2 = i1 + 1;
+    i3 = i2 + 1;
+%
+    q(i1:i2,1) = Body(i).r;
+    q(i3:i3,1) = Body(i).theta;
+end
+%
+%%
+%... Initialize variables and matrices
 NBodyCoordinates      = 3*NBody;
 NCoordinates          = NBodyCoordinates;
 A90                   = [0 -1; 1 0];  % 90 degree rotation matrix
-Jnt.NReaction         = 0;
+parameters.NRMaxIter1 = parameters.NRMaxIter + 1;
 %
-%% ... Vector with initial positions and velocities and Mass Matrix
-for i = 1:NBody
-    i1             = 3*i - 2;
-    i2             = i1 + 1;
-    i3             = i2 + 1;
-%
-    q(i1:i2,1)     = Body(i).r;
-    q(i3:i3,1)     = Body(i).theta;
-%
-    M(i1:i2,i1:i2)    = Body(i).mass*eye(2);
-    M(i3:i3,i3:i3)    = Body(i).inertia;
-    Minv(i1:i2,i1:i2) = 1/Body(i).mass*eye(2);
-    Minv(i3:i3,i3:i3) = 1/Body(i).inertia;
-%
-    i1             = i1 + NCoordinates;
-    i2             = i1 + 1;
-    i3             = i2 + 1;
-%
-    q(i1:i2,1)     = Body(i).rd;
-    q(i3:i3,1)     = Body(i).thetad;
-end
-%
-%% ... Initialize data for Revolute Joints
+%%
+%... Initialize data for Revolute Joints
 NConstraints = 0;
 for k = 1:Jnt.NRevolute 
     [~,~,~,~] = Joint_Revolute ([],[],[],[],k,[]); 
@@ -109,42 +95,9 @@ for k = 1:Jnt.NDriver
     [~,~,~,~] = Joint_Driver ([],[],[],[],k,[]); 
 end
 %
-%% ... Initialize working space for Points of Interest
-PointsOfInterest([])
-%
-%% ... Initilize working space for external forces
-Force([]);
-%
-%% ... Create the time step information for the integrator
-tspan = tstart:tstep:tend;
-%
-% ... Auxiliary quantities
-NCoord1 = NCoordinates + 1;
-%
-%% ... Reset Initialization data flag
+%... Reset Initialization data flag
 Flag.InitData     = 0;
 %
-%% Performs a kinematic analysis for the first time step to ensure data consistency 
-parameters.NRMaxIter = 50;
-parameters.NRTolerance = 1e-6;
-
-%... Position analysis
-[q0, Jac] = Position_Analysis(0, q(1 : NCoordinates,1));
-%
-%... Velocity analysis
-[qd0]    = Velocity_Analysis(0, q(1 : NCoordinates, 1),Jac);
-
-% Updates vector with initial positions and velocities
-q(:, 1) = [q0; qd0];
-
-%
-%... Setup the analysis flags
-Flag.Transfer     = 1;
-Flag.Position     = 1;
-Flag.Jacobian     = 1;
-Flag.Velocity     = 1;
-Flag.Acceleration = 1;
-Flag.General      = 1;
-%
-%% ... Finish function PreProcessData
+%%
+%... Finish function PreProcessData
 end

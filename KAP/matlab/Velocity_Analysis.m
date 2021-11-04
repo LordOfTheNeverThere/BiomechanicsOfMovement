@@ -17,16 +17,14 @@ global Flag
 %%
 %... Evaluate r.h.s of velocity equations
     Flag.Transfer = 1;
-    Flag.General  = 1;
     Flag.Velocity = 1;
-    [~,~,niu,~] = KinemEval(time, q, []);
+    [~,~,niu,~] = KinemEval(time,q,[]);
 %
 %... Evaluate the velocities
     qd = Jac\niu;
 %
 %... Reset analysis flags
     Flag.Transfer = 0;
-    Flag.General  = 0;
     Flag.Velocity = 0;
 %%
 %... Finalize function Velocity_Analysis

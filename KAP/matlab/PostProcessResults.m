@@ -1,33 +1,28 @@
-function PostProcessResults (t,y,Filename)
+function PostProcessResults (t,q,qd,qdd,Filename)
 %ReadInputData
 %
 %Summary: This function controls controls the processing of the results of
 %         the model analysis and generates their graphs and general reports
 %
-%Input:   t        - Vector with the time steps of the analysis
-%         y        - Vector with history of positions and velocities
-%         Filename - Filename of input data
+%Input:   t   - Vector with the time steps of the analysis
+%         q   - Vector with the history of the system positions
+%         qd  - Vector with the history of the system velocities
+%         qdd - Vector with the history of the system accelerations
 %
 %Output:  No output specified 
 %
 %
 %%
 %... Access memory
-global NBody Body NCoordinates NCoord1
-global Ntime Pts Jnt NJoint Flag
-global lambda acc
-%
-global w
+global Ntime NBody Pts Jnt Body
 %
 %% ... Rename and open report files
 [~,name,~]      = fileparts(Filename);
 FileOutput      = strcat(name,'.out');
 FilePoInterest  = strcat(name,'.poi');
-FileJntReaction = strcat(name,'.jnt');
 %
 fileOUT = fopen(FileOutput,'w');
 filePOI = fopen(FilePoInterest,'w');
-fileJNT = fopen(FileJntReaction,'w');
 %
 %% ... Create headers for the report files
 %
@@ -41,7 +36,7 @@ str5  =['.......Xd.......|.......Yd.......|.......Od.......|'];
 str6  =['.......Xdd......|.......Ydd......|.......Odd......|'];
 strA  = str0;
 strB  = '          |';
-for i=1:NBody
+for i = 1 : NBody
     str  = sprintf('%03d',i);
     strA = strcat(strA,'.',str1,str2,str,str3,str1,'|');
     strB = strcat(strB,str4,str5,str6);
@@ -72,68 +67,22 @@ end
 fprintf(filePOI, '%s\n',strA);
 fprintf(filePOI, '%s\n',strB);
 %
-% ... Header for the output file with Joint Reactions
-%       12345678901234567890123456789012345678901234
-str1 = '..............';
-str2 = '...Joint (';
-str3 = ').....';
-str4 = 'Type (';
-str5 = '......Body (';
-str6 = ')';  
-str7 = '.......fX.......|.......fY.......|......Mom.......|';
-strA = str0;
-strB = '          |';
-strC = '          |';
-for k=1:Jnt.NReaction
-    stra = sprintf('%03d',k);
-    strb = sprintf('%s'  ,Jnt.Reaction(k).Type);
-    strc = sprintf('%03d',Jnt.Reaction(k).Number);
-%
-    strd = sprintf('%03d',Jnt.Reaction(k).i);
-    strB = strcat(strB,'.',str1,str5,strd,str3,str1,'|');
-    strC = strcat(strC,str7);
-    if Jnt.Reaction(k).j == 0
-        strA = strcat(strA,'.',str2,stra,str3,...
-                               str4,strb,strc,str3,'|');
-    else
-        strd = sprintf('%03d',Jnt.Reaction(k).j);
-        strA = strcat(strA,'.',str1,str1,str2,stra,str3,...
-                               str4,strb,strc,str6,str1,str1,'|');
-        strB = strcat(strB,'.',str1,str5,strd,str3,str1,'|');
-        strC = strcat(strC,str7);
-    end
-%
-end
-fprintf(fileJNT, '%s\n',strA);
-fprintf(fileJNT, '%s\n',strB);
-fprintf(fileJNT, '%s\n',strC);
-%
-%% ... Create waitbar
-w       = waitbar(0,'Report Progress');
-%
 %% ... Build the time history of accelerations, joint forces & PoI
-Flag.Position     = 0;
-Flag.Velocity     = 0;
-Flag.Jacobian     = 1;
-Flag.General      = 1;
 %
-for k=1:Ntime
-    Flag.Transfer     = 1;
-    Flag.Acceleration = 1;
-    Flag.Reaction     = 0;
-    [~]               = FuncEval(t(k,1),y(k,:)');
-    q  (:,k)          = y(k,1:NCoordinates)';
-    qd (:,k)          = y(k,NCoord1:end)';
-    qdd(:,k)          = acc;
-%
+for k = 1 : Ntime
+
 % ... Print information on Output file with the bodies kinematics
-    fprintf(fileOUT, '%10.4f',t(k,1));
+    fprintf(fileOUT, '%10.4f',t(k));
     for i=1:NBody
 %
 % ... Find the acceleration of the rigid bodies
         i1 = 3*i - 2;
         i2 = i1 + 1;
         i3 = i2 + 1;
+        Body(i).r       = q(i1:i2, k);
+        Body(i).theta   = q(i3:i3, k);
+        Body(i).rd      = qd(i1:i2, k);
+        Body(i).thetad  = qd(i3:i3, k);
         Body(i).rdd     = qdd(i1:i2,k);
         Body(i).thetadd = qdd(i3:i3,k);
 %
@@ -145,40 +94,21 @@ for k=1:Ntime
 %
 % ... Print information on Points of Interest file
     PointsOfInterest(k);
-    fprintf(filePOI, '%10.4f',t(k,1));
+    fprintf(filePOI, '%10.4f',t(k));
     for n=1:Pts.NPointsInt
         fprintf(filePOI, '%17.9d',Pts.Int(n).q(:,k));
         fprintf(filePOI, '%17.9d',Pts.Int(n).qd(:,k));
         fprintf(filePOI, '%17.9d',Pts.Int(n).qdd(:,k));
     end
     fprintf(filePOI, '\n');
-%
-% ... Print information on Joint Reaction Forces file
-%
-%... Evaluate the Joint Reaction Forces
-    NJoint            = 0;
-    Flag.Transfer     = 0;
-    Flag.Acceleration = 0;
-    Flag.Reaction     = 1;
-    [~,~,~,~]         = KinemEval(t(k,1),[],[]);
-%
-%... Print the Joint Reaction forces to file
-    fprintf(fileJNT, '%10.4f',t(k,1));
-    for NJoint=1:Jnt.NReaction
-        fprintf(fileJNT, '%17.9d',Jnt.Reaction(NJoint).gi);
-        if Jnt.Reaction(NJoint).j ~= 0
-            fprintf(fileJNT, '%17.9d',Jnt.Reaction(NJoint).gj);
-        end
-    end
-    fprintf(fileJNT, '\n');
 end
+%
 fclose(fileOUT);
 fclose(filePOI);
-fclose(fileJNT);
 %
 %% Build the animation using the time history of the positions
 PlotModel(q);
-%
+
 %%
 %... Make the general plots
 for k = 1:Pts.NPointsInt
@@ -201,6 +131,13 @@ for k = 1:Pts.NPointsInt
 %... Plot Accelerations
     plot(t,Pts.Int(k).qdd(1,:),'k',t,Pts.Int(k).qdd(2,:),'k--')
     title(['Point of interest ' num2str(k) ' - Acceleration'])
+    figure
+%
+%... Plot position vs the first driver angle/dispacement
+    if (Jnt.NDriver ==0 || Jnt.Driver(1).type>2); break; end
+    c = 3*(Jnt.Driver(1).i-1)+Jnt.Driver(1).coortype;
+    plot(q(c,:),Pts.Int(k).q(1,:),'k',q(c,:),Pts.Int(k).q(2,:),'k--')
+    title(['Point of interest ' num2str(k) ' - Position vs crank angle'])
     figure
 end
 %
