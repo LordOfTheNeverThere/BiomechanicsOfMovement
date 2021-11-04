@@ -20,7 +20,7 @@ NGrd = 0; %encastramentos
 NSimp = 0; 
 NDriv = 16;
 NPts = 0;
-NFAppl = 3;
+NFAppl = 0;
 NSprDamp = 0;
 NVFAppl = 3;
 
@@ -149,7 +149,7 @@ end
     numberOfBody = [13, 9, 13];
     indices = [1,2,3];
     fours = [4, 4, 4];
-    for index = 1:NFAppl
+    for index = 1:3
         fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', numberOfBody(index), fours(index), indices(index));
     end
  
@@ -159,7 +159,7 @@ end
  fprintf(modelFile,'%6.2f %6.4f\r\n',[0, -9.81]);
 
  fprintf(modelFile,'%6.2f %6.2f %6.2f %6.2f\r\n', [8, 1, 5, 5]);
- fprintf(modelFile,'%6.2f %6.2f %6.2f %6.2f\r\n', [0, 0.01, 5, 0.01]);
+ fprintf(modelFile,'%6.2f %6.2f %6.2f %6.2f\r\n', [0, 0.01, 1.07, 0.01]);
  
 %  global cutFrequencies
 %  disp(cutFrequencies);
