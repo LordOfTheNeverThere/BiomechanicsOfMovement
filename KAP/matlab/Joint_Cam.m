@@ -27,12 +27,13 @@ function [Phi,Jac,niu,gamma] = Joint_Cam (Phi,Jac,niu,gamma,k,time)
 %         NBodyCoordinates - 3x number of bodies
 %
 %
-%% ... Access global memory
-global H NConstraints NCoordinates NBodyCoordinates A90 lambda
-global Flag Nline Body Jnt NJoint
+%%
+%... Access global memory
+global H NConstraints NCoordinates NBodyCoordinates A90
+global Flag Nline Body Jnt
 global spline_type
-%
-%% ... Read input for this joint
+%%
+%... Read input for this joint
 if Flag.ReadInput == 1
     Nline               = Nline + 1;
     Jnt.Cam(k).type     = H(Nline,1);
@@ -47,8 +48,8 @@ if Flag.ReadInput == 1
     Jnt.Cam(k).Filename = sprintf(string('Cam_%03d.txt'),x);
     return
 end
-%
-%% ... Initialize data for this joint
+%%
+%... Initialize data for this joint
 if Flag.InitData == 1
     NConstraints      = NConstraints + 2;
     NCoordinates      = NCoordinates + 1;
@@ -77,38 +78,34 @@ if Flag.InitData == 1
     if (Jnt.Cam(k).type == 3)
         Jnt.Cam(k).npj = A90*(Jnt.Cam(k).spPj-Jnt.Cam(k).spQj);
     end
-%
-%... Prepare Joint Reactions Report
-    NJoint                      = Jnt.NReaction + 1;
-    Jnt.NReaction               = NJoint;
-    Jnt.Reaction(NJoint).Number = k;
-    Jnt.Reaction(NJoint).i      = Jnt.Cam(k).i;
-    Jnt.Reaction(NJoint).j      = Jnt.Cam(k).j;
-    Jnt.Reaction(NJoint).Type   = '............Cam';
     return
 end
-%
-%% ... Line numbers of constraint equations & Pointer of next constraints
-if Flag.General == 1
-   i1      = Nline;
-   i2      = i1 + 1;
-   Nline   = Nline + 2;
-%
+%%
+%... Line numbers of the constraint equations & Pointer of next constraints
+i1      = Nline;
+i2      = i1 + 1;
+Nline   = Nline + 2;
+%%
+%... Contribution to the r.h.s. of the velocity equations is null
+if Flag.Velocity == 1
+    niu(i1:i2,1) = 0.0;
+    if (Flag.Jacobian == 0); return; end
+end
+%%
 %... Initialize variables
-    i               = Jnt.Cam(k).i;
-    j               = Jnt.Cam(k).j;
+i               = Jnt.Cam(k).i;
+j               = Jnt.Cam(k).j;
 %
 %... Evaluate common quantities used in constraint 
-    Jnt.Cam(k).spPi = ppvector(Jnt.Cam(k).spP,Jnt.Cam(k).angle);
-    Jnt.Cam(k).tpPi = ppvector(Jnt.Cam(k).tpP,Jnt.Cam(k).angle);
-    tPi             = Body(i).A*Jnt.Cam(k).tpPi;
-    sPi             = Body(i).A*Jnt.Cam(k).spPi;
-    sPj             = Body(j).A*Jnt.Cam(k).spPj;
-    d               = Body(i).r + sPi - Body(j).r - sPj;
-    if (Jnt.Cam(k).type == 3); nj = Body(j).A*Jnt.Cam(k).npj; end
-end
-%
-%% ... Assemble position constraint equations
+Jnt.Cam(k).spPi = ppvector(Jnt.Cam(k).spP,Jnt.Cam(k).angle);
+Jnt.Cam(k).tpPi = ppvector(Jnt.Cam(k).tpP,Jnt.Cam(k).angle);
+tPi             = Body(i).A*Jnt.Cam(k).tpPi;
+sPi             = Body(i).A*Jnt.Cam(k).spPi;
+sPj             = Body(j).A*Jnt.Cam(k).spPj;
+d               = Body(i).r + sPi - Body(j).r - sPj;
+if (Jnt.Cam(k).type == 3); nj = Body(j).A*Jnt.Cam(k).npj; end
+%%
+%... Assemble position constraint equations
 if Flag.Position == 1 
     switch Jnt.Cam(k).type
         case 1    % point follower cam
@@ -121,8 +118,8 @@ if Flag.Position == 1
                               d'*nj];
     end
 end
-%
-%% ... Evaluate common quantities in velocity and acceleration constraints
+%%
+%... Evaluate common quantities in velocity and acceleration constraints
 if (Flag.Jacobian == 1 || Flag.Acceleration == 1)
     BspPi           = Body(i).B*Jnt.Cam(k).spPi;
     BspPj           = Body(j).B*Jnt.Cam(k).spPj;
@@ -132,7 +129,7 @@ if (Flag.Jacobian == 1 || Flag.Acceleration == 1)
     if (Jnt.Cam(k).type == 3); Bnpj = Body(j).B*Jnt.Cam(k).npj; end
 end
 %
-%% ... Assemble Jacobian matrix 
+%... Assemble Jacobian matrix 
 if Flag.Jacobian == 1
     j1 = 3*i - 2;
     j2 = j1 + 2;
@@ -161,8 +158,8 @@ if Flag.Jacobian == 1
 			                    nj'*tPi];
     end
 end
-%
-%% ... Assemble the right hand side of the Acceleration Equations 
+%%
+%... Assemble the right hand side of the Acceleration Equations 
 if Flag.Acceleration == 1
 %
 %... Evaluate common quantities in velocity and acceleration constraints
@@ -197,13 +194,6 @@ if Flag.Acceleration == 1
     end
 end
 %
-%% ... Evaluate the Joint Reaction Forces for Report
-if Flag.Reaction == 1
-    NJoint                  = NJoint +1;
-    Jnt.Reaction(NJoint).gi = -Jac(i1:i2,j1:j2)'*lambda(i1:i2,1);
-    Jnt.Reaction(NJoint).gj = -Jac(i1:i2,j3:j4)'*lambda(i1:i2,1);
-end
-%
-%% ... Finish function Joint_Revolute
+%... Finish function Joint_Cam
 end
     

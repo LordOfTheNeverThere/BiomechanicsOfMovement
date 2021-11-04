@@ -18,8 +18,10 @@ function [Spline_0th] = DSM_spline(t,z,order)
 %Global memory assignments
 global spline_type
 %
-%% ... General dimensions
+%%
+%... General dimensions
 pieces  = length(t)-1;
+%order   = 4;
 %
 %... Create the Spline structure
 Spline_0th.form   = 'pp';
@@ -34,7 +36,8 @@ n = order-2;
 A = zeros(n*Spline_0th.pieces,n*Spline_0th.pieces);
 b = zeros(n*Spline_0th.pieces,1);
 %
-%% ... Continuity conditions for the Spline pieces
+%%
+%... Continuity conditions for the Spline pieces
 for i=1:pieces-1
     h  = t(i+1)-t(i);
     h2 = h*h;
@@ -63,7 +66,8 @@ for i=1:pieces-1
     end
 end
 %
-%% ... Spline end conditions
+%%
+%... Spline end conditions
 l1 = l2+1;
 dz = z(pieces+1)-z(pieces);
 h  = t(pieces+1)-t(pieces);
@@ -130,10 +134,12 @@ elseif (spline_type == 2)
     end
 end
 %
-%% ... Solve system of equations to obtain Spline Coefficients
+%%
+%... Solve system of equations to obtain Spline Coefficients
 x = A\b;
 %
-%% ... Store the Spline coefficients in proper vector
+%%
+%... Store the Spline coefficients in proper vector
 for i=1:pieces-1
     h  = t(i+1)-t(i);
     l1 = n*i;
@@ -176,6 +182,7 @@ elseif (spline_type == 2)
     end
 end
 %
-%% ... Finish DSM_spline function
+%%
+%... Finish DSM_spline function
 end
 

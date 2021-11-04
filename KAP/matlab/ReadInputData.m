@@ -1,4 +1,5 @@
 function [Filename] = ReadInputData()
+%ReadInputData
 %
 %Summary: This function controls reading the input file for the model and 
 %         the data storage into local memory.
@@ -17,16 +18,16 @@ function [Filename] = ReadInputData()
 %         NDriver      - Number of drivers
 %         NPtInterest  - Number of points of interest
 %
-% Jorge Ambrosio
-% Version 1.0     May 12, 2020
 %
-%% ... Access memory
+%%
+%... Access memory
 global H Flag Nline Ntime
-global NBody Body Jnt Pts Frc gravity
+global NBody Body Jnt Pts
 global parameters
-global tstart tend tstep trep
+global tstart tend tstep
 %
-%% ... Query for the input file with the model
+%%
+%... Query for the input file with the model
 [Filename] = uigetfile('*.txt','Select the Model Data file');
 %
 %... Read data from input file
@@ -41,30 +42,27 @@ Flag.Position     = 0;
 Flag.Jacobian     = 0;
 Flag.Velocity     = 0;
 Flag.Acceleration = 0;
-Flag.Reaction     = 0;
-Flag.General      = 0;
 %
-%% ... Store data in Local Variables
-NBody             = H(Nline,1);
-Jnt.NRevolute     = H(Nline,2);
-Jnt.NTranslation  = H(Nline,3);
-Jnt.NRevRev       = H(Nline,4);
-Jnt.NTraRev       = H(Nline,5);
-Jnt.NCam          = H(Nline,6); 
-Jnt.NGround       = H(Nline,7);
-Jnt.NSimple       = H(Nline,8);
-Jnt.NDriver       = H(Nline,9);
-Pts.NPointsInt    = H(Nline,10);
-Frc.NForceAppl    = H(Nline,11);
-Frc.NSprDamper    = H(Nline,12);
-Frc.NVarForceAppl = H(Nline, 13);
+%%
+%...Store data in Local Variables
+NBody            = H(Nline,1);
+Jnt.NRevolute    = H(Nline,2);
+Jnt.NTranslation = H(Nline,3);
+Jnt.NRevRev      = H(Nline,4);
+Jnt.NTraRev      = H(Nline,5);
+Jnt.NCam         = H(Nline,6); 
+Jnt.NGround      = H(Nline,7);
+Jnt.NSimple      = H(Nline,8);
+Jnt.NDriver      = H(Nline,9);
+Pts.NPointsInt   = H(Nline,10);
 %
-%% ... Store initial positions for Rigid Bodies
+%%
+%... Store initial positions for Rigid Bodies
 for i = 1:NBody
-    BodyData(i,[],[]);
+    Nline         = Nline + 1; 
+    Body(i).r     = H(Nline,1:2)';
+    Body(i).theta = H(Nline,3);
 end
-%
-%% ... Store initial positions kinematic joints
 %
 %... Store information for Revolute Joints 
 for k = 1:Jnt.NRevolute 
@@ -107,41 +105,28 @@ for k = 1:Jnt.NDriver
     [~,~,~,~] = Joint_Driver ([],[],[],[],k,[]); 
 end
 %
-%% ...Store information for Points of Interest 
-PointsOfInterest([])
+%%
+%...Store information for Points of Interest 
+for k = 1:Pts.NPointsInt
+    Nline           = Nline + 1; 
+    Pts.Int(k).i    = H(Nline,1);
+    Pts.Int(k).spPi = H(Nline,2:3)';
+end
 %
-%% ...Store information for force elements
+%... Store the Newton-Raphson Parameters 
+Nline                  = Nline + 1;  
+parameters.NRMaxIter   = H(Nline,1); %Newton Rapshon Max Iterations
+parameters.NRTolerance = H(Nline,2); %Tolerance for convergence 
 %
-%... Store information for external applied forces
-[~] = ForceApplied([]); 
-%
-%... Store information for external applied forces
-[~] = ForceSprDamper([]); 
-
-%... Store information for applied forces changing with time
-[~] = VarForceApplied([]);
-
-%% ... Store the gravity acceleration vector
-Nline   = Nline + 1;  
-gravity = H(Nline,1:2)';
-%
-%% ... Store the Baumgarte stabilization parameters
-Nline                      = Nline + 1;  
-parameters.ode             = H(Nline,1);
-parameters.MotionEqSolver  = H(Nline,2); 
-parameters.alpha           = H(Nline,3);
-parameters.beta            = H(Nline,4)^2; 
-%
-%% ...Store time analysis information 
+%...Store time analysis information 
 Nline  = Nline + 1; 
 tstart = H(Nline,1);
 tstep  = H(Nline,2);
 tend   = H(Nline,3);
-trep   = H(Nline,4);
 %
 Ntime  = floor((tend-tstart)/tstep)+1;
 %
-%% ... Reset Read Input Data Flag
+%... Reset Read Input Data Flag
 Flag.ReadInput = 0;
 %
 %%

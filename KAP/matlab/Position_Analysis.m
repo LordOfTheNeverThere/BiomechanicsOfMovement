@@ -19,12 +19,11 @@ global parameters Flag
 %
 %... Set the analysis flags
 Flag.Transfer = 1;
-Flag.General  = 1;
 Flag.Position = 1;
 Flag.Jacobian = 1;
 %
 %... Solve the nonlinear system of equations using Newton-Raphson
-for iter = 1:parameters.NRMaxIter
+for iter = 1:parameters.NRMaxIter1
 %
 %... Evaluate constraint equations and Jacobian matrix
     [Phi,Jac,~,~] = KinemEval(time,q,[]);
@@ -42,7 +41,7 @@ for iter = 1:parameters.NRMaxIter
 %
 %... Check if maximum number of iterations is reached and warn
     NRMaxIter = parameters.NRMaxIter;
-    if iter == parameters.NRMaxIter
+    if iter == parameters.NRMaxIter1
         string = ['Max iterations of NR (' num2str(NRMaxIter) ') reached'];
         disp(string)
         string = ['@ Time = ' num2str(time)];
@@ -53,7 +52,6 @@ end
 %... Reset analysis flags
 Flag.Transfer = 0;
 Flag.Position = 0;
-Flag.General  = 0;
 Flag.Jacobian = 0;
 %%
 %... Finalize function Position_Analysis
