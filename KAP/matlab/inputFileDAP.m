@@ -30,6 +30,9 @@ modelParameters =[NBodies, NRevJ, NTransJ, NRenRevJ, NTransRevJ, NCamJ, NGrd, NS
 ComputeLengths();
 ChoosingFile();
 computeGRF();
+[massList, mInertiaList] = MassInertia();
+
+
 
 
 
@@ -82,6 +85,20 @@ thetaList = [headTheta(1), lForArmTheta(1), lArmTheta(1), rForArmTheta(1), rArmT
  allJointsList = allJoints();
  allDrivers = drivers();
 
+ 
+
+if isStaticAnalysis
+    outFile = importOutFile('model_static.out');
+elseif isGaitAnalysis
+    outFile = importOutFile('model_gait_group7_2turn.out');
+else
+    outFile = importOutFile('model_fkick_group7_2turn.out');
+end
+outFileWidth = width(outFile);
+
+veloxityX = outFile{1, 5:9:outFileWidth};
+velocityY = outFile{1, 6:9:outFileWidth};
+velocityTheta = outFile{1, 7:9:outFileWidth};
 
 
 
@@ -91,7 +108,6 @@ thetaList = [headTheta(1), lForArmTheta(1), lArmTheta(1), rForArmTheta(1), rArmT
 
 
  %% Starting to write the new file model.txt%%
- fileStatic = fopen('model_static.txt','w');
 
  if isStaticAnalysis
   modelFile = fopen('model_static_DAP.txt','w');
@@ -104,11 +120,11 @@ thetaList = [headTheta(1), lForArmTheta(1), lArmTheta(1), rForArmTheta(1), rArmT
 
  %% Model Parameters%%
 
- fprintf(modelFile,'%6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f\r\n',modelParameters);
+ fprintf(modelFile,'%6.4f %6.4f %6.4f %6.4f %6.4f %6.4f %6.4f %6.4f %6.4f %6.4f %6.4f %6.4f %6.4f\r\n',modelParameters);
 
  %% Centre of Mass %%
 for index = 1:length(thetaList)
- fprintf(modelFile,'%6.4f %6.4f %6.4f %6.4f %6.4f %6.4f %6.4f\r\n', CM{index,1}(1), CM{index,1}(2), thetaList(index));
+ fprintf(modelFile, '%6.4f %6.4f %6.4f %6.4f %6.4f %6.4f %6.4f %6.4f\r\n', CM{index,1}(1), CM{index,1}(2), thetaList(index), veloxityX(index), velocityY(index), velocityTheta(index), massList(index), mInertiaList(index));
 end
 
  %% Joints Data %%
@@ -131,8 +147,10 @@ end
  
  %% Forces and moments changing with time %%
     numberOfBody = [13, 9, 13];
+    indices = [1,2,3];
+    fours = [4, 4, 4];
     for index = 1:NFAppl
-        fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', numberOfBody, 4, index);
+        fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', numberOfBody(index), fours(index), indices(index));
     end
  
 
@@ -145,5 +163,5 @@ end
  
 %  global cutFrequencies
 %  disp(cutFrequencies);
- KinematicAnalysisProgram();
+DynamicAnalysisProgram();
 
