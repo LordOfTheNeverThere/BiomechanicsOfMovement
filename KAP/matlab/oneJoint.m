@@ -10,19 +10,19 @@ cm1 = body1.cmVector;  % Cm of each of the two bodies
 cm2 = body2.cmVector; 
 
 
-    jointPosition = [body1.xDjoint(1), body1.zDjoint(1)]; %The joint between two bodies has the coordinates of the Distal joints in relation to the first body
+%     jointPosition = [body1.xDjoint(1), body1.zDjoint(1)]; %The joint between two bodies has the coordinates of the Distal joints in relation to the first body
+    
+
+    
+    if length(cm1) == 2 && length(cm2) == 2 
 
 
 
-
-    if length(jointPosition) == (2) &&  length(cm1) == 2 && length(cm2) == 2 
-
-        minusBody1 = jointPosition - cm1;
-        minusBody2 = jointPosition - cm2;
-
-        distance1 = norm(minusBody1);
-        distance2 = norm(minusBody2);
-
+        distance1 = abs(body1.size * (1-body1.cmFromProx));
+        distance2 = abs(body2.size * body2.cmFromProx);
+        if numBody1 == 1
+            distance1 = body1.size;
+        end
         resultList = [numBody1, numBody2, distance1, 0, -distance2, 0];
 
     else

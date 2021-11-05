@@ -24,7 +24,7 @@ switch b
         Body.zPjoint = zShouldersVector;
         Body.xDjoint = filteredTable{:,3}(:,1);
         Body.zDjoint = filteredTable{:,3}(:,2);
-        Body.cmFromProx = 0.430;
+        Body.cmFromProx = 0.436;
         Body.cmVector = CM{b,1};
         Body.name = 'LForearm';
         
@@ -34,7 +34,7 @@ switch b
         Body.zPjoint = filteredTable{:,3}(:,2);
         Body.xDjoint = filteredTable{:,4}(:,1);
         Body.zDjoint = filteredTable{:,4}(:,2);
-        Body.cmFromProx = 0.436;
+        Body.cmFromProx = 0.430;
         Body.cmVector = CM{b,1};
         Body.name = 'LArm';
         
@@ -45,7 +45,7 @@ switch b
         Body.zPjoint = zShouldersVector;
         Body.xDjoint = filteredTable{:,6}(:,1);
         Body.zDjoint = filteredTable{:,6}(:,2);
-        Body.cmFromProx = 0.430;
+        Body.cmFromProx = 0.436;
         Body.cmVector = CM{b,1};
         Body.name = 'RForearm';
         
@@ -56,7 +56,7 @@ switch b
         Body.zPjoint = filteredTable{:,6}(:,2);
         Body.xDjoint = filteredTable{:,7}(:,1);
         Body.zDjoint = filteredTable{:,7}(:,2);
-        Body.cmFromProx = 0.436;
+        Body.cmFromProx = 0.430;
         Body.cmVector = CM{b,1};
         Body.name = 'RArm';
         

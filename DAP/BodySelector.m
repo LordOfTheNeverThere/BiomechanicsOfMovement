@@ -27,7 +27,7 @@ switch b
         Body.zPjoint = zShouldersVector;
         Body.xDjoint = filteredTable{:,3}(:,1);
         Body.zDjoint = filteredTable{:,3}(:,2);
-        Body.cmFromProx = 0.430;
+        Body.cmFromProx = 0.436;
         Body.cmVector = CM{b,1};
         Body.name = 'LForearm';
         [mass, mInertia] = MassInertia();
@@ -54,7 +54,7 @@ switch b
         Body.zPjoint = zShouldersVector;
         Body.xDjoint = filteredTable{:,6}(:,1);
         Body.zDjoint = filteredTable{:,6}(:,2);
-        Body.cmFromProx = 0.430;
+        Body.cmFromProx = 0.436;
         Body.cmVector = CM{b,1};
         Body.name = 'RForearm';
         [mass, mInertia] = MassInertia();

@@ -94,6 +94,7 @@ elseif isGaitAnalysis
 else
     outFile = importOutFile('model_fkick_group7_2turn.out');
 end
+
 outFileWidth = width(outFile);
 
 veloxityX = outFile{1, 5:9:outFileWidth};
