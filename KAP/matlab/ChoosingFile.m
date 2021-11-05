@@ -59,8 +59,8 @@ function ChoosingFile()
     xHipVector = (filteredTable{:,8}(:,1) + filteredTable{:,14}(:,1))./2;
     zHipVector = (filteredTable{:,8}(:,2) + filteredTable{:,14}(:,2))./2;
      
-    xHead = xShoulders;
-    zHead = zShoulders;
+    xHead = filteredTable{:,1}(:,1);
+    zHead = filteredTable{:,1}(:,2);
     % xTrunk = min(xShoulders, xHip) + abs(xShoulders - xHip)/2 ;
     % zTrunk = min(zShoulders, zHip) + 0.5*abs(zShoulders - zHip) ;
     trunk = ([xHip, zHip] - [xShoulders, zShoulders])/2 + [xShoulders, zShoulders];

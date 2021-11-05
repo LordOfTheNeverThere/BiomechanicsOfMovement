@@ -160,7 +160,7 @@ end
  fprintf(modelFile,'%6.2f %6.4f\r\n',[0, -9.81]);
 
  fprintf(modelFile,'%6.2f %6.2f %6.2f %6.2f\r\n', [8, 1, 5, 5]);
- fprintf(modelFile,'%6.2f %6.2f %6.2f %6.2f\r\n', [0, 0.01, 1.07, 0.01]);
+ fprintf(modelFile,'%6.2f %6.2f %6.2f %6.2f\r\n', [0, 0.01, frames/100, 0.01]);
  
 %  global cutFrequencies
 %  disp(cutFrequencies);

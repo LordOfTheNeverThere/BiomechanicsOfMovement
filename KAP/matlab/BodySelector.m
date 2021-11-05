@@ -14,7 +14,7 @@ switch b
         Body.zDjoint = filteredTable{:,1}(:,2);
         Body.xPjoint = xShouldersVector;
         Body.zPjoint = zShouldersVector;
-        Body.cmFromProx = 1;
+        Body.cmFromProx = 0;
         Body.cmVector = CM{b,1};
         Body.name = 'Head';
         

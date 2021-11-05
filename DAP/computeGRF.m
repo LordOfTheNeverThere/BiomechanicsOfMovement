@@ -29,6 +29,9 @@ function computeGRF()
         forcePlate = forcePlates{1,forcePlateIndex};
         contactTimeSteps = find(forcePlate(:,1) > 5);
         
+        if isempty(contactTimeSteps)
+            break;
+        end
         %% Pre-Filtering Forces %%
         for col = 1:2
 

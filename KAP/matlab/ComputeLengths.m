@@ -65,7 +65,7 @@ colInFiltered = 1; % Position on the new table where we inserted the new filtere
     RToeSize = sqrt((meanValuesTable{1,35} - meanValuesTable{1,37})^2 + (meanValuesTable{1,36} - meanValuesTable{1,38})^2);
     LToeSize = sqrt((meanValuesTable{1,23} - meanValuesTable{1,25})^2 + (meanValuesTable{1,24} - meanValuesTable{1,26})^2);
 
-bodyLenghts = [HeadSize, LForearmSize, LArmSize, RForearmSize, RArmSize, TrunkSize, LThighSize, LLegSize, LFootSize, LToeSize...
+bodyLenghts = [HeadSize,  LArmSize, LForearmSize, RArmSize, RForearmSize, TrunkSize, LThighSize, LLegSize, LFootSize, LToeSize...
                RThighSize, RLegSize, RFootSize, RToeSize];
            
 

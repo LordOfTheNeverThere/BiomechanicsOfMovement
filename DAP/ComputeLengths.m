@@ -19,7 +19,7 @@ colInFiltered = 1; % Position on the new table where we inserted the new filtere
     for index = 3:3:width(staticFile)-2 % Will iterate through the x and z of each body part, compile the cutoff frequencies and filtered coordinates into a array and table on global scope
         [final_fc, filtered_coordinates] = ProcessData(100, [staticFile{:,index}, staticFile{:,index + 2}], localOrigin);
         cutFrequencies(: , colInFiltered) = final_fc;
-        filteredTable{ :,colInFiltered} = filtered_coordinates;
+        filteredTable{:, colInFiltered} = filtered_coordinates;
         colInFiltered = colInFiltered + 1;
     end
     filteredTable.Properties.VariableNames = {'Head' 'L_Shoulder' 'L_Elbow' 'L_Wrist' 'R_Shoulder' 'R_Elbow'...
@@ -65,8 +65,9 @@ colInFiltered = 1; % Position on the new table where we inserted the new filtere
     RToeSize = sqrt((meanValuesTable{1,35} - meanValuesTable{1,37})^2 + (meanValuesTable{1,36} - meanValuesTable{1,38})^2);
     LToeSize = sqrt((meanValuesTable{1,23} - meanValuesTable{1,25})^2 + (meanValuesTable{1,24} - meanValuesTable{1,26})^2);
 
-bodyLenghts = [HeadSize, LForearmSize, LArmSize, RForearmSize, RArmSize, TrunkSize, LThighSize, LLegSize, LFootSize, LToeSize...
+bodyLenghts = [HeadSize,  LArmSize, LForearmSize, RArmSize, RForearmSize, TrunkSize, LThighSize, LLegSize, LFootSize, LToeSize...
                RThighSize, RLegSize, RFootSize, RToeSize];
            
+
  
 end

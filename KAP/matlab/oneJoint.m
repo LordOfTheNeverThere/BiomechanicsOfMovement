@@ -6,30 +6,12 @@ function resultList = oneJoint(numBody1, numBody2)
 
 body1 = BodySelector(numBody1);
 body2 = BodySelector(numBody2);
-cm1 = body1.cmVector;  % Cm of each of the two bodies
-cm2 = body2.cmVector; 
-
 
 %     jointPosition = [body1.xDjoint(1), body1.zDjoint(1)]; %The joint between two bodies has the coordinates of the Distal joints in relation to the first body
-    
-
-    
-    if length(cm1) == 2 && length(cm2) == 2 
-
-
-
-        distance1 = abs(body1.size * (1-body1.cmFromProx));
-        distance2 = abs(body2.size * body2.cmFromProx);
-        if numBody1 == 1
-            distance1 = body1.size;
-        end
-        resultList = [numBody1, numBody2, distance1, 0, -distance2, 0];
-
-    else
-        disp('Verify the lenght of the inputed Vectors, these are wrong');
-        
+    distance1 = abs(body1.size * (1-body1.cmFromProx));
+    distance2 = abs(body2.size * body2.cmFromProx);
+    if numBody1 == 1
+        distance1 = body1.size;
     end
-
-    
-
+    resultList = [numBody1, numBody2, distance1, 0, -distance2, 0];
 end
