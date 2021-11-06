@@ -20,13 +20,15 @@ function ChoosingFile()
             filteredTable = table();
             isKickAnalysis = true;
             chosenFile = readtsvCustom('trial_0014_FrontKick_2x.tsv');
-            localOrigin = [chosenFile{11,33}, chosenFile{11,35}];
+            zOrigin= min(chosenFile{11:length(chosenFile{:,1}),38});
+            localOrigin = [chosenFile{11,36}, zOrigin];
 
         case "trial_0011_g05.tsv"
             filteredTable = table();
             isGaitAnalysis = true;
             chosenFile = readtsvCustom('trial_0011_g05.tsv');
-            localOrigin = [chosenFile{11,33}, chosenFile{11,35}];
+            zOrigin= min(chosenFile{11:length(chosenFile{:,1}),38});
+            localOrigin = [chosenFile{11,36}, zOrigin];
 
         case "trial_0001_static.tsv"  
             isStaticAnalysis = true;
@@ -120,6 +122,14 @@ function ChoosingFile()
     };
     
     frames = height(filteredTable);
+    
+        time = 0.0:0.01:(frames-1)/100;
+    
+    y = filteredTable{:,18}(:,2);
+    
+    plot(time, y);
+    
+    axis([0 1.07 0 0.1])
     
 end 
         
