@@ -123,7 +123,7 @@ end
 
 %  %% Points of Interest %%
 % 
-%  fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', [1, 0, 0]); % Cm of the head
+%  fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', [14, rToes.size*(1-rToes.cmFromProx), 0]); 
  
  %% End of the files %%
  fprintf(modelFile,'%6.2f %6.10f\r\n',[12, 0.0000001]);

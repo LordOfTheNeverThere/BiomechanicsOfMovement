@@ -33,17 +33,17 @@ function computeGRF()
             break;
         end
         %% Pre-Filtering Forces %%
-        for col = 1:2
 
-            for row = 1:length(forcePlate1(:,1))
-                
-                if forcePlate(row, col) < 5 
-                    forcePlate(row, col) = 0;
-                else
-                    forcePlate(row, col) = forcePlate(row , col);
-                end
+
+        for row = 1:length(forcePlate1(:,1))
+
+            if forcePlate(row, 2) < 5 
+                forcePlate(row, 2) = 0;
+            else
+                forcePlate(row, 2) = forcePlate(row , 2);
             end
         end
+
 
         
 

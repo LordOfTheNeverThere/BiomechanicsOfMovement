@@ -14,7 +14,7 @@ function PostProcessResults (t,q,qd,qdd,Filename)
 %
 %%
 %... Access memory
-global Ntime NBody Pts Jnt Body
+global Ntime NBody Pts Jnt Body frames currentOutfile;
 %
 %% ... Rename and open report files
 [~,name,~]      = fileparts(Filename);
@@ -144,4 +144,6 @@ end
 %
 %%
 %... Finish function PreProcessData
+
+currentOutfile = importOutFile(FileOutput, 3, 600);
 end

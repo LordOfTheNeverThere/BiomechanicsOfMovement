@@ -13,7 +13,7 @@ function PlotModel(q)
 global Ntime NBody Body Jnt
 
 % Goes through all time steps
-for k = 1 : Ntime
+for k = 3 : Ntime
 
     % Animates the stick figure man
     % Transfer data to working variables
