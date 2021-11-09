@@ -36,6 +36,7 @@ computeGRF();
 
 
 
+
 %% Aviso os CM devem ser calculados apartir dos dados filtrados de cada simulação%%
 
 % global CM;
@@ -164,7 +165,6 @@ end
  
 %  global cutFrequencies
 %  disp(cutFrequencies);
-DynamicAnalysisProgram();
 
 
 jntFileGait = importJntFile('model_gait_DAP_group7_2turn.jnt');
@@ -177,5 +177,7 @@ bodyID = ['Torso', 'Head', 'RArm', 'RFor', 'LArm', 'LFor', 'RThi', 'RLeg', 'RFoo
 bodyLengthsMSK = [bodyLengths(6), bodyLengths(1), bodyLengths(2), bodyLengths(3), bodyLengths(4), bodyLengths(5), bodyLengths(7), bodyLengths(8), bodyLengths(9), bodyLengths(10), bodyLengths(11), bodyLengths(12), bodyLengths(13), bodyLengths(14)];
 mskFile = fopen('msk_file', 'w');
 for index = 1:NBodies
-    fprintf(mskFile, '%6.1f  %6.1f %6.1f\r\n', bodyID(index), index, bodyLengthsMSK(index));
+    fprintf(mskFile, '%6s %6f %6f\r\n', bodyID(index), index, bodyLengthsMSK(index));
 end
+
+DynamicAnalysisProgram();
