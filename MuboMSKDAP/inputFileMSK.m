@@ -174,8 +174,8 @@ jntFileKick = importJntFile('model_fkick_DAP_group7_2turn.jnt');
 %% MSK File %%
 
 bodyID = ['Torso', 'Head', 'RArm', 'RFor', 'LArm', 'LFor', 'RThi', 'RLeg', 'RFoo', 'RToe', 'LThi', 'LLeg', 'LFoo', 'LToe'];
-bodyLengthsMSK = [bodyLengths(6), bodyLenghts(1), bodyLenghts(2), bodyLenghts(3), bodyLenghts(4), bodyLenghts(5), bodyLenghts(7), bodyLenghts(8), bodyLenghts(9), bodyLenghts(10), bodyLenghts(11), bodyLenghts(12), bodyLenghts(13), bodyLenghts(14)];
+bodyLengthsMSK = [bodyLengths(6), bodyLengths(1), bodyLengths(2), bodyLengths(3), bodyLengths(4), bodyLengths(5), bodyLengths(7), bodyLengths(8), bodyLengths(9), bodyLengths(10), bodyLengths(11), bodyLengths(12), bodyLengths(13), bodyLengths(14)];
 mskFile = fopen('msk_file', 'w');
 for index = 1:NBodies
-    fprintf(mskFile, '%6.1f  %6.1f %6.1f\r\n', bodyID(index), index, bodyLengthsMSK(index))
+    fprintf(mskFile, '%6.1f  %6.1f %6.1f\r\n', bodyID(index), index, bodyLengthsMSK(index));
 end
