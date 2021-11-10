@@ -171,13 +171,18 @@ jntFileGait = importJntFile('model_gait_DAP_group7_2turn.jnt');
 jntFileKick = importJntFile('model_fkick_DAP_group7_2turn.jnt');
 
 
+%{
+ 1-Head; 2-lForArm; 3-lArm; 4-rForArm; 5-rArm; 6-Trunk; 7-lThigh;
+8-lLeg; 9-lFoot; 10-lToes; 11-rThigh; 12-rLeg; 13-rFoot; 14-rToes 
+%}
+
+
 %% MSK File %%
 
-bodyID = ["Torso", "Head", "RArm", "RFor", "LArm", "LFor", "RThi", "RLeg", "RFoo", "RToe", "LThi", "LLeg", "LFoo", "LToe"];
-bodyLenghtsMSK = [bodyLenghts(6), bodyLenghts(1), bodyLenghts(2), bodyLenghts(3), bodyLenghts(4), bodyLenghts(5), bodyLenghts(7), bodyLenghts(8), bodyLenghts(9), bodyLenghts(10), bodyLenghts(11), bodyLenghts(12), bodyLenghts(13), bodyLenghts(14)];
+bodyID = ["Head", "LArm", "LFor", "RArm", "RFor", "Torso", "LThi", "LLeg", "LFoo", "LToe", "RThi", "RLeg", "RFoo", "RToe"];
 mskFile = fopen('msk_file.txt', 'w');
 for index = 1:modelParameters(1)
-    fprintf(mskFile, '%6s %6f %6f\r\n', bodyID(index), index, bodyLenghtsMSK(index));
+    fprintf(mskFile, '%6s %6f %6f\r\n', bodyID(index), index, bodyLenghts(index));
 end
 
 DynamicAnalysisProgram();

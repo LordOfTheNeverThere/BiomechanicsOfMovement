@@ -28,7 +28,7 @@ curp = cd;
     cd([cd, '\..\fkDataFiles']);
 
     else
-    cd([cd, '\..\gaitDataFiles']);
+    cd([cd, '\..\staticDataFiles']);
 
     end
 
