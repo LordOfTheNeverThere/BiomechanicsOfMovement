@@ -147,7 +147,7 @@ end
 %  fprintf(modelFile,'%6.2f %6.2f %6.2f\r\n', [1, 0, 0]); % Cm of the head
  
  %% Forces and moments changing with time %%
-    numberOfBody = [13, 9, 13];
+    numberOfBody = [9, 13, 9];
     indices = [1,2,3];
     fours = [4, 4, 4];
     for index = 1:3
@@ -169,3 +169,5 @@ DynamicAnalysisProgram();
 
 jntFileGait = importJntFile('model_gait_DAP_group7_2turn.jnt');
 jntFileKick = importJntFile('model_fkick_DAP_group7_2turn.jnt');
+
+
