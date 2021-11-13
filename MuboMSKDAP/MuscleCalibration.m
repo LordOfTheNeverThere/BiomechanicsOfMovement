@@ -12,7 +12,7 @@ function MuscleCalibration(InputFile)
 %
 % Access global variables
 global Flag Ntime NCoordinates
-global Jnt
+global Jnt isStaticAnalysis isGaitAnalysis isKickAnalysis;
 
 %% Reads original muscle data, taken from the work of Stefanie Brandle
 [RefBody, RefMuscles] = ReferenceMuscleData();
@@ -20,7 +20,18 @@ global Jnt
 %% Performs a kinematic analysis for the input file
 % ... Changes the working directory to the static data folder
 curp = cd;
-cd([cd, '\StaticData']);
+
+    if isGaitAnalysis
+    cd([cd, '\..\gaitDataFiles']);
+
+    elseif isKickAnalysis
+    cd([cd, '\..\fkDataFiles']);
+
+    else
+    cd([cd, '\..\staticDataFiles']);
+
+    end
+
 addpath(curp);
 
 % ... Read the model input data and analysis profile

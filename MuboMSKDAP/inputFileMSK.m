@@ -9,7 +9,7 @@ clear all;
 
 %%%%%%%%%%%%%%%%%
 
-global NBodies NDriv isStaticAnalysis isGaitAnalysis isKickAnalysis frames NVFAppl;
+global NBodies NDriv isStaticAnalysis isGaitAnalysis isKickAnalysis frames NVFAppl bodyLenghts;
 NBodies = 14;
 NRevJ = 13;
 NTransJ = 0;
@@ -50,7 +50,7 @@ computeGRF();
 8-lLeg; 9-lFoot; 10-lToes; 11-rThigh; 12-rLeg; 13-rFoot; 14-rToes 
 %}
 
-global head lForArm lArm rForArm rArm trunk lThigh lLeg lFoot lToes rThigh rLeg rFoot rToes CM bodyLengths;
+global head lForArm lArm rForArm rArm trunk lThigh lLeg lFoot lToes rThigh rLeg rFoot rToes CM;
 head = BodySelector(1);
 lForArm = BodySelector(2);
 lArm = BodySelector(3);
@@ -171,13 +171,18 @@ jntFileGait = importJntFile('model_gait_DAP_group7_2turn.jnt');
 jntFileKick = importJntFile('model_fkick_DAP_group7_2turn.jnt');
 
 
+%{
+ 1-Head; 2-lForArm; 3-lArm; 4-rForArm; 5-rArm; 6-Trunk; 7-lThigh;
+8-lLeg; 9-lFoot; 10-lToes; 11-rThigh; 12-rLeg; 13-rFoot; 14-rToes 
+%}
+
+
 %% MSK File %%
 
-bodyID = ['Torso', 'Head', 'RArm', 'RFor', 'LArm', 'LFor', 'RThi', 'RLeg', 'RFoo', 'RToe', 'LThi', 'LLeg', 'LFoo', 'LToe'];
-bodyLengthsMSK = [bodyLengths(6), bodyLengths(1), bodyLengths(2), bodyLengths(3), bodyLengths(4), bodyLengths(5), bodyLengths(7), bodyLengths(8), bodyLengths(9), bodyLengths(10), bodyLengths(11), bodyLengths(12), bodyLengths(13), bodyLengths(14)];
-mskFile = fopen('msk_file', 'w');
-for index = 1:NBodies
-    fprintf(mskFile, '%6s %6f %6f\r\n', bodyID(index), index, bodyLengthsMSK(index));
+bodyID = ["Head", "LArm", "LFor", "RArm", "RFor", "Torso", "LThi", "LLeg", "LFoo", "LToe", "RThi", "RLeg", "RFoo", "RToe"];
+mskFile = fopen('msk_file.txt', 'w');
+for index = 1:modelParameters(1)
+    fprintf(mskFile, '%6s %6f %6f\r\n', bodyID(index), index, bodyLenghts(index));
 end
 
 DynamicAnalysisProgram();

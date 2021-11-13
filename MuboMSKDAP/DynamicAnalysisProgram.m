@@ -1,5 +1,5 @@
-clear all
-%
+clearvars -except isGaitAnalysis isKickAnalysis isStaticAnalysis;
+
 %DynamicAnalysisProgram
 %
 %Summary: This program preforms the dynamic analysis of a general planar
@@ -11,7 +11,7 @@ clear all
 % Version 1.0     May 12, 2020
 %
 %% ... Access memory
-global solver NCoordinates parameters
+global solver NCoordinates parameters;
 
 %% ... Menu for the dynamic analysis
 disp('1 - Dynamic analysis using joint actuators (No muscles)');
@@ -56,6 +56,8 @@ switch opt
         [ t,q,qd,qdd ] = Kinematic_Analysis( y_init(1 : NCoordinates, 1) );
         %
         %% ... Calibrates muscle data
+        %% ... Acess Global Memory
+
         MuscleCalibration(Filename);
         %
         %% ... Read the model input data again to reset the data read 

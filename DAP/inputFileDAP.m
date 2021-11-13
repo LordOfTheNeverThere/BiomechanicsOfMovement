@@ -170,4 +170,4 @@ DynamicAnalysisProgram();
 jntFileGait = importJntFile('model_gait_DAP_group7_2turn.jnt');
 jntFileKick = importJntFile('model_fkick_DAP_group7_2turn.jnt');
 
-
+disp('done!');
