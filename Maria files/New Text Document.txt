@@ -1,0 +1,29 @@
+Because of this the EMG in voltage from one subject cannot be compared to another's. Since the skin thickness and other anatomical differences can cause value discrepancies.
+Therefore a normalization was established by dividing the values in Volts by the mean of all the values and multiplying by 100. So that inter-subject data can be compared with validity.
+
+
+
+
+
+
+
+
+
+
+
+
+
+In our design of our musculoskeletal system we used the mechanical aproximation designed by Hill. et all.
+
+
+#### Hill Model Image ####
+
+
+
+This mechanical system hopes to reproduce the four properties that are seen in the muscle tissue:
+
+
+1-Extensibility - The tissue can increase length
+Elasticity - 
+Irritability
+Contractility
